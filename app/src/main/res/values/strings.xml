@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TakeUrPills App</string>
+    <string name="header_homepage">TakeUrPill</string>
+    <string name="slogan_homepage">Never miss a pill again!</string>
 </resources>
