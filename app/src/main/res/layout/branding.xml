@@ -2,8 +2,6 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
@@ -11,9 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/pill_logo"
-        android:layout_marginTop="@dimen/margintop_branding"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        android:layout_marginTop="@dimen/margintop_branding"/>
 
     <TextView
         android:id="@+id/text_header_homepage"

@@ -5,4 +5,6 @@
     <dimen name="texSize_slogan_homepage">16sp</dimen>
     <dimen name="marginleft_slogan_homepage">30dp</dimen>
     <dimen name="margintop_branding">35dp</dimen>
+    <dimen name="textSize_homeButtons">32dp</dimen>
+    <dimen name="marginbottom_homeButton">10dp</dimen>
 </resources>
