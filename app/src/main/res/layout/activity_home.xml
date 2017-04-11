@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:fitsSystemWindows="true"
     tools:context="com.una.takeurpills.HomeActivity">
 
+    <include layout="@layout/branding"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margintop_branding"
+        android:layout_marginBottom="@dimen/margintop_branding"/>
+    
+    <Button
+        android:id="@+id/btListPills"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/bgColor_listPills"
+        android:layout_marginBottom="@dimen/marginbottom_homeButton"
+        android:textColor="@android:color/white"
+        android:text="@string/text_listPills"
+        android:textSize="@dimen/textSize_homeButtons"/>
 
-</android.support.design.widget.CoordinatorLayout>
+    <Button
+        android:id="@+id/btAddPills"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/bgColor_addPills"
+        android:layout_marginBottom="@dimen/marginbottom_homeButton"
+        android:textColor="@android:color/white"
+        android:text="@string/text_addPills"
+        android:textSize="@dimen/textSize_homeButtons"/>
+
+    <Button
+        android:id="@+id/btFindPills"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/bgColor_findPills"
+        android:layout_marginBottom="@dimen/marginbottom_homeButton"
+        android:textColor="@android:color/white"
+        android:text="@string/text_findPills"
+        android:textSize="@dimen/textSize_homeButtons"/>
+
+</LinearLayout>

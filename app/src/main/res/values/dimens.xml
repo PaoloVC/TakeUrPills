@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="texSize_header_homepage">48sp</dimen>
+    <dimen name="margintop_header_homepage">16dp</dimen>
+    <dimen name="texSize_slogan_homepage">16sp</dimen>
+    <dimen name="marginleft_slogan_homepage">30dp</dimen>
+    <dimen name="margintop_branding">35dp</dimen>
+    <dimen name="textSize_homeButtons">32sp</dimen>
+    <dimen name="marginbottom_homeButton">10dp</dimen>
+</resources>

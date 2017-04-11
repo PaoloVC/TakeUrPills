@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">TakeUrPills</string>
+    <string name="app_name">TakeUrPills App</string>
+    <string name="header_homepage">TakeUrPill</string>
+    <string name="slogan_homepage">Never miss a pill again!</string>
+    <string name="text_listPills">list pills</string>
+    <string name="text_addPills">add pills</string>
+    <string name="text_findPills">find pills</string>
 </resources>
