@@ -155,6 +155,7 @@
                 android:textColor="@android:color/white"
                 android:text="@string/bt_save"/>
             <Button
+                android:id="@+id/btAddPillsCancelar"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
