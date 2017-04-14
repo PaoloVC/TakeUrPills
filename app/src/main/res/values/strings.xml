@@ -25,4 +25,5 @@
     <string name="bt_addPill_horas">(+) Agregar hora</string>
     <string name="bt_save">Guardar</string>
     <string name="bt_cancel">Cancelar</string>
+    <string name="tv_addPill_header">Ingrese el tratamiento</string>
 </resources>

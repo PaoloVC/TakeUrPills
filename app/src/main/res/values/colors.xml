@@ -7,4 +7,7 @@
     <color name="bgColor_listPills">#a4c639</color>
     <color name="bgColor_addPills">#1e90ff</color>
     <color name="bgColor_findPills">#e52b50</color>
+    <color name="background_activity">#E7F5FE</color>
+    <color name="bt_save">#6DC50B</color>
+    <color name="bt_cancel">#E51E36</color>
 </resources>
