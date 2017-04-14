@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
     android:orientation="vertical"
-    tools:context="com.una.takeurpills.TutorialStep2Activity">
+    tools:context="com.una.takeurpills.TutorialStep3Activity">
 
     <include layout="@layout/branding"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv_steps_paso2_header"
+            android:text="@string/tv_steps_paso3_header"
             android:textSize="@dimen/tv_steps_header_textSize"
             android:layout_gravity="center"
             android:textStyle="bold"
@@ -35,7 +35,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tv_steps_paso2_content"
+            android:text="@string/tv_steps_paso3_content"
             android:textSize="@dimen/tv_steps_content_textSize"
             android:textAlignment="center"
             android:padding="@dimen/padding_steps_content"

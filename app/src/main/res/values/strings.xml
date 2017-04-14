@@ -32,4 +32,6 @@
     <string name="tv_steps_saltar"><![CDATA[Saltar ->]]></string>
     <string name="tv_steps_paso2_header">Paso 2:</string>
     <string name="tv_steps_paso2_content">Ingresa la dosis y cantidad</string>
+    <string name="tv_steps_paso3_header">Paso 3:</string>
+    <string name="tv_steps_paso3_content">Ingresa la frecuencia</string>
 </resources>
