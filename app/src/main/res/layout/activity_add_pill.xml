@@ -1,9 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.una.takeurpills.AddPillActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/et_addPill_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/et_addPill_titulo_hint"/>
+
+    <EditText
+        android:id="@+id/et_addPill_dosis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/et_addPill_dosis_hint" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rg_addPill_unidadMedida_title"
+        android:textSize="@dimen/rg_addPill_unidadMedida_title"
+        android:enabled="false"/>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/rb_addPill_unidadMedidad_mililitros"/>
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/rb_addPill_unidadMedidad_unidades"/>
+    </RadioGroup>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rg_addPill_frecuencia_title"
+        android:textSize="@dimen/rg_addPill_unidadMedida_title"
+        android:enabled="false"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@string/dias_lunes"/>
+        <CheckBox
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@string/dias_martes"/>
+        <CheckBox
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/dias_miercoles"/>
+        <CheckBox
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@string/dias_jueves"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@string/dias_viernes"/>
+        <CheckBox
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@string/dias_sabado"/>
+        <CheckBox
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/dias_domingo"/>
+    </LinearLayout>
+    <EditText
+        android:id="@+id/et_addPill_veces"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/et_addPill_veces_hint" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rg_addPill_horas_title"
+        android:textSize="@dimen/rg_addPill_unidadMedida_title"
+        android:enabled="false"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bt_addPill_horas"/>
+    <EditText
+        android:id="@+id/et_addPill_cantidadRestante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/et_addPill_cantidadRestante_hint" />
+    <EditText
+        android:id="@+id/et_addPill_reminder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/et_addPill_reminder_hint" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/bt_save"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/bt_cancel"/>
+    </LinearLayout>
+</LinearLayout>

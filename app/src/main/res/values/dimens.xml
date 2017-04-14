@@ -7,4 +7,5 @@
     <dimen name="margintop_branding">35dp</dimen>
     <dimen name="textSize_homeButtons">32sp</dimen>
     <dimen name="marginbottom_homeButton">10dp</dimen>
+    <dimen name="rg_addPill_unidadMedida_title">12sp</dimen>
 </resources>

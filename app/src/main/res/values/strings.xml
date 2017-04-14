@@ -5,4 +5,24 @@
     <string name="text_listPills">list pills</string>
     <string name="text_addPills">add pills</string>
     <string name="text_findPills">find pills</string>
+    <string name="et_addPill_titulo_hint">Título</string>
+    <string name="et_addPill_dosis_hint">Dosis</string>
+    <string name="rg_addPill_unidadMedida_title">Unidad de Medida</string>
+    <string name="rb_addPill_unidadMedidad_mililitros">Mililitros</string>
+    <string name="rb_addPill_unidadMedidad_unidades">Unidades</string>
+    <string name="rg_addPill_frecuencia_title">Frecuencia</string>
+    <string name="dias_lunes">Lunes</string>
+    <string name="dias_martes">Martes</string>
+    <string name="dias_miercoles">Miércoles</string>
+    <string name="dias_jueves">Jueves</string>
+    <string name="dias_viernes">Viernes</string>
+    <string name="dias_sabado">Sábado</string>
+    <string name="dias_domingo">Domingo</string>
+    <string name="et_addPill_veces_hint">Veces Diarias</string>
+    <string name="rg_addPill_horas_title">Horas</string>
+    <string name="et_addPill_cantidadRestante_hint">Cantidad Restante</string>
+    <string name="et_addPill_reminder_hint">Reminder Comprar</string>
+    <string name="bt_addPill_horas">(+) Agregar hora</string>
+    <string name="bt_save">Guardar</string>
+    <string name="bt_cancel">Cancelar</string>
 </resources>
