@@ -34,4 +34,7 @@
     <string name="tv_steps_paso2_content">Ingresa la dosis y cantidad</string>
     <string name="tv_steps_paso3_header">Paso 3:</string>
     <string name="tv_steps_paso3_content">Ingresa la frecuencia</string>
+    <string name="tv_steps_paso4_header">Paso 4:</string>
+    <string name="tv_steps_paso4_content">Configura alarmas y reminders</string>
+    <string name="bt_steps_addPills">Add your pills</string>
 </resources>
