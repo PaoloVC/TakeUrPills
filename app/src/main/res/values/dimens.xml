@@ -8,4 +8,14 @@
     <dimen name="textSize_homeButtons">32sp</dimen>
     <dimen name="marginbottom_homeButton">10dp</dimen>
     <dimen name="rg_addPill_unidadMedida_title">12sp</dimen>
+    <dimen name="paddingTop_steps_textSection">16dp</dimen>
+    <dimen name="paddingBottom_steps_textSection">40dp</dimen>
+    <dimen name="tv_steps_header_textSize">56sp</dimen>
+    <dimen name="tv_steps_content_textSize">32sp</dimen>
+    <dimen name="padding_steps_content">16dp</dimen>
+    <dimen name="bt_steps_nextStep_textSize">32sp</dimen>
+    <dimen name="padding_steps_nextStep">24dp</dimen>
+    <dimen name="marginTop_steps_nextStep">-40dp</dimen>
+    <dimen name="textSize_steps_saltar">16sp</dimen>
+    <dimen name="marginTop_steps_saltar">32dp</dimen>
 </resources>

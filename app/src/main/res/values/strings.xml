@@ -26,4 +26,10 @@
     <string name="bt_save">Guardar</string>
     <string name="bt_cancel">Cancelar</string>
     <string name="tv_addPill_header">Ingrese el tratamiento</string>
+    <string name="tv_steps_paso1_content">Llena la información de tú tratamiento.</string>
+    <string name="tv_steps_paso1_header">Paso 1:</string>
+    <string name="bt_steps_nextStep">next step</string>
+    <string name="tv_steps_saltar"><![CDATA[Saltar ->]]></string>
+    <string name="tv_steps_paso2_header">Paso 2:</string>
+    <string name="tv_steps_paso2_content">Ingresa la dosis y cantidad</string>
 </resources>
