@@ -96,6 +96,12 @@
         android:text="@string/rg_addPill_horas_title"
         android:textSize="@dimen/rg_addPill_unidadMedida_title"
         android:enabled="false"/>
+    <LinearLayout
+        android:id="@+id/horas_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    </LinearLayout>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
