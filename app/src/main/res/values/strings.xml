@@ -37,4 +37,14 @@
     <string name="tv_steps_paso4_header">Paso 4:</string>
     <string name="tv_steps_paso4_content">Configura alarmas y reminders</string>
     <string name="bt_steps_addPills">Add your pills</string>
+    <string name="tv_detailsPill_Title">Nombre del Tratamiento</string>
+    <string name="tv_detailsPill_dosis">Dosis:</string>
+    <string name="tv_detailsPill_frecuencia">Frecuenccia:</string>
+    <string name="tv_detailsPill_repeticion">Repetición:</string>
+    <string name="tv_detailsPill_horas">Horas:</string>
+    <string name="tv_detailsPill_cantidadRestante">Cantidad Restante:</string>
+    <string name="tv_detailsPill_reminder">Reminder:</string>
+    <string name="bt_detailsPill_edit">Editar</string>
+    <string name="bt_detailsPill_delete">Borrar</string>
+
 </resources>
