@@ -22,13 +22,14 @@
             android:text="@string/tv_addPill_header"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"/>
+
         <EditText
             android:id="@+id/et_addPill_titulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
             android:layout_marginBottom="8dp"
-            android:hint="@string/et_addPill_titulo_hint"/>
+            android:hint="@string/et_addPill_titulo_hint"
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/et_addPill_dosis"
@@ -37,28 +38,40 @@
             android:inputType="number"
             android:layout_marginBottom="8dp"
             android:hint="@string/et_addPill_dosis_hint" />
+
+        <Spinner
+            android:id="@+id/VecesDiarias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <EditText
+            android:id="@+id/editText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:text="@string/rg_addPill_unidadMedida_title"
-            android:textSize="@dimen/rg_addPill_unidadMedida_title"
             android:textColor="@android:color/black"
-            android:enabled="false"/>
+            android:textSize="@dimen/rg_addPill_unidadMedida_title" />
+
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:orientation="horizontal">
+
             <RadioButton
+                android:id="@+id/mililitros"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="@string/rb_addPill_unidadMedidad_mililitros"/>
+                android:layout_weight="1"
+                android:text="@string/rb_addPill_unidadMedidad_mililitros" />
+
             <RadioButton
+                android:id="@+id/unidades"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="@string/rb_addPill_unidadMedidad_unidades"/>
+                android:layout_weight="1"
+                android:text="@string/rb_addPill_unidadMedidad_unidades" />
         </RadioGroup>
         <EditText
             android:layout_width="match_parent"
@@ -70,47 +83,56 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <CheckBox
+                android:id="@+id/lunes"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="@string/dias_lunes"/>
+                android:text="@string/dias_lunes" />
+
             <CheckBox
+                android:id="@+id/martes"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="@string/dias_martes"/>
+                android:text="@string/dias_martes" />
+
             <CheckBox
+                android:id="@+id/miercoles"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="@string/dias_miercoles"/>
+                android:text="@string/dias_miercoles" />
+
             <CheckBox
+                android:id="@+id/jueves"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="@string/dias_jueves"/>
+                android:text="@string/dias_jueves" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp">
+
             <CheckBox
+                android:id="@+id/viernes"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="@string/dias_viernes"/>
+                android:text="@string/dias_viernes" />
+
             <CheckBox
-                android:layout_width="80dp"
+                android:id="@+id/sabado"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dias_sabado"/>
+                android:text="@string/dias_sabado" />
+
             <CheckBox
+                android:id="@+id/domingo"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="@string/dias_domingo"/>
+                android:text="@string/dias_domingo" />
+
         </LinearLayout>
-        <EditText
-            android:id="@+id/et_addPill_veces"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:layout_marginBottom="8dp"
-            android:hint="@string/et_addPill_veces_hint" />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -118,18 +140,20 @@
             android:textSize="@dimen/rg_addPill_unidadMedida_title"
             android:textColor="@android:color/black"
             android:enabled="false"/>
+
+        <Button
+            android:id="@+id/cargar"
+            android:layout_width="240dp"
+            android:layout_height="37dp"
+            android:text="Cargar" />
+
         <LinearLayout
             android:id="@+id/horas_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
         </LinearLayout>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/bt_addPill_horas"
-            android:layout_gravity="center"/>
+
         <EditText
             android:id="@+id/et_addPill_cantidadRestante"
             android:layout_width="match_parent"
@@ -148,6 +172,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
+                android:id="@+id/btAddPillsSave"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
