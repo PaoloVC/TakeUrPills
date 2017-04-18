@@ -28,8 +28,11 @@
         <activity
             android:name=".TutorialStep3Activity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".TutorialStep4Activity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".TutorialStep4Activity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ListPillsActivity" />
+        <activity android:name=".DetailsActivity"></activity>
     </application>
 
 </manifest>

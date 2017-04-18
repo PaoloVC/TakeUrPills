@@ -26,6 +26,8 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.btListPills:
+                        Intent intento2 = new Intent(getApplicationContext(), ListPillsActivity.class);
+                        startActivity(intento2);
                         break;
                     case R.id.btAddPills:
                         Intent intento = new Intent(getApplicationContext(), AddPillActivity.class);

@@ -141,12 +141,6 @@
             android:textColor="@android:color/black"
             android:enabled="false"/>
 
-        <Button
-            android:id="@+id/cargar"
-            android:layout_width="240dp"
-            android:layout_height="37dp"
-            android:text="Cargar" />
-
         <LinearLayout
             android:id="@+id/horas_list"
             android:layout_width="match_parent"
