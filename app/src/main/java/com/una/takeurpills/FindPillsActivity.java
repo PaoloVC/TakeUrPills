@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,6 +26,7 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private Location mLastLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +60,9 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng myPlace = new LatLng(40.73, -73.99);  // this is New York
-        mMap.addMarker(new MarkerOptions().position(myPlace).title("My Favorite City"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPlace, 12));
+        //LatLng myPlace = new LatLng(40.73, -73.99);  // this is New York
+        //mMap.addMarker(new MarkerOptions().position(myPlace).title("My Favorite City"));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPlace, 12));
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.setOnMarkerClickListener(this);
     }
@@ -108,8 +110,28 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
         if (ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]
-                    {android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+                    {android.Manifest.permission.ACCESS_FINE_LOCATION},LOCATION_PERMISSION_REQUEST_CODE);
             return;
         }
+
+        mMap.setMyLocationEnabled(true);
+
+        LocationAvailability locationAvailability =
+                LocationServices.FusedLocationApi.getLocationAvailability(mGoogleApiClient);
+        if (null != locationAvailability && locationAvailability.isLocationAvailable()) {
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if (mLastLocation != null) {
+                LatLng currentLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation
+                        .getLongitude());
+                //add pin at user's location
+                placeMarkerOnMap(currentLocation);
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 12));
+            }
+        }
+    }
+
+    protected void placeMarkerOnMap(LatLng location) {
+        MarkerOptions markerOptions = new MarkerOptions().position(location);
+        mMap.addMarker(markerOptions);
     }
 }
