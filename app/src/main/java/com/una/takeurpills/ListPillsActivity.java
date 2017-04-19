@@ -43,7 +43,17 @@ public class ListPillsActivity extends AppCompatActivity {
 
     //Aca se pueden cargar los tratamientos desde el Json  del app, pero solo los nombres (posible a cambios)
     private void FillListView() {
-        String[] pills = {
+        String[] test = null;
+        JSONArray testjarray;
+        try {
+            testjarray = readFromFile();
+            test = getNames(testjarray);
+        }
+        catch (JSONException exc){
+
+        }
+
+        String[] pills ={
                 "Acetaminofen",
                 "Paracetamol",
                 "Ibuprofeno",
@@ -61,9 +71,8 @@ public class ListPillsActivity extends AppCompatActivity {
                 "Ibuprofeno",
                 "Flumocil"
         };
-
         ArrayAdapter<String> adaptador = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1, pills);
+                android.R.layout.simple_list_item_1, ((test[0].equals("")) ? pills : test));
         ListView milistview = (ListView) findViewById(R.id.listPills);
         milistview.setAdapter(adaptador);
     }
@@ -82,16 +91,6 @@ public class ListPillsActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    private void writeToFile(String data) {
-        try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput("data.txt", Context.MODE_PRIVATE));
-            outputStreamWriter.write(data);
-            outputStreamWriter.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
     }
 
     private JSONArray readFromFile() throws JSONException {
@@ -125,31 +124,53 @@ public class ListPillsActivity extends AppCompatActivity {
         } else {
             jarray = new JSONArray(ret);
         }
-        int lenght = jarray.length();
-        final List<JSONObject> objs = asList(jarray);
-        objs.remove(1);
+        //JSONObject test;
+        //int tam = jarray.length();
+        //test = jarray.getJSONObject(0);
+        //String nombre = String.valueOf(test.get("nombre"));
+        //int edad = Integer.parseInt(String.valueOf(test.get("edad")));
+        //String email = String.valueOf(test.get("correo"));
+        //final List<JSONObject> objs = asList(jarray);
+        //objs.remove(1);
+
         return jarray;
     }
+    public static String[] getNames (final JSONArray jarray){
+        ArrayList<String> test = getVector(jarray);
+        String lala = test.toString().substring(1,test.toString().length()-1);
+        //String another = lala.substring(1,lala.length()-1);
+        String [] lalala = lala.split(",");
+        return lalala;
+    }
 
-    public static List<JSONObject> asList(final JSONArray ja) {
+    public static JSONObject getObject(final JSONArray ja) {
         final int len = ja.length();
-        final ArrayList<JSONObject> result = new ArrayList<JSONObject>(len);
+        final JSONObject result = null;
         for (int i = 0; i < len; i++) {
             final JSONObject obj = ja.optJSONObject(i);
-            if (obj != null) {
-                result.add(obj);
+            try {
+                String nombre = String.valueOf(obj.get("nombre"));
+            }
+            catch(JSONException exc){
             }
         }
         return result;
     }
 
-    private boolean borrarArchivo() {
-        File dir = getFilesDir();
-        File file = new File(dir, "data.txt");
-        boolean deleted = file.delete();
-        return deleted;
+    public static ArrayList<String> getVector(final JSONArray ja) {
+        final int len = ja.length();
+        final ArrayList<String> result = new ArrayList<String>();
+        for (int i = 0; i < len; i++) {
+            final JSONObject obj = ja.optJSONObject(i);
+            try {
+                String nombre = String.valueOf(obj.get("nombre"));
+                result.add(nombre);
+            }
+            catch(JSONException exc){
+            }
+        }
+        return result;
     }
-
 
     public void Mensaje(String msg) {
         getSupportActionBar().setTitle(msg);
