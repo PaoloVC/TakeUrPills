@@ -1,8 +1,10 @@
 package com.una.takeurpills;
 
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -22,6 +24,7 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +60,14 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
         // Add a marker in Sydney and move the camera
         LatLng myPlace = new LatLng(40.73, -73.99);  // this is New York
         mMap.addMarker(new MarkerOptions().position(myPlace).title("My Favorite City"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(myPlace));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPlace, 12));
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.setOnMarkerClickListener(this);
     }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-
+        setUpMap();
     }
 
     @Override
@@ -98,6 +101,15 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
         super.onStop();
         if( mGoogleApiClient != null && mGoogleApiClient.isConnected() ) {
             mGoogleApiClient.disconnect();
+        }
+    }
+
+    private void setUpMap() {
+        if (ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]
+                    {android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+            return;
         }
     }
 }
