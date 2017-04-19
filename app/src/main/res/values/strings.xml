@@ -46,5 +46,6 @@
     <string name="tv_detailsPill_reminder">Reminder:</string>
     <string name="bt_detailsPill_edit">Editar</string>
     <string name="bt_detailsPill_delete">Borrar</string>
+    <string name="title_activity_find_pills">Map</string>
 
 </resources>
