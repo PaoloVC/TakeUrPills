@@ -34,6 +34,8 @@ public class HomeActivity extends AppCompatActivity {
                         startActivity(intento);
                         break;
                     case R.id.btFindPills:
+                        Intent intento3 = new Intent(getApplicationContext(), FindPillsActivity.class);
+                        startActivity(intento3);
                         break;
                     default: break;
                 }// fin switch
