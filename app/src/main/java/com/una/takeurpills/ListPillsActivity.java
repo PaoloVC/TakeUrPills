@@ -149,7 +149,7 @@ public class ListPillsActivity extends AppCompatActivity {
         for (int i = 0; i < len; i++) {
             final JSONObject obj = ja.optJSONObject(i);
             try {
-                String nombre = String.valueOf(obj.get("nombre"));
+                String nombre = String.valueOf(obj.get("titulo"));
             }
             catch(JSONException exc){
             }
