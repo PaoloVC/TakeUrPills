@@ -34,7 +34,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Calendar;
 
-public class AddPillActivity extends AppCompatActivity implements
+public class AddPillActivity extends ParentClass implements
         View.OnClickListener {
 
     Button button;
