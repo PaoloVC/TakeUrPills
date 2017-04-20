@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DetailsActivity extends AppCompatActivity {
+public class DetailsActivity extends ParentClass {
     private String unidadMedida = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,6 +155,7 @@ public class DetailsActivity extends AppCompatActivity {
 
 
                         //Transicion de datos
+                        modo = 1;
                         Intent intento = new Intent(getApplicationContext(), AddPillActivity.class);
                         intento.putExtra("edicion", 1);
                         intento.putExtra("titulo", Mi_textview.getText());

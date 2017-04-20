@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import static android.R.attr.onClick;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends ParentClass {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.btAddPills:
                         Intent intento = new Intent(getApplicationContext(), AddPillActivity.class);
                         intento.putExtra("edicion", 0);
+                        modo = 0;
                         startActivity(intento);
                         break;
                     case R.id.btFindPills:
