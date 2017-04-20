@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListPillsActivity extends AppCompatActivity {
-
+    private JSONArray testjarray;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +44,6 @@ public class ListPillsActivity extends AppCompatActivity {
     //Aca se pueden cargar los tratamientos desde el Json  del app, pero solo los nombres (posible a cambios)
     private void FillListView() {
         String[] test = null;
-        JSONArray testjarray;
         try {
             testjarray = readFromFile();
             test = getNames(testjarray);
@@ -84,8 +83,17 @@ public class ListPillsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> paret, View viewClicked,
                                     int position, long id) {
-                Intent intento = new Intent(getApplicationContext(), DetailsActivity.class);
-                startActivity(intento);
+                try {
+                    JSONObject objjson = testjarray.optJSONObject(position);
+                    Intent intento = new Intent(getApplicationContext(), DetailsActivity.class);
+                    intento.putExtra("titulo", String.valueOf(objjson.get("titulo")));
+                    intento.putExtra("dosis", Integer.parseInt(String.valueOf(objjson.get("dosis"))));
+                    intento.putExtra("cantidadRestante", Integer.parseInt(String.valueOf(objjson.get("cantidadRestante"))));
+                    startActivity(intento);
+                }
+                catch(JSONException exc){
+
+                }
                 TextView textView = (TextView) viewClicked;
                 String message = "Tratamiento # " + (1 + position) + ", corresponde a: " + textView.getText().toString();
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
@@ -138,7 +146,6 @@ public class ListPillsActivity extends AppCompatActivity {
     public static String[] getNames (final JSONArray jarray){
         ArrayList<String> test = getVector(jarray);
         String lala = test.toString().substring(1,test.toString().length()-1);
-        //String another = lala.substring(1,lala.length()-1);
         String [] lalala = lala.split(",");
         return lalala;
     }

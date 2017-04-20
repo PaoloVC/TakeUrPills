@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -46,7 +47,7 @@ public class AddPillActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_add_pill);
         jobject= new JSONObject();
         CargarSpinner();
-
+        getData();
         OnclickDelButton(R.id.btAddPillsCancelar);
         OnclickDelButton(R.id.btAddPillsSave);
     }
@@ -278,6 +279,24 @@ public class AddPillActivity extends AppCompatActivity implements
         AlertDialog alert11 = builder1.create();
         alert11.show();
     };
+
+    public void getData(){
+        Intent callingIntent = getIntent();
+        String titulo = callingIntent.getStringExtra("titulo");
+        int dosis = callingIntent.getIntExtra("dosis",0);
+        int cantidadRestante = callingIntent.getIntExtra("cantidadRestante",0);
+
+        TextView Mi_textview = (TextView) findViewById(R.id.et_addPill_titulo);
+        TextView Mi_textview2 = (TextView) findViewById(R.id.et_addPill_dosis);
+        TextView Mi_textview3 = (TextView) findViewById(R.id.et_addPill_cantidadRestante);
+
+        Mi_textview.setText(titulo);
+        if(dosis != 0)
+            Mi_textview2.setText(String.valueOf(dosis));
+        if(cantidadRestante != 0)
+            Mi_textview3.setText(String.valueOf(cantidadRestante));
+    }
+
     public void Mensaje(String msg){
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};
 
