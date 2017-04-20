@@ -53,7 +53,8 @@
 
         <activity
             android:name=".FindPillsActivity"
-            android:label="@string/title_activity_find_pills"></activity>
+            android:label="@string/title_activity_find_pills" />
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>
