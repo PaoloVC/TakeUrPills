@@ -40,6 +40,7 @@ public class AddPillActivity extends AppCompatActivity implements
     private int mHour, mMinute;
     JSONObject jobject;
     int i;
+    static private int edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -282,19 +283,54 @@ public class AddPillActivity extends AppCompatActivity implements
 
     public void getData(){
         Intent callingIntent = getIntent();
-        String titulo = callingIntent.getStringExtra("titulo");
-        int dosis = callingIntent.getIntExtra("dosis",0);
-        int cantidadRestante = callingIntent.getIntExtra("cantidadRestante",0);
+        int edicion = callingIntent.getIntExtra("edicion",0);
+        if(edicion == 1) {
+            String titulo = callingIntent.getStringExtra("titulo");
+            int dosis = callingIntent.getIntExtra("dosis", 0);
+            int cantidadRestante = callingIntent.getIntExtra("cantidadRestante", 0);
+            int reminder = callingIntent.getIntExtra("Reminder", 0);
+            String lunes = callingIntent.getStringExtra("Dia_1");
+            String martes = callingIntent.getStringExtra("Dia_2");
+            String miercoles = callingIntent.getStringExtra("Dia_3");
+            String jueves = callingIntent.getStringExtra("Dia_4");
+            String viernes = callingIntent.getStringExtra("Dia_5");
+            String sabado = callingIntent.getStringExtra("Dia_6");
+            String domingo = callingIntent.getStringExtra("Dia_7");
 
-        TextView Mi_textview = (TextView) findViewById(R.id.et_addPill_titulo);
-        TextView Mi_textview2 = (TextView) findViewById(R.id.et_addPill_dosis);
-        TextView Mi_textview3 = (TextView) findViewById(R.id.et_addPill_cantidadRestante);
+            TextView Mi_textview = (TextView) findViewById(R.id.et_addPill_titulo);
+            TextView Mi_textview2 = (TextView) findViewById(R.id.et_addPill_dosis);
+            TextView Mi_textview3 = (TextView) findViewById(R.id.et_addPill_cantidadRestante);
+            TextView Mi_textview4 = (TextView) findViewById(R.id.et_addPill_reminder);
+            CheckBox checkBox = (CheckBox) findViewById(R.id.lunes);
+            CheckBox checkBox2 = (CheckBox) findViewById(R.id.martes);
+            CheckBox checkBox3 = (CheckBox) findViewById(R.id.miercoles);
+            CheckBox checkBox4 = (CheckBox) findViewById(R.id.jueves);
+            CheckBox checkBox5 = (CheckBox) findViewById(R.id.viernes);
+            CheckBox checkBox6 = (CheckBox) findViewById(R.id.sabado);
+            CheckBox checkBox7 = (CheckBox) findViewById(R.id.domingo);
 
-        Mi_textview.setText(titulo);
-        if(dosis != 0)
-            Mi_textview2.setText(String.valueOf(dosis));
-        if(cantidadRestante != 0)
-            Mi_textview3.setText(String.valueOf(cantidadRestante));
+            Mi_textview.setText(titulo);
+            if (dosis != 0)
+                Mi_textview2.setText(String.valueOf(dosis));
+            if (cantidadRestante != 0)
+                Mi_textview3.setText(String.valueOf(cantidadRestante));
+            if (reminder != 0)
+                Mi_textview4.setText(String.valueOf(reminder));
+            if (lunes.contains("1"))
+                checkBox.setChecked(true);
+            if (martes.contains("2"))
+                checkBox2.setChecked(true);
+            if (miercoles.contains("3"))
+                checkBox3.setChecked(true);
+            if (jueves.contains("4"))
+                checkBox4.setChecked(true);
+            if (viernes.contains("5"))
+                checkBox5.setChecked(true);
+            if (sabado.contains("6"))
+                checkBox6.setChecked(true);
+            if (domingo.contains("7"))
+                checkBox7.setChecked(true);
+        }
     }
 
     public void Mensaje(String msg){

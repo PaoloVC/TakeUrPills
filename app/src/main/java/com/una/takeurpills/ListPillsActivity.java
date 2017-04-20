@@ -28,6 +28,7 @@ import java.util.List;
 
 public class ListPillsActivity extends AppCompatActivity {
     private JSONArray testjarray;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +48,11 @@ public class ListPillsActivity extends AppCompatActivity {
         try {
             testjarray = readFromFile();
             test = getNames(testjarray);
-        }
-        catch (JSONException exc){
+        } catch (JSONException exc) {
 
         }
 
-        String[] pills ={
+        String[] pills = {
                 "Acetaminofen",
                 "Paracetamol",
                 "Ibuprofeno",
@@ -89,9 +89,25 @@ public class ListPillsActivity extends AppCompatActivity {
                     intento.putExtra("titulo", String.valueOf(objjson.get("titulo")));
                     intento.putExtra("dosis", Integer.parseInt(String.valueOf(objjson.get("dosis"))));
                     intento.putExtra("cantidadRestante", Integer.parseInt(String.valueOf(objjson.get("cantidadRestante"))));
+                    intento.putExtra("Reminder", Integer.parseInt(String.valueOf(objjson.get("Reminder"))));
+                    if (objjson.has("Dia_1"))
+                        intento.putExtra("Dia_1", String.valueOf(objjson.get("Dia_1")));
+                    if (objjson.has("Dia_2"))
+                        intento.putExtra("Dia_2", String.valueOf(objjson.get("Dia_2")));
+                    if (objjson.has("Dia_3"))
+                        intento.putExtra("Dia_3", String.valueOf(objjson.get("Dia_3")));
+                    if (objjson.has("Dia_4"))
+                        intento.putExtra("Dia_4", String.valueOf(objjson.get("Dia_4")));
+                    if (objjson.has("Dia_5"))
+                        intento.putExtra("Dia_5", String.valueOf(objjson.get("Dia_5")));
+                    if (objjson.has("Dia_6"))
+                        intento.putExtra("Dia_6", String.valueOf(objjson.get("Dia_6")));
+                    if (objjson.has("Dia_7"))
+                        intento.putExtra("Dia_7", String.valueOf(objjson.get("Dia_7")));
+
+
                     startActivity(intento);
-                }
-                catch(JSONException exc){
+                } catch (JSONException exc) {
 
                 }
                 TextView textView = (TextView) viewClicked;
@@ -143,10 +159,11 @@ public class ListPillsActivity extends AppCompatActivity {
 
         return jarray;
     }
-    public static String[] getNames (final JSONArray jarray){
+
+    public static String[] getNames(final JSONArray jarray) {
         ArrayList<String> test = getVector(jarray);
-        String lala = test.toString().substring(1,test.toString().length()-1);
-        String [] lalala = lala.split(",");
+        String lala = test.toString().substring(1, test.toString().length() - 1);
+        String[] lalala = lala.split(",");
         return lalala;
     }
 
@@ -157,8 +174,7 @@ public class ListPillsActivity extends AppCompatActivity {
             final JSONObject obj = ja.optJSONObject(i);
             try {
                 String nombre = String.valueOf(obj.get("titulo"));
-            }
-            catch(JSONException exc){
+            } catch (JSONException exc) {
             }
         }
         return result;
@@ -172,8 +188,7 @@ public class ListPillsActivity extends AppCompatActivity {
             try {
                 String nombre = String.valueOf(obj.get("titulo"));
                 result.add(nombre);
-            }
-            catch(JSONException exc){
+            } catch (JSONException exc) {
             }
         }
         return result;
@@ -181,6 +196,8 @@ public class ListPillsActivity extends AppCompatActivity {
 
     public void Mensaje(String msg) {
         getSupportActionBar().setTitle(msg);
-    };
+    }
+
+    ;
 
 }
