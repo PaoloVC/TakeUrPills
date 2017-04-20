@@ -115,6 +115,8 @@ public class AddPillActivity extends AppCompatActivity implements
                             jarray.put(jobject);
                             writeToFile(jarray.toString());
                             Mensaje("Objeto Salvado con Éxito!");
+                            Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
+                            startActivity(intento);
                         } catch (JSONException e) {
                             Log.e("Exception", "Unable to create JSONArray: " + e.toString());
                         }
@@ -258,7 +260,7 @@ public class AddPillActivity extends AppCompatActivity implements
 
     public void AlertBuilder(View view){
         AlertDialog.Builder builder1 = new AlertDialog.Builder(view.getContext());
-        builder1.setMessage("Seguro que deseas cancelar los cambios?");
+        builder1.setMessage("¿Seguro que deseas cancelar los cambios?");
         builder1.setCancelable(true);
         builder1.setPositiveButton("Si",
                 new DialogInterface.OnClickListener() {
