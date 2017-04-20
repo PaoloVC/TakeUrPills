@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +16,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -32,13 +32,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Calendar;
 
-public class AddPillActivity extends AppCompatActivity implements
+public class AddPillActivity extends ParentClass implements
         View.OnClickListener {
 
     Button button;
     private int mHour, mMinute;
     JSONObject jobject;
     int i;
+    static private int edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class AddPillActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_add_pill);
         jobject= new JSONObject();
         CargarSpinner();
-
+        getData();
         OnclickDelButton(R.id.btAddPillsCancelar);
         OnclickDelButton(R.id.btAddPillsSave);
     }
@@ -115,6 +116,8 @@ public class AddPillActivity extends AppCompatActivity implements
                             jarray.put(jobject);
                             writeToFile(jarray.toString());
                             Mensaje("Objeto Salvado con Éxito!");
+                            Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
+                            startActivity(intento);
                         } catch (JSONException e) {
                             Log.e("Exception", "Unable to create JSONArray: " + e.toString());
                         }
@@ -258,7 +261,7 @@ public class AddPillActivity extends AppCompatActivity implements
 
     public void AlertBuilder(View view){
         AlertDialog.Builder builder1 = new AlertDialog.Builder(view.getContext());
-        builder1.setMessage("Seguro que deseas cancelar los cambios?");
+        builder1.setMessage("¿Seguro que deseas cancelar los cambios?");
         builder1.setCancelable(true);
         builder1.setPositiveButton("Si",
                 new DialogInterface.OnClickListener() {
@@ -276,6 +279,65 @@ public class AddPillActivity extends AppCompatActivity implements
         AlertDialog alert11 = builder1.create();
         alert11.show();
     };
+
+    public void getData(){
+        Intent callingIntent = getIntent();
+        int edicion = callingIntent.getIntExtra("edicion",0);
+        if(edicion == 1) {
+            String titulo = callingIntent.getStringExtra("titulo");
+            String unidad = callingIntent.getStringExtra("Unidad");
+            int dosis = callingIntent.getIntExtra("dosis", 0);
+            int cantidadRestante = callingIntent.getIntExtra("cantidadRestante", 0);
+            int reminder = callingIntent.getIntExtra("Reminder", 0);
+            String lunes = callingIntent.getStringExtra("Dia_1");
+            String martes = callingIntent.getStringExtra("Dia_2");
+            String miercoles = callingIntent.getStringExtra("Dia_3");
+            String jueves = callingIntent.getStringExtra("Dia_4");
+            String viernes = callingIntent.getStringExtra("Dia_5");
+            String sabado = callingIntent.getStringExtra("Dia_6");
+            String domingo = callingIntent.getStringExtra("Dia_7");
+
+            TextView Mi_textview = (TextView) findViewById(R.id.et_addPill_titulo);
+            TextView Mi_textview2 = (TextView) findViewById(R.id.et_addPill_dosis);
+            TextView Mi_textview3 = (TextView) findViewById(R.id.et_addPill_cantidadRestante);
+            TextView Mi_textview4 = (TextView) findViewById(R.id.et_addPill_reminder);
+
+            RadioButton Mi_radiobutton = (RadioButton) findViewById((unidad.equals("mililitros")
+                    ? R.id.mililitros : R.id.unidades ));
+
+            CheckBox checkBox = (CheckBox) findViewById(R.id.lunes);
+            CheckBox checkBox2 = (CheckBox) findViewById(R.id.martes);
+            CheckBox checkBox3 = (CheckBox) findViewById(R.id.miercoles);
+            CheckBox checkBox4 = (CheckBox) findViewById(R.id.jueves);
+            CheckBox checkBox5 = (CheckBox) findViewById(R.id.viernes);
+            CheckBox checkBox6 = (CheckBox) findViewById(R.id.sabado);
+            CheckBox checkBox7 = (CheckBox) findViewById(R.id.domingo);
+
+            Mi_textview.setText(titulo);
+            if (dosis != 0)
+                Mi_textview2.setText(String.valueOf(dosis));
+            if (cantidadRestante != 0)
+                Mi_textview3.setText(String.valueOf(cantidadRestante));
+            if (reminder != 0)
+                Mi_textview4.setText(String.valueOf(reminder));
+            Mi_radiobutton.setChecked(true);
+            if (lunes.contains("1"))
+                checkBox.setChecked(true);
+            if (martes.contains("2"))
+                checkBox2.setChecked(true);
+            if (miercoles.contains("3"))
+                checkBox3.setChecked(true);
+            if (jueves.contains("4"))
+                checkBox4.setChecked(true);
+            if (viernes.contains("5"))
+                checkBox5.setChecked(true);
+            if (sabado.contains("6"))
+                checkBox6.setChecked(true);
+            if (domingo.contains("7"))
+                checkBox7.setChecked(true);
+        }
+    }
+
     public void Mensaje(String msg){
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};
 

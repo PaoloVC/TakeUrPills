@@ -39,7 +39,7 @@
     <string name="bt_steps_addPills">Add your pills</string>
     <string name="tv_detailsPill_Title">Nombre del Tratamiento</string>
     <string name="tv_detailsPill_dosis">Dosis:</string>
-    <string name="tv_detailsPill_frecuencia">Frecuenccia:</string>
+    <string name="tv_detailsPill_frecuencia">Frecuencia:</string>
     <string name="tv_detailsPill_repeticion">Repetición:</string>
     <string name="tv_detailsPill_horas">Horas:</string>
     <string name="tv_detailsPill_cantidadRestante">Cantidad Restante:</string>

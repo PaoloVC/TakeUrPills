@@ -26,7 +26,8 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListPillsActivity extends AppCompatActivity {
+public class ListPillsActivity extends ParentClass {
+    //private JSONArray testjarray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +45,14 @@ public class ListPillsActivity extends AppCompatActivity {
     //Aca se pueden cargar los tratamientos desde el Json  del app, pero solo los nombres (posible a cambios)
     private void FillListView() {
         String[] test = null;
-        JSONArray testjarray;
         try {
             testjarray = readFromFile();
             test = getNames(testjarray);
-        }
-        catch (JSONException exc){
+        } catch (JSONException exc) {
 
         }
 
-        String[] pills ={
+        String[] pills = {
                 "Acetaminofen",
                 "Paracetamol",
                 "Ibuprofeno",
@@ -84,8 +83,34 @@ public class ListPillsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> paret, View viewClicked,
                                     int position, long id) {
-                Intent intento = new Intent(getApplicationContext(), DetailsActivity.class);
-                startActivity(intento);
+                try {
+                    JSONObject objjson = testjarray.optJSONObject(position);
+                    Intent intento = new Intent(getApplicationContext(), DetailsActivity.class);
+                    intento.putExtra("titulo", String.valueOf(objjson.get("titulo")));
+                    intento.putExtra("dosis", Integer.parseInt(String.valueOf(objjson.get("dosis"))));
+                    intento.putExtra("Unidad",String.valueOf(objjson.get("Unidad")));
+                    intento.putExtra("cantidadRestante", Integer.parseInt(String.valueOf(objjson.get("cantidadRestante"))));
+                    intento.putExtra("Reminder", Integer.parseInt(String.valueOf(objjson.get("Reminder"))));
+                    if (objjson.has("Dia_1"))
+                        intento.putExtra("Dia_1", String.valueOf(objjson.get("Dia_1")));
+                    if (objjson.has("Dia_2"))
+                        intento.putExtra("Dia_2", String.valueOf(objjson.get("Dia_2")));
+                    if (objjson.has("Dia_3"))
+                        intento.putExtra("Dia_3", String.valueOf(objjson.get("Dia_3")));
+                    if (objjson.has("Dia_4"))
+                        intento.putExtra("Dia_4", String.valueOf(objjson.get("Dia_4")));
+                    if (objjson.has("Dia_5"))
+                        intento.putExtra("Dia_5", String.valueOf(objjson.get("Dia_5")));
+                    if (objjson.has("Dia_6"))
+                        intento.putExtra("Dia_6", String.valueOf(objjson.get("Dia_6")));
+                    if (objjson.has("Dia_7"))
+                        intento.putExtra("Dia_7", String.valueOf(objjson.get("Dia_7")));
+
+
+                    startActivity(intento);
+                } catch (JSONException exc) {
+
+                }
                 TextView textView = (TextView) viewClicked;
                 String message = "Tratamiento # " + (1 + position) + ", corresponde a: " + textView.getText().toString();
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
@@ -135,11 +160,11 @@ public class ListPillsActivity extends AppCompatActivity {
 
         return jarray;
     }
-    public static String[] getNames (final JSONArray jarray){
+
+    public static String[] getNames(final JSONArray jarray) {
         ArrayList<String> test = getVector(jarray);
-        String lala = test.toString().substring(1,test.toString().length()-1);
-        //String another = lala.substring(1,lala.length()-1);
-        String [] lalala = lala.split(",");
+        String lala = test.toString().substring(1, test.toString().length() - 1);
+        String[] lalala = lala.split(",");
         return lalala;
     }
 
@@ -150,8 +175,7 @@ public class ListPillsActivity extends AppCompatActivity {
             final JSONObject obj = ja.optJSONObject(i);
             try {
                 String nombre = String.valueOf(obj.get("titulo"));
-            }
-            catch(JSONException exc){
+            } catch (JSONException exc) {
             }
         }
         return result;
@@ -163,10 +187,9 @@ public class ListPillsActivity extends AppCompatActivity {
         for (int i = 0; i < len; i++) {
             final JSONObject obj = ja.optJSONObject(i);
             try {
-                String nombre = String.valueOf(obj.get("nombre"));
+                String nombre = String.valueOf(obj.get("titulo"));
                 result.add(nombre);
-            }
-            catch(JSONException exc){
+            } catch (JSONException exc) {
             }
         }
         return result;
@@ -174,6 +197,8 @@ public class ListPillsActivity extends AppCompatActivity {
 
     public void Mensaje(String msg) {
         getSupportActionBar().setTitle(msg);
-    };
+    }
+
+    ;
 
 }
