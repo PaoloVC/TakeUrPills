@@ -26,8 +26,8 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListPillsActivity extends AppCompatActivity {
-    private JSONArray testjarray;
+public class ListPillsActivity extends ParentClass {
+    //private JSONArray testjarray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +88,7 @@ public class ListPillsActivity extends AppCompatActivity {
                     Intent intento = new Intent(getApplicationContext(), DetailsActivity.class);
                     intento.putExtra("titulo", String.valueOf(objjson.get("titulo")));
                     intento.putExtra("dosis", Integer.parseInt(String.valueOf(objjson.get("dosis"))));
+                    intento.putExtra("Unidad",String.valueOf(objjson.get("Unidad")));
                     intento.putExtra("cantidadRestante", Integer.parseInt(String.valueOf(objjson.get("cantidadRestante"))));
                     intento.putExtra("Reminder", Integer.parseInt(String.valueOf(objjson.get("Reminder"))));
                     if (objjson.has("Dia_1"))

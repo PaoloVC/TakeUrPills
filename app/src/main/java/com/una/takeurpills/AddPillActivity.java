@@ -16,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -286,6 +287,7 @@ public class AddPillActivity extends AppCompatActivity implements
         int edicion = callingIntent.getIntExtra("edicion",0);
         if(edicion == 1) {
             String titulo = callingIntent.getStringExtra("titulo");
+            String unidad = callingIntent.getStringExtra("Unidad");
             int dosis = callingIntent.getIntExtra("dosis", 0);
             int cantidadRestante = callingIntent.getIntExtra("cantidadRestante", 0);
             int reminder = callingIntent.getIntExtra("Reminder", 0);
@@ -301,6 +303,10 @@ public class AddPillActivity extends AppCompatActivity implements
             TextView Mi_textview2 = (TextView) findViewById(R.id.et_addPill_dosis);
             TextView Mi_textview3 = (TextView) findViewById(R.id.et_addPill_cantidadRestante);
             TextView Mi_textview4 = (TextView) findViewById(R.id.et_addPill_reminder);
+
+            RadioButton Mi_radiobutton = (RadioButton) findViewById((unidad.equals("mililitros")
+                    ? R.id.mililitros : R.id.unidades ));
+
             CheckBox checkBox = (CheckBox) findViewById(R.id.lunes);
             CheckBox checkBox2 = (CheckBox) findViewById(R.id.martes);
             CheckBox checkBox3 = (CheckBox) findViewById(R.id.miercoles);
@@ -316,6 +322,7 @@ public class AddPillActivity extends AppCompatActivity implements
                 Mi_textview3.setText(String.valueOf(cantidadRestante));
             if (reminder != 0)
                 Mi_textview4.setText(String.valueOf(reminder));
+            Mi_radiobutton.setChecked(true);
             if (lunes.contains("1"))
                 checkBox.setChecked(true);
             if (martes.contains("2"))

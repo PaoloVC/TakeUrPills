@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class DetailsActivity extends AppCompatActivity {
-
+    private String unidadMedida = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +39,8 @@ public class DetailsActivity extends AppCompatActivity {
         Intent callingIntent = getIntent();
         String titulo = callingIntent.getStringExtra("titulo");
         int dosis = callingIntent.getIntExtra("dosis",0);
+        String unidad = callingIntent.getStringExtra("Unidad");
+        unidadMedida = unidad;
         int cantidadRestante = callingIntent.getIntExtra("cantidadRestante",0);
         int reminder = callingIntent.getIntExtra("Reminder", 0);
         String lunes = callingIntent.getStringExtra("Dia_1");
@@ -56,11 +58,12 @@ public class DetailsActivity extends AppCompatActivity {
         TextView Mi_textview5 = (TextView) findViewById(R.id.tv_detailsPill_frecuencia2);
 
         Mi_textview.setText(titulo);
-        Mi_textview2.setText((dosis == 1) ? String.valueOf(dosis)+" unidad":String.valueOf(dosis)+" unidades");
-        Mi_textview3.setText((cantidadRestante == 1)? String.valueOf(cantidadRestante)+" unidad"
-                :String.valueOf(cantidadRestante)+" unidades");
-        Mi_textview4.setText((reminder == 1)? String.valueOf(reminder)+" unidad"
-                :String.valueOf(reminder)+" unidades");
+        Mi_textview2.setText((dosis == 1) ? String.valueOf(dosis)+ (unidad.equals("unidades")
+                ? " unidad": " mililitro") :String.valueOf(dosis)+ " "+ unidad);
+        Mi_textview3.setText((cantidadRestante == 1) ? String.valueOf(cantidadRestante)+ (unidad.equals("unidades")
+                ? " unidad": " mililitro") :String.valueOf(cantidadRestante)+ " "+ unidad);
+        Mi_textview4.setText((reminder == 1) ? String.valueOf(reminder)+ (unidad.equals("unidades")
+                ? " unidad": " mililitro") :String.valueOf(reminder)+ " "+ unidad);
         Mi_textview5.setText("");
         Mi_textview5.append((lunes != null) ? String.valueOf(lunes) + "/":String.valueOf("")+"");
         Mi_textview5.append((martes != null) ? String.valueOf(martes) + "/":String.valueOf("")+"");
@@ -122,17 +125,11 @@ public class DetailsActivity extends AppCompatActivity {
                         TextView Mi_textview4 = (TextView) findViewById(R.id.tv_detailsPill_reminder2);
                         TextView Mi_textview5 = (TextView) findViewById(R.id.tv_detailsPill_frecuencia2);
 
-                        String dosis = Mi_textview2.getText().toString().contains("unidades") ?
-                                Mi_textview2.getText().toString().replace(" unidades","") :
-                                Mi_textview2.getText().toString().replace(" unidad","");
+                        String dosis = splitNumbers(Mi_textview2.getText().toString());
                         int dosisN = Integer.parseInt(dosis);
-                        String cantRestante = Mi_textview3.getText().toString().contains("unidades") ?
-                                Mi_textview3.getText().toString().replace(" unidades","") :
-                                Mi_textview3.getText().toString().replace(" unidad","");
+                        String cantRestante = splitNumbers(Mi_textview3.getText().toString());
                         int cantRestanteN = Integer.parseInt(cantRestante.replace("es",""));
-                        String reminder = Mi_textview4.getText().toString().contains("unidades") ?
-                                Mi_textview4.getText().toString().replace(" unidades","") :
-                                Mi_textview4.getText().toString().replace(" unidad","");
+                        String reminder = splitNumbers(Mi_textview4.getText().toString());
                         int reminderN = Integer.parseInt(reminder);
                         String lunes = Mi_textview5.getText().toString().contains("lunes") ?
                                 Mi_textview5.getText().toString().replace("lunes", "1"):
@@ -162,6 +159,7 @@ public class DetailsActivity extends AppCompatActivity {
                         intento.putExtra("edicion", 1);
                         intento.putExtra("titulo", Mi_textview.getText());
                         intento.putExtra("dosis", dosisN);
+                        intento.putExtra("Unidad", unidadMedida);
                         intento.putExtra("cantidadRestante", cantRestanteN);
                         intento.putExtra("Reminder", reminderN);
                         intento.putExtra("Dia_1", lunes);
@@ -179,5 +177,7 @@ public class DetailsActivity extends AppCompatActivity {
             }// fin del onclick
         });
     }// fin de OnclickDelButton
-
+    public String splitNumbers(String cadena){
+        return cadena.replaceAll("[^0-9]","");
+    }
 }
