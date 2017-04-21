@@ -1,18 +1,36 @@
 package com.una.takeurpills;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.IntegerRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
+import static com.una.takeurpills.R.id.domingo;
+import static com.una.takeurpills.R.id.jueves;
+import static com.una.takeurpills.R.id.lunes;
+import static com.una.takeurpills.R.id.martes;
+import static com.una.takeurpills.R.id.miercoles;
+import static com.una.takeurpills.R.id.sabado;
+import static com.una.takeurpills.R.id.viernes;
+
 public class DetailsActivity extends ParentClass {
     private String unidadMedida = "";
+    private int posicion = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,19 +55,36 @@ public class DetailsActivity extends ParentClass {
 
     public void getData(){
         Intent callingIntent = getIntent();
-        String titulo = callingIntent.getStringExtra("titulo");
-        int dosis = callingIntent.getIntExtra("dosis",0);
-        String unidad = callingIntent.getStringExtra("Unidad");
-        unidadMedida = unidad;
-        int cantidadRestante = callingIntent.getIntExtra("cantidadRestante",0);
-        int reminder = callingIntent.getIntExtra("Reminder", 0);
-        String lunes = callingIntent.getStringExtra("Dia_1");
-        String martes = callingIntent.getStringExtra("Dia_2");
-        String miercoles = callingIntent.getStringExtra("Dia_3");
-        String jueves = callingIntent.getStringExtra("Dia_4");
-        String viernes = callingIntent.getStringExtra("Dia_5");
-        String sabado = callingIntent.getStringExtra("Dia_6");
-        String domingo = callingIntent.getStringExtra("Dia_7");
+        posicion = callingIntent.getIntExtra("posicion",0);
+        JSONObject objjson = testjarray.optJSONObject(posicion);
+        try{
+            String titulo = String.valueOf(objjson.get("titulo"));
+            int dosis = Integer.parseInt(String.valueOf(objjson.get("dosis")));
+            String unidad = String.valueOf(objjson.get("Unidad"));
+            unidadMedida = unidad;
+            int cantidadRestante = Integer.parseInt(String.valueOf(objjson.get("cantidadRestante")));
+            int reminder = Integer.parseInt(String.valueOf(objjson.get("Reminder")));
+            String lunes = objjson.has("Dia_1")
+                    ? String.valueOf(objjson.get("Dia_1"))
+                    :"";
+            String martes = objjson.has("Dia_2")
+                    ? String.valueOf(objjson.get("Dia_2"))
+                    :"";
+            String miercoles = objjson.has("Dia_3")
+                    ? String.valueOf(objjson.get("Dia_3"))
+                    :"";
+            String jueves = objjson.has("Dia_4")
+                    ? String.valueOf(objjson.get("Dia_4"))
+                    :"";
+            String viernes = objjson.has("Dia_5")
+                    ? String.valueOf(objjson.get("Dia_5"))
+                    :"";
+            String sabado = objjson.has("Dia_6")
+                    ? String.valueOf(objjson.get("Dia_6"))
+                    :"";
+            String domingo = objjson.has("Dia_7")
+                    ? String.valueOf(objjson.get("Dia_7"))
+                    :"";
 
         TextView Mi_textview = (TextView) findViewById(R.id.tv_detailsPill_nombreTratamiento);
         TextView Mi_textview2 = (TextView) findViewById(R.id.tv_detailsPill_dosis2);
@@ -65,13 +100,16 @@ public class DetailsActivity extends ParentClass {
         Mi_textview4.setText((reminder == 1) ? String.valueOf(reminder)+ (unidad.equals("unidades")
                 ? " unidad": " mililitro") :String.valueOf(reminder)+ " "+ unidad);
         Mi_textview5.setText("");
-        Mi_textview5.append((lunes != null) ? String.valueOf(lunes) + "/":String.valueOf("")+"");
-        Mi_textview5.append((martes != null) ? String.valueOf(martes) + "/":String.valueOf("")+"");
-        Mi_textview5.append((miercoles != null) ? String.valueOf(miercoles) + "/":String.valueOf("")+"");
-        Mi_textview5.append((jueves != null) ? String.valueOf(jueves) + "/":String.valueOf("")+"");
-        Mi_textview5.append((viernes != null) ? String.valueOf(viernes) + "/":String.valueOf("")+"");
-        Mi_textview5.append((sabado != null) ? String.valueOf(sabado) + "/":String.valueOf("")+"");
-        Mi_textview5.append((domingo != null) ? String.valueOf(domingo) + ".":String.valueOf("")+"");
+        Mi_textview5.append((!lunes.equals("")) ? String.valueOf(lunes) + "/":String.valueOf("")+"");
+        Mi_textview5.append((!martes.equals("")) ? String.valueOf(martes) + "/":String.valueOf("")+"");
+        Mi_textview5.append((!miercoles.equals("")) ? String.valueOf(miercoles) + "/":String.valueOf("")+"");
+        Mi_textview5.append((!jueves.equals("")) ? String.valueOf(jueves) + "/":String.valueOf("")+"");
+        Mi_textview5.append((!viernes.equals("")) ? String.valueOf(viernes) + "/":String.valueOf("")+"");
+        Mi_textview5.append((!sabado.equals("")) ? String.valueOf(sabado) + "/":String.valueOf("")+"");
+        Mi_textview5.append((!domingo.equals("")) ? String.valueOf(domingo) + ".":String.valueOf("")+"");
+        }
+        catch (Exception exc){
+        }
     }
 
     public void Mensaje2(String msg) {
@@ -88,6 +126,7 @@ public class DetailsActivity extends ParentClass {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Mensaje2("Tratamiento Eliminado");
+                        RemoveObj();
                         //Aca agregamos el metodo para eliminar el tratamiento de la lista.
                         Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
                         startActivity(intento);
@@ -119,7 +158,7 @@ public class DetailsActivity extends ParentClass {
                 switch (v.getId()) {
                     case R.id.bt_detailsPill_edit:
                         //Aca se implementa los PutExtra para enviar a la pantalla de AddPills en modo edicion
-                        TextView Mi_textview = (TextView) findViewById(R.id.tv_detailsPill_nombreTratamiento);
+                        /*TextView Mi_textview = (TextView) findViewById(R.id.tv_detailsPill_nombreTratamiento);
                         TextView Mi_textview2 = (TextView) findViewById(R.id.tv_detailsPill_dosis2);
                         TextView Mi_textview3 = (TextView) findViewById(R.id.tv_detailsPill_cantidadRestante2);
                         TextView Mi_textview4 = (TextView) findViewById(R.id.tv_detailsPill_reminder2);
@@ -151,13 +190,14 @@ public class DetailsActivity extends ParentClass {
                                 Mi_textview5.getText().toString().replace("sabado", "");
                         String domingo = Mi_textview5.getText().toString().contains("domingo") ?
                                 Mi_textview5.getText().toString().replace("domingo", "7"):
-                                Mi_textview5.getText().toString().replace("domingo", "");
+                                Mi_textview5.getText().toString().replace("domingo", "");*/
 
 
                         //Transicion de datos
                         modo = 1;
                         Intent intento = new Intent(getApplicationContext(), AddPillActivity.class);
-                        intento.putExtra("edicion", 1);
+                        intento.putExtra("posicion",posicion);
+                        /*intento.putExtra("edicion", 1);
                         intento.putExtra("titulo", Mi_textview.getText());
                         intento.putExtra("dosis", dosisN);
                         intento.putExtra("Unidad", unidadMedida);
@@ -169,7 +209,7 @@ public class DetailsActivity extends ParentClass {
                         intento.putExtra("Dia_4", jueves);
                         intento.putExtra("Dia_5", viernes);
                         intento.putExtra("Dia_6", sabado);
-                        intento.putExtra("Dia_7", domingo);
+                        intento.putExtra("Dia_7", domingo);*/
                         startActivity(intento);
                         break;
                     default:
@@ -178,6 +218,26 @@ public class DetailsActivity extends ParentClass {
             }// fin del onclick
         });
     }// fin de OnclickDelButton
+
+    private void RemoveObj(){
+        final int len = testjarray.length();
+        JSONArray list = new JSONArray();
+        if (testjarray != null)
+            for (int i=0;i<len;i++)
+                if (i != posicion)
+                    list.put(testjarray.optJSONObject(i));
+        writeToFile(list.toString());
+    }
+    private void writeToFile(String data) {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput("data.txt", Context.MODE_PRIVATE));
+            outputStreamWriter.write(data);
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
     public String splitNumbers(String cadena){
         return cadena.replaceAll("[^0-9]","");
     }

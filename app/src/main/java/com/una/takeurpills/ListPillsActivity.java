@@ -83,10 +83,10 @@ public class ListPillsActivity extends ParentClass {
             @Override
             public void onItemClick(AdapterView<?> paret, View viewClicked,
                                     int position, long id) {
-                try {
-                    JSONObject objjson = testjarray.optJSONObject(position);
-                    Intent intento = new Intent(getApplicationContext(), DetailsActivity.class);
-                    intento.putExtra("titulo", String.valueOf(objjson.get("titulo")));
+                    //JSONObject objjson = testjarray.optJSONObject(position);
+                Intent intento = new Intent(getApplicationContext(), DetailsActivity.class);
+                intento.putExtra("posicion",position);
+                    /*intento.putExtra("titulo", String.valueOf(objjson.get("titulo")));
                     intento.putExtra("dosis", Integer.parseInt(String.valueOf(objjson.get("dosis"))));
                     intento.putExtra("Unidad",String.valueOf(objjson.get("Unidad")));
                     intento.putExtra("cantidadRestante", Integer.parseInt(String.valueOf(objjson.get("cantidadRestante"))));
@@ -104,13 +104,8 @@ public class ListPillsActivity extends ParentClass {
                     if (objjson.has("Dia_6"))
                         intento.putExtra("Dia_6", String.valueOf(objjson.get("Dia_6")));
                     if (objjson.has("Dia_7"))
-                        intento.putExtra("Dia_7", String.valueOf(objjson.get("Dia_7")));
-
-
-                    startActivity(intento);
-                } catch (JSONException exc) {
-
-                }
+                        intento.putExtra("Dia_7", String.valueOf(objjson.get("Dia_7")));*/
+                startActivity(intento);
                 TextView textView = (TextView) viewClicked;
                 String message = "Tratamiento # " + (1 + position) + ", corresponde a: " + textView.getText().toString();
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();

@@ -9,6 +9,6 @@ import org.json.JSONArray;
  */
 
 public class ParentClass extends AppCompatActivity {
-    public JSONArray testjarray = new JSONArray();
-    public int modo = 0;
+    static JSONArray testjarray = new JSONArray();
+    static int modo = 0;
 }
