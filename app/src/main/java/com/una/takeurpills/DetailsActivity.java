@@ -8,6 +8,8 @@ import android.support.annotation.IntegerRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -48,6 +50,37 @@ public class DetailsActivity extends ParentClass {
 
         OnclickDelButton(R.id.bt_detailsPill_edit);
     } // Fin del Oncreate
+
+
+    //Metodos para iconos en action Bar, los siguientes dos
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.iconsmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home:
+                Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intento);
+                break;
+
+            case R.id.back:
+                // User chose the "Favorite" action, mark the current item
+                // as a favorite...
+                break;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+        return true;
+    }
 
     public void Mensaje(String msg) {
         getSupportActionBar().setTitle(msg);
