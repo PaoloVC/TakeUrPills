@@ -18,28 +18,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/impr"
         android:orientation="vertical"
-        android:background="@color/bc_text_steps"
-        android:paddingTop="@dimen/paddingTop_steps_textSection"
-        android:paddingBottom="@dimen/paddingBottom_steps_textSection">
+        android:paddingBottom="@dimen/paddingBottom_steps_textSection"
+        android:paddingTop="@dimen/paddingTop_steps_textSection">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv_steps_paso4_header"
-            android:textSize="@dimen/tv_steps_header_textSize"
             android:layout_gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/tv_steps"/>
+            android:text="@string/tv_steps_paso4_header"
+            android:textColor="@color/bc_text_steps"
+            android:textSize="@dimen/tv_steps_header_textSize"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tv_steps_paso4_content"
-            android:textSize="@dimen/tv_steps_content_textSize"
-            android:textAlignment="center"
             android:padding="@dimen/padding_steps_content"
-            android:textColor="@color/tv_steps"/>
+            android:text="@string/tv_steps_paso4_content"
+            android:textAlignment="center"
+            android:textColor="@color/bc_text_steps"
+            android:textSize="@dimen/tv_steps_content_textSize" />
 
     </LinearLayout>
 

@@ -49,11 +49,12 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyBzvFYnpS4vwL8hY1-MDWhGPomoIwOTkbw" />
 
         <activity
             android:name=".FindPillsActivity"
-            android:label="@string/title_activity_find_pills"></activity>
+            android:label="@string/title_activity_find_pills" />
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>

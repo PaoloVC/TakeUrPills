@@ -2,16 +2,17 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ec5f90</color>
     <color name="color_header_homepage">#3D629B</color>
-    <color name="bgColor_listPills">#a4c639</color>
+    <color name="bgColor_listPills">#58b353</color>
     <color name="bgColor_addPills">#1e90ff</color>
-    <color name="bgColor_findPills">#e52b50</color>
+    <color name="bgColor_findPills">#d9f152</color>
     <color name="background_activity">#E7F5FE</color>
     <color name="bt_save">#6DC50B</color>
     <color name="bt_cancel">#E51E36</color>
-    <color name="bc_text_steps">#F68D8D</color>
-    <color name="tv_steps">#505153</color>
+    <color name="bc_text_steps">#ffffff</color>
+    <color name="tv_steps">#060606</color>
     <color name="bt_steps_nextStep">#2196F3</color>
     <color name="tv_steps_saltar">#F8576B</color>
+
 </resources>
