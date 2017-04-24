@@ -49,7 +49,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyBzvFYnpS4vwL8hY1-MDWhGPomoIwOTkbw" />
 
         <activity
             android:name=".FindPillsActivity"
