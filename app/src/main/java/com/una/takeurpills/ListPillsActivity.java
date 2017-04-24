@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -33,7 +37,6 @@ public class ListPillsActivity extends ParentClass {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_pills);
-
         FillListView();
         OnClickListItems();
 
@@ -41,6 +44,36 @@ public class ListPillsActivity extends ParentClass {
 
 
     } // Fin del Oncreate de la Actividad 01
+
+    //Metodos para iconos en action Bar, los siguientes dos
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.iconsmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home:
+                Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intento);
+                break;
+
+            case R.id.back:
+                // User chose the "Favorite" action, mark the current item
+                // as a favorite...
+                break;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+        return true;
+    }
 
     //Aca se pueden cargar los tratamientos desde el Json  del app, pero solo los nombres (posible a cambios)
     private void FillListView() {
@@ -83,10 +116,10 @@ public class ListPillsActivity extends ParentClass {
             @Override
             public void onItemClick(AdapterView<?> paret, View viewClicked,
                                     int position, long id) {
-                try {
-                    JSONObject objjson = testjarray.optJSONObject(position);
-                    Intent intento = new Intent(getApplicationContext(), DetailsActivity.class);
-                    intento.putExtra("titulo", String.valueOf(objjson.get("titulo")));
+                    //JSONObject objjson = testjarray.optJSONObject(position);
+                Intent intento = new Intent(getApplicationContext(), DetailsActivity.class);
+                intento.putExtra("posicion",position);
+                    /*intento.putExtra("titulo", String.valueOf(objjson.get("titulo")));
                     intento.putExtra("dosis", Integer.parseInt(String.valueOf(objjson.get("dosis"))));
                     intento.putExtra("Unidad",String.valueOf(objjson.get("Unidad")));
                     intento.putExtra("cantidadRestante", Integer.parseInt(String.valueOf(objjson.get("cantidadRestante"))));
@@ -104,13 +137,8 @@ public class ListPillsActivity extends ParentClass {
                     if (objjson.has("Dia_6"))
                         intento.putExtra("Dia_6", String.valueOf(objjson.get("Dia_6")));
                     if (objjson.has("Dia_7"))
-                        intento.putExtra("Dia_7", String.valueOf(objjson.get("Dia_7")));
-
-
-                    startActivity(intento);
-                } catch (JSONException exc) {
-
-                }
+                        intento.putExtra("Dia_7", String.valueOf(objjson.get("Dia_7")));*/
+                startActivity(intento);
                 TextView textView = (TextView) viewClicked;
                 String message = "Tratamiento # " + (1 + position) + ", corresponde a: " + textView.getText().toString();
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();

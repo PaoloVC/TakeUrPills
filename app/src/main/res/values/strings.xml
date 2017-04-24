@@ -47,5 +47,8 @@
     <string name="bt_detailsPill_edit">Editar</string>
     <string name="bt_detailsPill_delete">Borrar</string>
     <string name="title_activity_find_pills">Map</string>
+    <string name="home_icon">Home</string>
+    <string name="return_icon">Go Back</string>
+    <string name="settings_icon">Settings</string>
 
 </resources>
