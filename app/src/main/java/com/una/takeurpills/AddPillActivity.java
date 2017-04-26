@@ -34,6 +34,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Calendar;
 
+import static com.una.takeurpills.R.id.lunes;
+import static com.una.takeurpills.R.string.tv_addPill_header;
+
 public class AddPillActivity extends ParentClass implements
         View.OnClickListener {
 
@@ -41,31 +44,31 @@ public class AddPillActivity extends ParentClass implements
     private int mHour, mMinute;
     JSONObject jobject;
     int i;
-    static private int edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_pill);
-        jobject= new JSONObject();
+        jobject = new JSONObject();
         CargarSpinner();
         getData();
         OnclickDelButton(R.id.btAddPillsCancelar);
         OnclickDelButton(R.id.btAddPillsSave);
     }
+
     public void OnclickDelButton(int ref) {
-        View view =findViewById(ref);
+        View view = findViewById(ref);
         Button miButton = (Button) view;
 
 
-        miButton.setOnClickListener(new View.OnClickListener(){
+        miButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
 
                     case R.id.btAddPillsSave:
                         Button save = (Button) findViewById(R.id.btAddPillsSave);
-                        if(save.getText().toString().equals("Guardar")) {
+                        if (save.getText().toString().equals("Guardar")) {
                             String mili, uni;
                             EditText tituloPastilla = (EditText) findViewById(R.id.et_addPill_titulo);
                             String tituloPastilla1 = tituloPastilla.getText().toString();
@@ -74,6 +77,7 @@ public class AddPillActivity extends ParentClass implements
                             RadioButton mililitros = (RadioButton) findViewById(R.id.mililitros);
 
                             RadioButton unidades = (RadioButton) findViewById(R.id.unidades);
+                            Spinner spinner = (Spinner) findViewById(R.id.VecesDiarias);
 
                             CheckBox lunes = (CheckBox) findViewById(R.id.lunes);
                             CheckBox martes = (CheckBox) findViewById(R.id.martes);
@@ -86,12 +90,14 @@ public class AddPillActivity extends ParentClass implements
                             String cantidadRestante1 = cantidadRestante.getText().toString();
                             EditText reminder = (EditText) findViewById(R.id.et_addPill_reminder);
                             String reminder1 = reminder.getText().toString();
+                            String vecesDiarias = spinner.getSelectedItem().toString();
                             try {
                                 jobject.put("titulo", tituloPastilla1);
                                 jobject.put("dosis", dosis1);
                                 jobject.put("cantidadRestante", cantidadRestante1);
+                                jobject.put("vecesDiarias", vecesDiarias);
                                 if (mililitros.isChecked())
-                                    jobject.put("Unidad", "mililitros");
+                                    jobject.put("Unidad", "Mililitros");
                                 if (unidades.isChecked())
                                     jobject.put("Unidad", "Unidades");
                                 if (lunes.isChecked()) {
@@ -125,8 +131,7 @@ public class AddPillActivity extends ParentClass implements
                             } catch (JSONException e) {
                                 Log.e("Exception", "Unable to create JSONArray: " + e.toString());
                             }
-                        }
-                        else{
+                        } else {
                             Editar();
                             Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
                             startActivity(intento);
@@ -137,10 +142,13 @@ public class AddPillActivity extends ParentClass implements
                     case R.id.btAddPillsCancelar:
                         AlertBuilder(v);
                         break;
-                    default:break; }
+                    default:
+                        break;
+                }
             }
         });
     }
+
     private void CargarSpinner() {
         Spinner s1;
         final String[] vecesDiarias = {
@@ -180,18 +188,18 @@ public class AddPillActivity extends ParentClass implements
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-                for(int i=0;i<position;i++)
-                {
+                for (int i = 0; i < position; i++) {
                     Button myButton = new Button(getApplicationContext());
                     myButton.setText("(+) Agregar Hora");
                     myButton.setId(i);
                     myButton.setOnClickListener(AddPillActivity.this);
-                    LinearLayout ll = (LinearLayout)findViewById(R.id.horas_list);
+                    LinearLayout ll = (LinearLayout) findViewById(R.id.horas_list);
                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     ll.addView(myButton, lp);
                 }
 
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -199,54 +207,57 @@ public class AddPillActivity extends ParentClass implements
 
         s1.setAdapter(adapter);
     }// fin de CargarSpinner
-        @Override
-    public void onClick(View v) {
-            i=v.getId();
-            button=(Button)findViewById(v.getId());
-            final Calendar c = Calendar.getInstance();
-            mHour = c.get(Calendar.HOUR_OF_DAY);
-            mMinute = c.get(Calendar.MINUTE);
-            TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                    new TimePickerDialog.OnTimeSetListener() {
 
-                        @Override
-                        public void onTimeSet(TimePicker view, int hourOfDay,
-                                              int minute) {
-                            button.setText(hourOfDay + ":" + minute);
-                            try{
-                                String text=button.getText().toString();
-                                jobject.put("hora"+i,text);
-                            } catch (JSONException e) {
-                                Log.e("Exception", "Unable to create JSONArray: " + e.toString());
-                            }
+    @Override
+    public void onClick(View v) {
+        i = v.getId();
+        button = (Button) findViewById(v.getId());
+        final Calendar c = Calendar.getInstance();
+        mHour = c.get(Calendar.HOUR_OF_DAY);
+        mMinute = c.get(Calendar.MINUTE);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
+
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay,
+                                          int minute) {
+                        button.setText(hourOfDay + ":" + minute);
+                        try {
+                            String text = button.getText().toString();
+                            jobject.put("hora" + i, text);
+                        } catch (JSONException e) {
+                            Log.e("Exception", "Unable to create JSONArray: " + e.toString());
                         }
-                    }, mHour, mMinute, false);
-            timePickerDialog.show();
+                    }
+                }, mHour, mMinute, false);
+        timePickerDialog.show();
 
     }
-    private void Editar(){
+
+    private void Editar() {
         final int len = testjarray.length();
         for (int i = 0; i < len; i++) {
             final JSONObject obj = testjarray.optJSONObject(i);
             try {
                 String nombre = String.valueOf(obj.get("titulo"));
-                if(String.valueOf(jobject.get("titulo")).toString().equals(nombre)){
+                if (String.valueOf(jobject.get("titulo")).toString().equals(nombre)) {
                     EditText tituloPastilla = (EditText) findViewById(R.id.et_addPill_titulo);
                     String tituloPastilla1 = tituloPastilla.getText().toString();
-                    obj.put("titulo",tituloPastilla1);
+                    obj.put("titulo", tituloPastilla1);
                     writeToFile(testjarray.toString());
+                    Mensaje("Objeto Modificado con Éxito!");
                 }
             } catch (JSONException exc) {
             }
         }
     }
+
     private void writeToFile(String data) {
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput("data.txt", Context.MODE_PRIVATE));
             outputStreamWriter.write(data);
             outputStreamWriter.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
@@ -259,34 +270,33 @@ public class AddPillActivity extends ParentClass implements
         try {
             InputStream inputStream = getApplicationContext().openFileInput("data.txt");
 
-            if ( inputStream != null ) {
+            if (inputStream != null) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 String receiveString = "";
                 StringBuilder stringBuilder = new StringBuilder();
 
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                while ((receiveString = bufferedReader.readLine()) != null) {
                     stringBuilder.append(receiveString);
                 }
 
                 inputStream.close();
                 ret = stringBuilder.toString();
             }
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             Log.e("login activity", "File not found: " + e.toString());
         } catch (IOException e) {
             Log.e("login activity", "Can not read file: " + e.toString());
         }
-        if(ret == null || ret.isEmpty()){
+        if (ret == null || ret.isEmpty()) {
             jarray = new JSONArray();
-        }else{
+        } else {
             jarray = new JSONArray(ret);
         }
         return jarray;
     }
 
-    public void AlertBuilder(View view){
+    public void AlertBuilder(View view) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(view.getContext());
         builder1.setMessage("¿Seguro que deseas cancelar los cambios?");
         builder1.setCancelable(true);
@@ -305,51 +315,57 @@ public class AddPillActivity extends ParentClass implements
                 });
         AlertDialog alert11 = builder1.create();
         alert11.show();
-    };
+    }
 
-    public void getData(){
+    ;
+
+    public void getData() {
         Intent callingIntent = getIntent();
-        int edicion = callingIntent.getIntExtra("edicion",0);
-        int posicion = callingIntent.getIntExtra("posicion",0);
+        int edicion = callingIntent.getIntExtra("edicion", 0);
+        int posicion = callingIntent.getIntExtra("posicion", 0);
         JSONObject objjson = testjarray.optJSONObject(posicion);
         jobject = objjson;
         Button save = (Button) findViewById(R.id.btAddPillsSave);
-        if(modo == 1) {
+        TextView title = (TextView) findViewById(R.id.tv_addPill_title);
+        if (modo == 1) {
             save.setText("Actualizar");
+            title.setText("Edite el tratamiento");
             try {
                 String titulo = String.valueOf(objjson.get("titulo"));
                 int dosis = Integer.parseInt(String.valueOf(objjson.get("dosis")));
                 String unidad = String.valueOf(objjson.get("Unidad"));
                 int cantidadRestante = Integer.parseInt(String.valueOf(objjson.get("cantidadRestante")));
                 int reminder = Integer.parseInt(String.valueOf(objjson.get("Reminder")));
+                int vecesDiarias = Integer.parseInt(String.valueOf(objjson.get("vecesDiarias")));
                 String lunes = objjson.has("Dia_1")
                         ? String.valueOf(objjson.get("Dia_1"))
-                        :"";
+                        : "";
                 String martes = objjson.has("Dia_2")
                         ? String.valueOf(objjson.get("Dia_2"))
-                        :"";
+                        : "";
                 String miercoles = objjson.has("Dia_3")
                         ? String.valueOf(objjson.get("Dia_3"))
-                        :"";
+                        : "";
                 String jueves = objjson.has("Dia_4")
                         ? String.valueOf(objjson.get("Dia_4"))
-                        :"";
+                        : "";
                 String viernes = objjson.has("Dia_5")
                         ? String.valueOf(objjson.get("Dia_5"))
-                        :"";
+                        : "";
                 String sabado = objjson.has("Dia_6")
                         ? String.valueOf(objjson.get("Dia_6"))
-                        :"";
+                        : "";
                 String domingo = objjson.has("Dia_7")
                         ? String.valueOf(objjson.get("Dia_7"))
-                        :"";
+                        : "";
 
                 TextView Mi_textview = (TextView) findViewById(R.id.et_addPill_titulo);
                 TextView Mi_textview2 = (TextView) findViewById(R.id.et_addPill_dosis);
                 TextView Mi_textview3 = (TextView) findViewById(R.id.et_addPill_cantidadRestante);
                 TextView Mi_textview4 = (TextView) findViewById(R.id.et_addPill_reminder);
+                Spinner spinner = (Spinner) findViewById(R.id.VecesDiarias);
 
-                RadioButton Mi_radiobutton = (RadioButton) findViewById((unidad.equals("mililitros")
+                RadioButton Mi_radiobutton = (RadioButton) findViewById((unidad.equals("Mililitros")
                         ? R.id.mililitros : R.id.unidades));
 
                 CheckBox checkBox = (CheckBox) findViewById(R.id.lunes);
@@ -367,6 +383,9 @@ public class AddPillActivity extends ParentClass implements
                     Mi_textview3.setText(String.valueOf(cantidadRestante));
                 if (reminder != 0)
                     Mi_textview4.setText(String.valueOf(reminder));
+                if (vecesDiarias != 0)
+                    spinner.setSelection(vecesDiarias);
+
                 Mi_radiobutton.setChecked(true);
                 if (lunes.contains("lunes"))
                     checkBox.setChecked(true);
@@ -382,13 +401,12 @@ public class AddPillActivity extends ParentClass implements
                     checkBox6.setChecked(true);
                 if (domingo.contains("doming"))
                     checkBox7.setChecked(true);
-            }
-            catch(JSONException exc){
+            } catch (JSONException exc) {
 
             }
-        }
-        else{
+        } else {
             save.setText("Guardar");
+            title.setText("Ingrese el tratamiento");
         }
     }
 
@@ -422,7 +440,10 @@ public class AddPillActivity extends ParentClass implements
         return true;
     }
 
-    public void Mensaje(String msg){
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};
+    public void Mensaje(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    ;
 
 }
