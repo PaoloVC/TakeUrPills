@@ -43,8 +43,19 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/bgColor_findPills"
+        android:background="@color/colorAccent"
         android:text="@string/text_findPills"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/textSize_homeButtons"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btAbout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="?android:attr/colorPressedHighlight"
+        android:text="About"
         android:textColor="@android:color/white"
         android:textSize="@dimen/textSize_homeButtons"
         android:textStyle="bold" />

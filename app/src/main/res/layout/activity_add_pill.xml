@@ -21,7 +21,8 @@
             android:textColor="@android:color/black"
             android:text="@string/tv_addPill_header"
             android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:id="@+id/tv_addPill_title" />
 
         <EditText
             android:id="@+id/et_addPill_titulo"
@@ -145,8 +146,7 @@
             android:id="@+id/horas_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-        </LinearLayout>
+            android:orientation="vertical"></LinearLayout>
 
         <EditText
             android:id="@+id/et_addPill_cantidadRestante"

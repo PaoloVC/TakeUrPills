@@ -143,8 +143,8 @@ public class ListPillsActivity extends ParentClass {
                         intento.putExtra("Dia_7", String.valueOf(objjson.get("Dia_7")));*/
                 startActivity(intento);
                 TextView textView = (TextView) viewClicked;
-                String message = "Tratamiento # " + (1 + position) + ", corresponde a: " + textView.getText().toString();
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                //String message = "Tratamiento # " + (1 + position) + ", corresponde a: " + textView.getText().toString();
+                //Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
             }
         });
     }

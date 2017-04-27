@@ -33,6 +33,8 @@ import static com.una.takeurpills.R.id.viernes;
 public class DetailsActivity extends ParentClass {
     private String unidadMedida = "";
     private int posicion = 0;
+    private String veces = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,62 +90,68 @@ public class DetailsActivity extends ParentClass {
         getSupportActionBar().setTitle(msg);
     }
 
-    public void getData(){
+    public void getData() {
         Intent callingIntent = getIntent();
-        posicion = callingIntent.getIntExtra("posicion",0);
+        posicion = callingIntent.getIntExtra("posicion", 0);
         JSONObject objjson = testjarray.optJSONObject(posicion);
-        try{
+        try {
             String titulo = String.valueOf(objjson.get("titulo"));
             int dosis = Integer.parseInt(String.valueOf(objjson.get("dosis")));
             String unidad = String.valueOf(objjson.get("Unidad"));
             unidadMedida = unidad;
             int cantidadRestante = Integer.parseInt(String.valueOf(objjson.get("cantidadRestante")));
             int reminder = Integer.parseInt(String.valueOf(objjson.get("Reminder")));
+            int vecesDiarias = Integer.parseInt(String.valueOf(objjson.get("vecesDiarias")));
             String lunes = objjson.has("Dia_1")
                     ? String.valueOf(objjson.get("Dia_1"))
-                    :"";
+                    : "";
             String martes = objjson.has("Dia_2")
                     ? String.valueOf(objjson.get("Dia_2"))
-                    :"";
+                    : "";
             String miercoles = objjson.has("Dia_3")
                     ? String.valueOf(objjson.get("Dia_3"))
-                    :"";
+                    : "";
             String jueves = objjson.has("Dia_4")
                     ? String.valueOf(objjson.get("Dia_4"))
-                    :"";
+                    : "";
             String viernes = objjson.has("Dia_5")
                     ? String.valueOf(objjson.get("Dia_5"))
-                    :"";
+                    : "";
             String sabado = objjson.has("Dia_6")
                     ? String.valueOf(objjson.get("Dia_6"))
-                    :"";
+                    : "";
             String domingo = objjson.has("Dia_7")
                     ? String.valueOf(objjson.get("Dia_7"))
-                    :"";
+                    : "";
 
-        TextView Mi_textview = (TextView) findViewById(R.id.tv_detailsPill_nombreTratamiento);
-        TextView Mi_textview2 = (TextView) findViewById(R.id.tv_detailsPill_dosis2);
-        TextView Mi_textview3 = (TextView) findViewById(R.id.tv_detailsPill_cantidadRestante2);
-        TextView Mi_textview4 = (TextView) findViewById(R.id.tv_detailsPill_reminder2);
-        TextView Mi_textview5 = (TextView) findViewById(R.id.tv_detailsPill_frecuencia2);
+            TextView Mi_textview = (TextView) findViewById(R.id.tv_detailsPill_nombreTratamiento);
+            TextView Mi_textview2 = (TextView) findViewById(R.id.tv_detailsPill_dosis2);
+            TextView Mi_textview3 = (TextView) findViewById(R.id.tv_detailsPill_cantidadRestante2);
+            TextView Mi_textview4 = (TextView) findViewById(R.id.tv_detailsPill_reminder2);
+            TextView Mi_textview5 = (TextView) findViewById(R.id.tv_detailsPill_frecuencia2);
+            TextView Mi_textview6 = (TextView) findViewById(R.id.tv_detailsPill_repeticion2);
 
-        Mi_textview.setText(titulo);
-        Mi_textview2.setText((dosis == 1) ? String.valueOf(dosis)+ (unidad.equals("unidades")
-                ? " unidad": " mililitro") :String.valueOf(dosis)+ " "+ unidad);
-        Mi_textview3.setText((cantidadRestante == 1) ? String.valueOf(cantidadRestante)+ (unidad.equals("unidades")
-                ? " unidad": " mililitro") :String.valueOf(cantidadRestante)+ " "+ unidad);
-        Mi_textview4.setText((reminder == 1) ? String.valueOf(reminder)+ (unidad.equals("unidades")
-                ? " unidad": " mililitro") :String.valueOf(reminder)+ " "+ unidad);
-        Mi_textview5.setText("");
-        Mi_textview5.append((!lunes.equals("")) ? String.valueOf(lunes) + "/":String.valueOf("")+"");
-        Mi_textview5.append((!martes.equals("")) ? String.valueOf(martes) + "/":String.valueOf("")+"");
-        Mi_textview5.append((!miercoles.equals("")) ? String.valueOf(miercoles) + "/":String.valueOf("")+"");
-        Mi_textview5.append((!jueves.equals("")) ? String.valueOf(jueves) + "/":String.valueOf("")+"");
-        Mi_textview5.append((!viernes.equals("")) ? String.valueOf(viernes) + "/":String.valueOf("")+"");
-        Mi_textview5.append((!sabado.equals("")) ? String.valueOf(sabado) + "/":String.valueOf("")+"");
-        Mi_textview5.append((!domingo.equals("")) ? String.valueOf(domingo) + ".":String.valueOf("")+"");
-        }
-        catch (Exception exc){
+            Mi_textview.setText(titulo);
+            Mi_textview2.setText((dosis == 1) ? String.valueOf(dosis) + (unidad.equals("Unidades")
+                    ? " unidad" : " mililitro") : String.valueOf(dosis) + " " + unidad);
+            Mi_textview3.setText((cantidadRestante == 1) ? String.valueOf(cantidadRestante) + (unidad.equals("Unidades")
+                    ? " unidad" : " mililitro") : String.valueOf(cantidadRestante) + " " + unidad);
+            Mi_textview4.setText((reminder == 1) ? String.valueOf(reminder) + (unidad.equals("Unidades")
+                    ? " unidad" : " mililitro") : String.valueOf(reminder) + " " + unidad);
+
+            Mi_textview6.setText((vecesDiarias != 1) ? String.valueOf(vecesDiarias) + " veces al dia"
+                    : String.valueOf(vecesDiarias) + " vez al dia");
+            Mi_textview5.setText("");
+            Mi_textview5.append((!lunes.equals("")) ? String.valueOf(lunes) + "/" : String.valueOf("") + "");
+            Mi_textview5.append((!martes.equals("")) ? String.valueOf(martes) + "/" : String.valueOf("") + "");
+            Mi_textview5.append((!miercoles.equals("")) ? String.valueOf(miercoles) + "/" : String.valueOf("") + "");
+            Mi_textview5.append((!jueves.equals("")) ? String.valueOf(jueves) + "/" : String.valueOf("") + "");
+            Mi_textview5.append((!viernes.equals("")) ? String.valueOf(viernes) + "/" : String.valueOf("") + "");
+            Mi_textview5.append((!sabado.equals("")) ? String.valueOf(sabado) + "/" : String.valueOf("") + "");
+            Mi_textview5.append((!domingo.equals("")) ? String.valueOf(domingo) + "." : String.valueOf("") + "");
+
+
+        } catch (Exception exc) {
         }
     }
 
@@ -231,7 +239,7 @@ public class DetailsActivity extends ParentClass {
                         //Transicion de datos
                         modo = 1;
                         Intent intento = new Intent(getApplicationContext(), AddPillActivity.class);
-                        intento.putExtra("posicion",posicion);
+                        intento.putExtra("posicion", posicion);
                         /*intento.putExtra("edicion", 1);
                         intento.putExtra("titulo", Mi_textview.getText());
                         intento.putExtra("dosis", dosisN);
@@ -254,26 +262,27 @@ public class DetailsActivity extends ParentClass {
         });
     }// fin de OnclickDelButton
 
-    private void RemoveObj(){
+    private void RemoveObj() {
         final int len = testjarray.length();
         JSONArray list = new JSONArray();
         if (testjarray != null)
-            for (int i=0;i<len;i++)
+            for (int i = 0; i < len; i++)
                 if (i != posicion)
                     list.put(testjarray.optJSONObject(i));
         writeToFile(list.toString());
     }
+
     private void writeToFile(String data) {
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput("data.txt", Context.MODE_PRIVATE));
             outputStreamWriter.write(data);
             outputStreamWriter.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
-    public String splitNumbers(String cadena){
-        return cadena.replaceAll("[^0-9]","");
+
+    public String splitNumbers(String cadena) {
+        return cadena.replaceAll("[^0-9]", "");
     }
 }

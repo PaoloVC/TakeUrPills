@@ -1,10 +1,11 @@
 package com.una.takeurpills;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
 
 import static android.R.attr.onClick;
 
@@ -17,6 +18,7 @@ public class HomeActivity extends ParentClass {
         OnClickButton(R.id.btListPills);
         OnClickButton(R.id.btAddPills);
         OnClickButton(R.id.btFindPills);
+        OnClickButton(R.id.btAbout);
     }// fin onCreate
     public void OnClickButton(int ref){
         View view = findViewById(ref);
@@ -38,6 +40,10 @@ public class HomeActivity extends ParentClass {
                     case R.id.btFindPills:
                         Intent intento3 = new Intent(getApplicationContext(), FindPillsActivity.class);
                         startActivity(intento3);
+                        break;
+                    case R.id.btAbout:
+                        Intent intento4 = new Intent(getApplicationContext(), AboutActivity.class);
+                        startActivity(intento4);
                         break;
                     default: break;
                 }// fin switch
