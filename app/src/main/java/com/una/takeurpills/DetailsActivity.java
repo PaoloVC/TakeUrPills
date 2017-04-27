@@ -37,9 +37,10 @@ public class DetailsActivity extends ParentClass {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.pill_logo);
+        getSupportActionBar().setTitle("Details");
         getData();
-        Mensaje("Detalles del Tratamiento");
         Button cancelar = (Button) findViewById(R.id.bt_detailsPill_delete);
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +70,7 @@ public class DetailsActivity extends ParentClass {
                 break;
 
             case R.id.back:
+                this.onBackPressed();
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
                 break;

@@ -51,6 +51,9 @@ public class AddPillActivity extends ParentClass implements
         setContentView(R.layout.activity_add_pill);
         jobject= new JSONObject();
         CargarSpinner();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.pill_logo);
+        getSupportActionBar().setTitle("Add");
         getData();
         OnclickDelButton(R.id.btAddPillsCancelar);
         OnclickDelButton(R.id.btAddPillsSave);
@@ -411,6 +414,7 @@ public class AddPillActivity extends ParentClass implements
                 break;
 
             case R.id.back:
+                this.onBackPressed();
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
                 break;

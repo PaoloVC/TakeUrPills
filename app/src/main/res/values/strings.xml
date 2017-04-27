@@ -5,6 +5,9 @@
     <string name="text_listPills">list pills</string>
     <string name="text_addPills">add pills</string>
     <string name="text_findPills">find pills</string>
+    <string name="details_activity">Details</string>
+    <string name="list_activity">Treatments</string>
+    <string name="add_activity">Add</string>
     <string name="et_addPill_titulo_hint">Título</string>
     <string name="et_addPill_dosis_hint">Dosis</string>
     <string name="rg_addPill_unidadMedida_title">Unidad de Medida</string>
@@ -50,5 +53,7 @@
     <string name="home_icon">Home</string>
     <string name="return_icon">Go Back</string>
     <string name="settings_icon">Settings</string>
+    <string name="settings_first">First Opt</string>
+    <string name="settings_second">Second Opt</string>
 
 </resources>

@@ -16,6 +16,19 @@
 
     <item android:id="@+id/action_settings"
         android:title="@string/settings_icon"
-        app:showAsAction="never"/>
+        app:showAsAction="never">
+            <menu>
+                <item android:id="@+id/primera"
+                android:title="@string/settings_first" />
+                <item android:id="@+id/segunda"
+                    android:title="@string/settings_second" />
+            </menu>
+    </item>
+
+    <item android:id="@+id/action_settings1"
+        android:title="@string/return_icon" />
+
+    <item android:id="@+id/action_settings2"
+        android:title="@string/return_icon" />
 
 </menu>

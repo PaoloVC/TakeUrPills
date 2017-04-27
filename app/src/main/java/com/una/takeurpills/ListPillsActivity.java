@@ -40,7 +40,9 @@ public class ListPillsActivity extends ParentClass {
         FillListView();
         OnClickListItems();
 
-        Mensaje("Listado de Tratamientos");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.pill_logo);
+        getSupportActionBar().setTitle("Treatments");
 
 
     } // Fin del Oncreate de la Actividad 01
@@ -62,6 +64,7 @@ public class ListPillsActivity extends ParentClass {
                 break;
 
             case R.id.back:
+                this.onBackPressed();
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
                 break;
