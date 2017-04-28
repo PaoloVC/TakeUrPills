@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 import static android.R.attr.onClick;
@@ -50,4 +51,13 @@ public class HomeActivity extends ParentClass {
             }// fin onClick
         });
     }// fin OnClickButton
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }// fin Activity
