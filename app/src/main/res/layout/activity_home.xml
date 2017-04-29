@@ -55,7 +55,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="?android:attr/colorPressedHighlight"
-        android:text="About"
+        android:text="@string/bt_home_about"
         android:textColor="@android:color/white"
         android:textSize="@dimen/textSize_homeButtons"
         android:textStyle="bold" />
