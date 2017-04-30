@@ -53,6 +53,7 @@
     <string name="title_activity_find_pills">Map</string>
     <string name="home_icon">Home</string>
     <string name="return_icon">Go Back</string>
+    <string name="sign_out">Sign Out</string>
     <string name="settings_icon">Settings</string>
     <string name="settings_first">First Opt</string>
     <string name="settings_second">Second Opt</string>

@@ -2,6 +2,8 @@ package com.una.takeurpills;
 
 import android.support.v7.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import org.json.JSONArray;
 
 /**
@@ -9,6 +11,7 @@ import org.json.JSONArray;
  */
 
 public class ParentClass extends AppCompatActivity {
+    static FirebaseAuth mAuth;
     static JSONArray testjarray = new JSONArray();
     static int modo = 0;
 }

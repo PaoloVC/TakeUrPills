@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseUser;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,7 +70,11 @@ public class ListPillsActivity extends ParentClass {
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
                 break;
-
+            case R.id.sign_out:
+                mAuth.signOut();
+                finish();
+                intento = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intento);
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -76,6 +82,16 @@ public class ListPillsActivity extends ParentClass {
 
         }
         return true;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null ){
+            Intent intento = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intento);
+        }
     }
 
     //Aca se pueden cargar los tratamientos desde el Json  del app, pero solo los nombres (posible a cambios)
