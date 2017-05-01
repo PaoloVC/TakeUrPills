@@ -191,6 +191,8 @@ public class AddPillActivity extends ParentClass implements
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
+                LinearLayout ll1 = (LinearLayout) findViewById(R.id.horas_list);
+                ll1.removeAllViews();
                 for (int i = 0; i < position; i++) {
                     Button myButton = new Button(getApplicationContext());
                     myButton.setText("(+) Agregar Hora");
@@ -227,9 +229,13 @@ public class AddPillActivity extends ParentClass implements
                         button.setText(hourOfDay + ":" + minute);
                         try {
                             String text = button.getText().toString();
-                            jobject.put("hora" + i, text);
+                            if(jobject == null) jobject = new JSONObject();
+                            jobject.put("hora" + String.valueOf(i), text);
                         } catch (JSONException e) {
                             Log.e("Exception", "Unable to create JSONArray: " + e.toString());
+                        }
+                        catch (Exception exc){
+                            Log.e("Exception", "Unable to create JSONArray: " + exc.toString());
                         }
                     }
                 }, mHour, mMinute, false);
