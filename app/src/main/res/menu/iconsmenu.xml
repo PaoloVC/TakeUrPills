@@ -25,8 +25,8 @@
             </menu>
     </item>
 
-    <item android:id="@+id/action_settings1"
-        android:title="@string/return_icon" />
+    <item android:id="@+id/sign_out"
+        android:title="@string/sign_out" />
 
     <item android:id="@+id/action_settings2"
         android:title="@string/return_icon" />

@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
+import com.google.firebase.auth.FirebaseUser;
+
 import static android.R.attr.onClick;
 
 public class HomeActivity extends ParentClass {
@@ -51,6 +53,16 @@ public class HomeActivity extends ParentClass {
             }// fin onClick
         });
     }// fin OnClickButton
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null ){
+            Intent intento = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intento);
+        }
+    }
 
     @Override
     public void onBackPressed() {
