@@ -130,6 +130,7 @@ public class DetailsActivity extends ParentClass {
             TextView Mi_textview4 = (TextView) findViewById(R.id.tv_detailsPill_reminder2);
             TextView Mi_textview5 = (TextView) findViewById(R.id.tv_detailsPill_frecuencia2);
             TextView Mi_textview6 = (TextView) findViewById(R.id.tv_detailsPill_repeticion2);
+            TextView Mi_textview7 = (TextView) findViewById(R.id.tv_detailsPill_horas2);
 
             Mi_textview.setText(titulo);
             Mi_textview2.setText((dosis == 1) ? String.valueOf(dosis) + (unidad.equals("Unidades")
@@ -142,14 +143,87 @@ public class DetailsActivity extends ParentClass {
             Mi_textview6.setText((vecesDiarias != 1) ? String.valueOf(vecesDiarias) + " veces al dia"
                     : String.valueOf(vecesDiarias) + " vez al dia");
             Mi_textview5.setText("");
-            Mi_textview5.append((!lunes.equals("")) ? String.valueOf(lunes) + "/" : String.valueOf("") + "");
-            Mi_textview5.append((!martes.equals("")) ? String.valueOf(martes) + "/" : String.valueOf("") + "");
-            Mi_textview5.append((!miercoles.equals("")) ? String.valueOf(miercoles) + "/" : String.valueOf("") + "");
-            Mi_textview5.append((!jueves.equals("")) ? String.valueOf(jueves) + "/" : String.valueOf("") + "");
-            Mi_textview5.append((!viernes.equals("")) ? String.valueOf(viernes) + "/" : String.valueOf("") + "");
-            Mi_textview5.append((!sabado.equals("")) ? String.valueOf(sabado) + "/" : String.valueOf("") + "");
-            Mi_textview5.append((!domingo.equals("")) ? String.valueOf(domingo) + "." : String.valueOf("") + "");
+            Mi_textview5.append((!lunes.equals("")) ? String.valueOf(lunes) + " / " : String.valueOf("") + "");
+            Mi_textview5.append((!martes.equals("")) ? String.valueOf(martes) + " / " : String.valueOf("") + "");
+            Mi_textview5.append((!miercoles.equals("")) ? String.valueOf(miercoles) + " / " : String.valueOf("") + "");
+            Mi_textview5.append((!jueves.equals("")) ? String.valueOf(jueves) + " / " : String.valueOf("") + "");
+            Mi_textview5.append((!viernes.equals("")) ? String.valueOf(viernes) + " / " : String.valueOf("") + "");
+            Mi_textview5.append((!sabado.equals("")) ? String.valueOf(sabado) + " / " : String.valueOf("") + "");
+            Mi_textview5.append((!domingo.equals("")) ? String.valueOf(domingo) + "o ." : String.valueOf("") + "");
 
+
+            //Esto es para quitar el "/" del final
+            String diasFinales = Mi_textview5.getText().toString();
+            diasFinales = diasFinales.substring(0, diasFinales.length() - 2);
+            Mi_textview5.setText(diasFinales);
+
+            //Esto es para setear la hora a 12 horas.
+            Mi_textview7.setText("");
+            for (int i = 0; i < vecesDiarias; i++) {
+                String horas = String.valueOf(objjson.get("hora" + i));
+                //String hora = horas.substring(0, 2);
+                String hora = getHours(horas);
+                //String minutos = horas.substring(2, horas.length());
+                String minutos = getMinutes(horas);
+                int doceHoras = Integer.parseInt(hora);
+                if (doceHoras >= 12) {
+                    switch (doceHoras) {
+                        case 13:
+                            hora = "01";
+                            break;
+                        case 14:
+                            hora = "02";
+                            break;
+                        case 15:
+                            hora = "03";
+                            break;
+                        case 16:
+                            hora = "04";
+                            break;
+                        case 17:
+                            hora = "05";
+                            break;
+                        case 18:
+                            hora = "06";
+                            break;
+                        case 19:
+                            hora = "07";
+                            break;
+                        case 20:
+                            hora = "08";
+                            break;
+                        case 21:
+                            hora = "09";
+                            break;
+                        case 22:
+                            hora = "10";
+                            break;
+                        case 23:
+                            hora = "11";
+                            break;
+                        default:
+                            break;
+                    }
+                    horas = hora + ":" +minutos + " pm";
+                } else {
+                    if (doceHoras == 0) {
+                        hora = "12";
+                        horas = hora + ":" + minutos + " am";
+                    } else
+                        horas = hora + ":" + minutos + " am";
+                }
+
+                Mi_textview7.append((!horas.equals("")) ? String.valueOf(horas) + "/" : String.valueOf("") + "");
+
+                //Esto es para quitar el "/" del final
+                if (i == vecesDiarias - 1) {
+                    String horasFinal = Mi_textview7.getText().toString();
+                    horasFinal = horasFinal.substring(0, horasFinal.length() - 1);
+                    Mi_textview7.setText(horasFinal);
+                }
+
+
+            }
 
         } catch (Exception exc) {
         }
@@ -284,5 +358,28 @@ public class DetailsActivity extends ParentClass {
 
     public String splitNumbers(String cadena) {
         return cadena.replaceAll("[^0-9]", "");
+    }
+
+    public String getHours(String cadena) {
+        String hora = "";
+        for (int i = 0; cadena.charAt(i) != ':'; i++) {
+            hora = hora + cadena.charAt(i);
+        }
+        if(hora.length() < 2)
+            hora = "0" + hora;
+        return hora;
+    }
+
+    public String getMinutes(String cadena) {
+        String minutos = "";
+        for (int i = 0; i < cadena.length(); i++) {
+            if (cadena.charAt(i) == ':') {
+                minutos = cadena.substring(i+1, cadena.length());
+                if (minutos.length() < 2)
+                    minutos = "0" + minutos;
+                break;
+            }
+        }
+        return minutos;
     }
 }
