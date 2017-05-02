@@ -141,7 +141,7 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
         if (null != locationAvailability && locationAvailability.isLocationAvailable()) {
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (mLastLocation != null) {
-                LatLng currentLocation = new LatLng(37.77657, -122.417506);
+                LatLng currentLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
                 //add pin at user's location
                 placeUserMarkerOnMap(currentLocation);
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
@@ -158,7 +158,7 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
 
     private void showNearbyPlaces(){
         String url;
-        url = getUrl(37.77657, -122.417506, "pharmacy");
+        url = getUrl(mLastLocation.getLatitude(), mLastLocation.getLongitude(), "Farmacia");
         getNearbyPlaces(url);
     }
 
@@ -203,7 +203,7 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
         for (int i = 0; i < nearbyPlacesList.size(); i++) {
             Log.d("onPostExecute","Entered into showing locations");
             MarkerOptions markerOptions = new MarkerOptions();
-            final HashMap<String, String> googlePlace = nearbyPlacesList.get(i);
+            HashMap<String, String> googlePlace = nearbyPlacesList.get(i);
             double lat = Double.parseDouble(googlePlace.get("lat"));
             double lng = Double.parseDouble(googlePlace.get("lng"));
             String placeName = googlePlace.get("place_name");
@@ -213,14 +213,8 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
             markerOptions.title(placeName);
             markerOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_pills_location)));
             mMap.addMarker(markerOptions);
-            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                @Override
-                public boolean onMarkerClick(Marker marker) {
-                    Mensaje(googlePlace.get("vicinity"));
-                    return false;
-                }
-            });
         }
+
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
