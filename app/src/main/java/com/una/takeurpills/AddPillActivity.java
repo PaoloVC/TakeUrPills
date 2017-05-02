@@ -252,7 +252,85 @@ public class AddPillActivity extends ParentClass implements
                 if (String.valueOf(jobject.get("titulo")).toString().equals(nombre)) {
                     EditText tituloPastilla = (EditText) findViewById(R.id.et_addPill_titulo);
                     String tituloPastilla1 = tituloPastilla.getText().toString();
+
+                    EditText dosis = (EditText) findViewById(R.id.et_addPill_dosis);
+                    String dosis1 = dosis.getText().toString();
+                    RadioButton mililitros = (RadioButton) findViewById(R.id.mililitros);
+                    RadioButton unidades = (RadioButton) findViewById(R.id.unidades);
+                    Spinner spinner = (Spinner) findViewById(R.id.VecesDiarias);
+                    String vecesDiarias = spinner.getSelectedItem().toString();
+                    int vecesDiarias2 = Integer.parseInt(vecesDiarias);
+                    CheckBox lunes = (CheckBox) findViewById(R.id.lunes);
+                    CheckBox martes = (CheckBox) findViewById(R.id.martes);
+                    CheckBox miercoles = (CheckBox) findViewById(R.id.miercoles);
+                    CheckBox jueves = (CheckBox) findViewById(R.id.jueves);
+                    CheckBox viernes = (CheckBox) findViewById(R.id.viernes);
+                    CheckBox sabado = (CheckBox) findViewById(R.id.sabado);
+                    CheckBox domingo = (CheckBox) findViewById(R.id.domingo);
+                    EditText cantidadRestante = (EditText) findViewById(R.id.et_addPill_cantidadRestante);
+                    String cantidadRestante1 = cantidadRestante.getText().toString();
+                    EditText reminder = (EditText) findViewById(R.id.et_addPill_reminder);
+                    String reminder1 = reminder.getText().toString();
+
+
                     obj.put("titulo", tituloPastilla1);
+                    obj.put("dosis", dosis1);
+                    obj.put("cantidadRestante", cantidadRestante1);
+                    obj.put("vecesDiarias", vecesDiarias);
+                    obj.put("Reminder", reminder1);
+                    if (mililitros.isChecked())
+                        obj.put("Unidad", "Mililitros");
+                    if (unidades.isChecked())
+                        obj.put("Unidad", "Unidades");
+                    if (lunes.isChecked()) {
+                        obj.put("Dia_1", "lunes");
+                    }
+                    else{
+                        obj.remove("Dia_1");
+                    }
+                    if (martes.isChecked()) {
+                        obj.put("Dia_2", "martes");
+                    }
+                    else{
+                        obj.remove("Dia_2");
+                    }
+                    if (miercoles.isChecked()) {
+                        obj.put("Dia_3", "miercoles");
+                    }
+                    else{
+                        obj.remove("Dia_3");
+                    }
+                    if (jueves.isChecked()) {
+                        obj.put("Dia_4", "jueves");
+                    }
+                    else{
+                        obj.remove("Dia_4");
+                    }
+                    if (viernes.isChecked()) {
+                        obj.put("Dia_5", "viernes");
+                    }
+                    else{
+                        obj.remove("Dia_5");
+                    }
+                    if (sabado.isChecked()) {
+                        obj.put("Dia_6", "sabado");
+                    }
+                    else{
+                        obj.remove("Dia_6");
+                    }
+                    if (domingo.isChecked()) {
+                        obj.put("Dia_7", "doming");
+                    }
+                    else{
+                        obj.remove("Dia_7");
+                    }
+
+                    //Para agregar hora editada
+                    /*for (int y = 0; y < vecesDiarias2; y++) {
+                        String horas = String.valueOf(obj.get("hora" + i));
+                        obj.put("hora" + String.valueOf(y), horas);
+
+                    }*/
                     writeToFile(testjarray.toString());
                     Mensaje("Objeto Modificado con Éxito!");
                 }
