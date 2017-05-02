@@ -9,7 +9,7 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:layout_weight="5"
+    android:layout_weight="4"
     tools:context="com.una.takeurpills.FindPillsActivity" />
 
     <LinearLayout
@@ -23,21 +23,24 @@
         <TextView
             android:id="@+id/tv_maps_location_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Farmacia Santa Catalina"/>
+            android:paddingLeft="@dimen/padding_map_tv_placeInfo"
+            android:paddingRight="@dimen/padding_map_tv_placeInfo"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/tv_maps_location_address"
+            android:paddingLeft="@dimen/padding_map_tv_placeInfo"
+            android:paddingRight="@dimen/padding_map_tv_placeInfo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Del mas x menos de San Pablo 200 mts Este y 50 mts Sur."/>
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/tv_maps_location_phone"
+            android:paddingLeft="@dimen/padding_map_tv_placeInfo"
+            android:paddingRight="@dimen/padding_map_tv_placeInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autoLink="phone"
-            android:text="70170442"/>
+            android:autoLink="phone" />
 
     </LinearLayout>
 

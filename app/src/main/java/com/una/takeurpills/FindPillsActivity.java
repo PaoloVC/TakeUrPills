@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -21,8 +22,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBuffer;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -32,6 +37,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.location.LocationListener;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -64,6 +70,7 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
+                    .addApi(Places.GEO_DATA_API)
                     .build();
         }
     }
@@ -208,21 +215,57 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
             double lng = Double.parseDouble(googlePlace.get("lng"));
             String placeName = googlePlace.get("place_name");
             String vicinity = googlePlace.get("vicinity");
+            String placeId = googlePlace.get("placeId");
             LatLng latLng = new LatLng(lat, lng);
             markerOptions.position(latLng);
             markerOptions.title(placeName);
             markerOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_pills_location)));
-            mMap.addMarker(markerOptions);
+            Marker marker = mMap.addMarker(markerOptions);
+            marker.setTag(placeId);
         }
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                LinearLayout detailsMarker = (LinearLayout) findViewById(R.id.layout_map_location_details);
-                detailsMarker.setVisibility(View.VISIBLE);
+                String id = (String) marker.getTag();
+                getPlace(id);
+                //Mensaje(id);
                 return false;
             }
         });
+    }
+
+    private void getPlace(String placeId){
+        if(placeId != null) {
+            Places.GeoDataApi.getPlaceById(mGoogleApiClient, placeId)
+                    .setResultCallback(new ResultCallback<PlaceBuffer>() {
+                        @Override
+                        public void onResult(PlaceBuffer places) {
+                            if (places.getStatus().isSuccess() && places.getCount() > 0) {
+                                Place myPlace = places.get(0);
+                                String myPlaceName = (String) myPlace.getName();
+                                String myPlaceAddress = (String) myPlace.getAddress();
+                                String myPlacePhone = (String) myPlace.getPhoneNumber();
+                                updatePlaceInfo(myPlaceName, myPlaceAddress, myPlacePhone);
+                                Log.d("myPlaceInfo", myPlaceName + ", " + myPlaceAddress + ", " + myPlacePhone);
+                            } else {
+                                Mensaje("Lugar no encontrado");
+                            }
+                            places.release();
+                        }
+                    });
+        }
+    }
+
+    private void updatePlaceInfo(String name, String address, String phone){
+        LinearLayout detailsMarker = (LinearLayout) findViewById(R.id.layout_map_location_details);
+        detailsMarker.setVisibility(View.VISIBLE);
+        TextView tvName = (TextView) findViewById(R.id.tv_maps_location_name);
+        TextView tvAddress = (TextView) findViewById(R.id.tv_maps_location_address);
+        TextView tvPhone = (TextView) findViewById(R.id.tv_maps_location_phone);
+        tvName.setText(name);
+        tvAddress.setText(address);
+        tvPhone.setText(phone);
     }
 
     public void Mensaje(String msg) {
