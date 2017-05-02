@@ -9,6 +9,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -211,6 +213,14 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
             markerOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_pills_location)));
             mMap.addMarker(markerOptions);
         }
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                LinearLayout detailsMarker = (LinearLayout) findViewById(R.id.layout_map_location_details);
+                detailsMarker.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
     }
 
     public void Mensaje(String msg) {
