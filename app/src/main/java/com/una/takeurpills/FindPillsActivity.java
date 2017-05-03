@@ -248,7 +248,10 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
                                 String myPlaceName = (String) myPlace.getName();
                                 String myPlaceAddress = (String) myPlace.getAddress();
                                 String myPlacePhone = (String) myPlace.getPhoneNumber();
-                                updatePlaceInfo(myPlaceName, myPlaceAddress, myPlacePhone);
+                                float rating = (Float) myPlace.getRating();
+                                int price_level = (Integer) myPlace.getPriceLevel();
+                                String sitio_Web = String.valueOf(myPlace.getWebsiteUri());
+                                updatePlaceInfo(myPlaceName, myPlaceAddress, myPlacePhone,sitio_Web,rating,price_level);
                                 Log.d("myPlaceInfo", myPlaceName + ", " + myPlaceAddress + ", " + myPlacePhone);
                             } else {
                                 Mensaje("Lugar no encontrado");
@@ -259,15 +262,21 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
         }
     }
 
-    private void updatePlaceInfo(String name, String address, String phone){
+    private void updatePlaceInfo(String name, String address, String phone,String sitioWeb,float rating,int price_Level){
         LinearLayout detailsMarker = (LinearLayout) findViewById(R.id.layout_map_location_details);
         detailsMarker.setVisibility(View.VISIBLE);
         TextView tvName = (TextView) findViewById(R.id.tv_maps_location_name);
         TextView tvAddress = (TextView) findViewById(R.id.tv_maps_location_address);
         TextView tvPhone = (TextView) findViewById(R.id.tv_maps_location_phone);
+        TextView page = (TextView) findViewById(R.id.tv_maps_sitioWeb);
+        TextView valuation = (TextView) findViewById(R.id.tv_maps_rating);
+        TextView expensive_cheap = (TextView) findViewById(R.id.tv_maps_price_Level);
         tvName.setText(name);
         tvAddress.setText(address);
         tvPhone.setText(phone);
+        page.setText(sitioWeb.equals("null")? "Sitio Web No Disponible" : sitioWeb);
+        valuation.setText(String.valueOf(rating));
+        expensive_cheap.setText(String.valueOf(price_Level));
     }
 
     public void Mensaje(String msg) {
