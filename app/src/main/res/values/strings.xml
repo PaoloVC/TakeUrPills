@@ -71,4 +71,15 @@
     <string name="permission_rationale">"Se requiere permiso a los contactos para esta operación."</string>
     <string name="bt_home_about">Acerca</string>
 
+    <!-- Strings related to Maps -->
+    <string name="map_zeroResult_message">No hay farmacias cerca.</string>
+    <string name="map_placeNotFound_message">Información de lugar no disponible.</string>
+    <string name="map_noWebsite_text">No hay sitio web disponible.</string>
+    <string name="map_noRate_text">No hay calificación disponible.</string>
+    <string name="map_noPrice_text">No hay precio disponible.</string>
+    <string name="map_ratingTag_text">Calificación: </string>
+    <string name="map_priceTag_text">Precio: </string>
+    <string name="map_details_header">Detalles Farmacia</string>
+    <string name="map_noPhone_text">No Teléfono Disponible.</string>
+
 </resources>
