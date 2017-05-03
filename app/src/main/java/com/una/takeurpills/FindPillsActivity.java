@@ -148,7 +148,8 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
         if (null != locationAvailability && locationAvailability.isLocationAvailable()) {
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (mLastLocation != null) {
-                LatLng currentLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                LatLng currentLocation = new LatLng(10.0024, -84.1198);
+                //LatLng currentLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
                 //add pin at user's location
                 placeUserMarkerOnMap(currentLocation);
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
@@ -165,7 +166,8 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
 
     private void showNearbyPlaces(){
         String url;
-        url = getUrl(mLastLocation.getLatitude(), mLastLocation.getLongitude(), "Farmacia");
+        url = getUrl(10.0024, -84.1198, "pharmacy");
+        //url = getUrl(mLastLocation.getLatitude(), mLastLocation.getLongitude(), "pharmacy");
         getNearbyPlaces(url);
     }
 
