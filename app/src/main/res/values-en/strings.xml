@@ -74,4 +74,15 @@
         completions."
     </string>
     <string name="bt_home_about">About</string>
+
+    <!-- Strings related to Maps -->
+    <string name="map_zeroResult_message">No farmacies found nearby.</string>
+    <string name="map_placeNotFound_message">Place information not available.</string>
+    <string name="map_noWebsite_text">No website available.</string>
+    <string name="map_noRate_text">No rating available.</string>
+    <string name="map_noPrice_text">No price available.</string>
+    <string name="map_ratingTag_text">Rating: </string>
+    <string name="map_priceTag_text">Price: </string>
+    <string name="map_details_header">Farmacy Details</string>
+    <string name="map_noPhone_text">No Phone Number Available.</string>
 </resources>
