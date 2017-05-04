@@ -1,11 +1,14 @@
 package com.una.takeurpills;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,6 +34,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.una.takeurpills.R.layout.dialog;
 
 public class ListPillsActivity extends ParentClass {
     //private JSONArray testjarray;
@@ -122,10 +127,34 @@ public class ListPillsActivity extends ParentClass {
                 "Ibuprofeno",
                 "Flumocil"
         };
+        /*ArrayAdapter<String> adaptador = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1, ((test[0].equals("")) ? pills : test));*/
+        if(test[0].equals("")) DialogAviso();
         ArrayAdapter<String> adaptador = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1, ((test[0].equals("")) ? pills : test));
+                android.R.layout.simple_list_item_1, (test));
         ListView milistview = (ListView) findViewById(R.id.listPills);
         milistview.setAdapter(adaptador);
+    }
+
+    public void DialogAviso(){
+        LayoutInflater inflater=LayoutInflater.from(getApplicationContext());
+        View customTitle=inflater.inflate(dialog, null);
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(ListPillsActivity.this);
+        builder1.setCustomTitle(customTitle);
+        //TextView title = (TextView) customTitle.findViewById(R.id.customtitlebar);
+        //title.setText("New Title");
+        //builder1.setMessage("No Posees Tratamientos todavia");
+        builder1.setMessage(R.string.empty_treatment);
+        builder1.setIcon(R.drawable.warning);
+        builder1.setCancelable(true);
+        builder1.setPositiveButton(R.string.close,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {MensajeToast("Closing Dialog"); } });
+        /*builder1.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {Mensaje("negativo"); } });*/
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 
     //Se cambia este metodo para enviar a pantalla de Detalles del tratamiento
@@ -247,5 +276,7 @@ public class ListPillsActivity extends ParentClass {
     }
 
     ;
+
+    public void MensajeToast(String msg){Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};
 
 }

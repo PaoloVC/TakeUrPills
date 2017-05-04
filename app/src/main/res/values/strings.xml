@@ -56,6 +56,9 @@
     <string name="settings_first">Primer Opc</string>
     <string name="settings_second">Segunda Opc</string>
     <string name="title_activity_login">Registrarse</string>
+    <string name="warning">Aviso</string>
+    <string name="empty_treatment">Actualmete no posee ningun medicamento</string>
+    <string name="close">Cerrar</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Correo Electrónico</string>
