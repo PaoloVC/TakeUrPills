@@ -1,5 +1,8 @@
 package com.una.takeurpills;
 
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -34,9 +37,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Calendar;
 
-import static com.una.takeurpills.R.id.lunes;
-import static com.una.takeurpills.R.string.tv_addPill_header;
-
 public class AddPillActivity extends ParentClass implements
         View.OnClickListener {
 
@@ -44,7 +44,6 @@ public class AddPillActivity extends ParentClass implements
     private int mHour, mMinute;
     JSONObject jobject;
     int i;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -220,6 +219,7 @@ public class AddPillActivity extends ParentClass implements
         final Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
+
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                 new TimePickerDialog.OnTimeSetListener() {
 
@@ -228,9 +228,21 @@ public class AddPillActivity extends ParentClass implements
                                           int minute) {
                         button.setText(hourOfDay + ":" + minute);
                         try {
+
+                            c.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                            c.set(Calendar.MINUTE,minute);
+                            c.set(Calendar.SECOND,0);
                             String text = button.getText().toString();
                             if(jobject == null) jobject = new JSONObject();
                             jobject.put("hora" + String.valueOf(i), text);
+                            Intent intent = new Intent(getApplicationContext(),AlarmReceiver.class);
+                            final int _id = (int) System.currentTimeMillis();
+                            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),
+                                    _id, intent,PendingIntent.FLAG_ONE_SHOT);
+                            AlarmManager am =
+                                    (AlarmManager)getSystemService(Activity.ALARM_SERVICE);
+                            am.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),
+                                    pendingIntent);
                         } catch (JSONException e) {
                             Log.e("Exception", "Unable to create JSONArray: " + e.toString());
                         }
@@ -240,7 +252,6 @@ public class AddPillActivity extends ParentClass implements
                     }
                 }, mHour, mMinute, false);
         timePickerDialog.show();
-
     }
 
     private void Editar() {

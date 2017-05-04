@@ -70,5 +70,6 @@
     <string name="auth_failed">Fallo de autentificación</string>
     <string name="permission_rationale">"Se requiere permiso a los contactos para esta operación."</string>
     <string name="bt_home_about">Acerca</string>
-
+    <string name="stop_alarm"> Stop </string>
+    <string name= "reminder">Es hora de tu pastilla!</string>
 </resources>
