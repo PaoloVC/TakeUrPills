@@ -1,5 +1,7 @@
 package com.una.takeurpills;
 
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,8 +11,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,21 +23,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseUser;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.una.takeurpills.R.layout.dialog;
 
@@ -88,7 +87,7 @@ public class ListPillsActivity extends ParentClass {
         }
         return true;
     }
-
+/*
     @Override
     public void onStart() {
         super.onStart();
@@ -98,7 +97,7 @@ public class ListPillsActivity extends ParentClass {
             startActivity(intento);
         }
     }
-
+*/
     //Aca se pueden cargar los tratamientos desde el Json  del app, pero solo los nombres (posible a cambios)
     private void FillListView() {
         String[] test = null;
@@ -277,6 +276,7 @@ public class ListPillsActivity extends ParentClass {
 
     ;
 
-    public void MensajeToast(String msg){Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};
+    public void MensajeToast(String msg){
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};
 
 }
