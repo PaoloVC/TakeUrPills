@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
@@ -30,7 +31,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -70,6 +73,7 @@ public class AddPillActivity extends ParentClass implements
 
                     case R.id.btAddPillsSave:
                         Button save = (Button) findViewById(R.id.btAddPillsSave);
+                        String text = save.getText().toString();
                         if (save.getText().toString().equals("Guardar")) {
                             String mili, uni;
                             EditText tituloPastilla = (EditText) findViewById(R.id.et_addPill_titulo);
@@ -350,8 +354,35 @@ public class AddPillActivity extends ParentClass implements
         }
     }
 
+    /* Checks if external storage is available for read and write */
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
     private void writeToFile(String data) {
         try {
+            if(isExternalStorageWritable()) {
+                File tarjeta = Environment.getExternalStorageDirectory();
+                File file = new File(tarjeta.getAbsolutePath(), "dataExter.txt");
+                OutputStreamWriter osw = new OutputStreamWriter(
+                        new FileOutputStream(file));
+                osw.write(data);
+                osw.close();
+            }
+
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput("data.txt", Context.MODE_PRIVATE));
             outputStreamWriter.write(data);
             outputStreamWriter.close();
@@ -503,7 +534,7 @@ public class AddPillActivity extends ParentClass implements
 
             }
         } else {
-            save.setText("Guardar");
+            save.setText(R.string.bt_save);
             title.setText("Ingrese el tratamiento");
         }
     }
