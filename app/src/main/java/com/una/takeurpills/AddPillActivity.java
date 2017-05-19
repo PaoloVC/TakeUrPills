@@ -40,6 +40,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Calendar;
 
+import static android.R.attr.value;
+
 public class AddPillActivity extends ParentClass implements
         View.OnClickListener {
 
@@ -55,7 +57,7 @@ public class AddPillActivity extends ParentClass implements
         CargarSpinner();
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.pill_logo);
-        getSupportActionBar().setTitle("Add");
+        getSupportActionBar().setTitle(R.string.title_save);
         getData();
         OnclickDelButton(R.id.btAddPillsCancelar);
         OnclickDelButton(R.id.btAddPillsSave);
@@ -74,69 +76,9 @@ public class AddPillActivity extends ParentClass implements
                     case R.id.btAddPillsSave:
                         Button save = (Button) findViewById(R.id.btAddPillsSave);
                         String text = save.getText().toString();
-                        if (save.getText().toString().equals("Guardar")) {
-                            String mili, uni;
-                            EditText tituloPastilla = (EditText) findViewById(R.id.et_addPill_titulo);
-                            String tituloPastilla1 = tituloPastilla.getText().toString();
-                            EditText dosis = (EditText) findViewById(R.id.et_addPill_dosis);
-                            String dosis1 = dosis.getText().toString();
-                            RadioButton mililitros = (RadioButton) findViewById(R.id.mililitros);
-
-                            RadioButton unidades = (RadioButton) findViewById(R.id.unidades);
-                            Spinner spinner = (Spinner) findViewById(R.id.VecesDiarias);
-
-                            CheckBox lunes = (CheckBox) findViewById(R.id.lunes);
-                            CheckBox martes = (CheckBox) findViewById(R.id.martes);
-                            CheckBox miercoles = (CheckBox) findViewById(R.id.miercoles);
-                            CheckBox jueves = (CheckBox) findViewById(R.id.jueves);
-                            CheckBox viernes = (CheckBox) findViewById(R.id.viernes);
-                            CheckBox sabado = (CheckBox) findViewById(R.id.sabado);
-                            CheckBox domingo = (CheckBox) findViewById(R.id.domingo);
-                            EditText cantidadRestante = (EditText) findViewById(R.id.et_addPill_cantidadRestante);
-                            String cantidadRestante1 = cantidadRestante.getText().toString();
-                            EditText reminder = (EditText) findViewById(R.id.et_addPill_reminder);
-                            String reminder1 = reminder.getText().toString();
-                            String vecesDiarias = spinner.getSelectedItem().toString();
-                            try {
-                                jobject.put("titulo", tituloPastilla1);
-                                jobject.put("dosis", dosis1);
-                                jobject.put("cantidadRestante", cantidadRestante1);
-                                jobject.put("vecesDiarias", vecesDiarias);
-                                if (mililitros.isChecked())
-                                    jobject.put("Unidad", "Mililitros");
-                                if (unidades.isChecked())
-                                    jobject.put("Unidad", "Unidades");
-                                if (lunes.isChecked()) {
-                                    jobject.put("Dia_1", "lunes");
-                                }
-                                if (martes.isChecked()) {
-                                    jobject.put("Dia_2", "martes");
-                                }
-                                if (miercoles.isChecked()) {
-                                    jobject.put("Dia_3", "miercoles");
-                                }
-                                if (jueves.isChecked()) {
-                                    jobject.put("Dia_4", "jueves");
-                                }
-                                if (viernes.isChecked()) {
-                                    jobject.put("Dia_5", "viernes");
-                                }
-                                if (sabado.isChecked()) {
-                                    jobject.put("Dia_6", "sabado");
-                                }
-                                if (domingo.isChecked()) {
-                                    jobject.put("Dia_7", "doming");
-                                }
-                                jobject.put("Reminder", reminder1);
-                                JSONArray jarray = readFromFile();
-                                jarray.put(jobject);
-                                writeToFile(jarray.toString());
-                                Mensaje("Objeto Salvado con Éxito!");
-                                Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
-                                startActivity(intento);
-                            } catch (JSONException e) {
-                                Log.e("Exception", "Unable to create JSONArray: " + e.toString());
-                            }
+                        String value = getResources().getString(R.string.bt_save);
+                        if (text.equals(value)) {
+                            Guardar();
                         } else {
                             Editar();
                             Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
@@ -153,6 +95,71 @@ public class AddPillActivity extends ParentClass implements
                 }
             }
         });
+    }
+
+    public void Guardar() {
+            String mili, uni;
+            EditText tituloPastilla = (EditText) findViewById(R.id.et_addPill_titulo);
+            String tituloPastilla1 = tituloPastilla.getText().toString();
+            EditText dosis = (EditText) findViewById(R.id.et_addPill_dosis);
+            String dosis1 = dosis.getText().toString();
+            RadioButton mililitros = (RadioButton) findViewById(R.id.mililitros);
+
+            RadioButton unidades = (RadioButton) findViewById(R.id.unidades);
+            Spinner spinner = (Spinner) findViewById(R.id.VecesDiarias);
+
+            CheckBox lunes = (CheckBox) findViewById(R.id.lunes);
+            CheckBox martes = (CheckBox) findViewById(R.id.martes);
+            CheckBox miercoles = (CheckBox) findViewById(R.id.miercoles);
+            CheckBox jueves = (CheckBox) findViewById(R.id.jueves);
+            CheckBox viernes = (CheckBox) findViewById(R.id.viernes);
+            CheckBox sabado = (CheckBox) findViewById(R.id.sabado);
+            CheckBox domingo = (CheckBox) findViewById(R.id.domingo);
+            EditText cantidadRestante = (EditText) findViewById(R.id.et_addPill_cantidadRestante);
+            String cantidadRestante1 = cantidadRestante.getText().toString();
+            EditText reminder = (EditText) findViewById(R.id.et_addPill_reminder);
+            String reminder1 = reminder.getText().toString();
+            String vecesDiarias = spinner.getSelectedItem().toString();
+            try {
+                jobject.put("titulo", tituloPastilla1);
+                jobject.put("dosis", dosis1);
+                jobject.put("cantidadRestante", cantidadRestante1);
+                jobject.put("vecesDiarias", vecesDiarias);
+                if (mililitros.isChecked())
+                    jobject.put("Unidad", "Mililitros");
+                if (unidades.isChecked())
+                    jobject.put("Unidad", "Unidades");
+                if (lunes.isChecked()) {
+                    jobject.put("Dia_1", "lunes");
+                }
+                if (martes.isChecked()) {
+                    jobject.put("Dia_2", "martes");
+                }
+                if (miercoles.isChecked()) {
+                    jobject.put("Dia_3", "miercoles");
+                }
+                if (jueves.isChecked()) {
+                    jobject.put("Dia_4", "jueves");
+                }
+                if (viernes.isChecked()) {
+                    jobject.put("Dia_5", "viernes");
+                }
+                if (sabado.isChecked()) {
+                    jobject.put("Dia_6", "sabado");
+                }
+                if (domingo.isChecked()) {
+                    jobject.put("Dia_7", "doming");
+                }
+                jobject.put("Reminder", reminder1);
+                JSONArray jarray = readFromFile();
+                jarray.put(jobject);
+                writeToFile(jarray.toString());
+                Mensaje("Objeto Salvado con Éxito!");
+                Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intento);
+            } catch (JSONException e) {
+                Log.e("Exception", "Unable to create JSONArray: " + e.toString());
+            }
     }
 
     private void CargarSpinner() {
@@ -457,8 +464,8 @@ public class AddPillActivity extends ParentClass implements
         Button save = (Button) findViewById(R.id.btAddPillsSave);
         TextView title = (TextView) findViewById(R.id.tv_addPill_title);
         if (modo == 1) {
-            save.setText("Actualizar");
-            title.setText("Edite el tratamiento");
+            save.setText(R.string.bt_update);
+            title.setText(R.string.title_update);
             try {
                 String titulo = String.valueOf(objjson.get("titulo"));
                 int dosis = Integer.parseInt(String.valueOf(objjson.get("dosis")));

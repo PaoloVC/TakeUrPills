@@ -28,6 +28,9 @@
     <string name="et_addPill_reminder_hint">Purchase Reminder</string>
     <string name="bt_addPill_horas">(+) New Time</string>
     <string name="bt_save">Save</string>
+    <string name="bt_update">Actualizar</string>
+    <string name="title_save">Add</string>
+    <string name="title_update">Edit</string>
     <string name="bt_cancel">Cancel</string>
     <string name="tv_addPill_header">Add Treatment</string>
     <string name="tv_steps_paso1_content">Fill your treatment information.</string>
