@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.IntegerRes;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,6 +53,15 @@ public class DetailsActivity extends ParentClass {
         });
 
         OnclickDelButton(R.id.bt_detailsPill_edit);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intento = new Intent(getApplicationContext(), AddPillActivity.class);
+                startActivity(intento);
+            }
+        });
     } // Fin del Oncreate
 
 
