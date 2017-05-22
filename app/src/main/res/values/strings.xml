@@ -60,8 +60,13 @@
     <string name="settings_second">Segunda Opc</string>
     <string name="title_activity_login">Registrarse</string>
     <string name="warning">Aviso</string>
-    <string name="empty_treatment">Actualmete no posee ningun medicamento</string>
+    <string name="empty_treatment">Actualmente no posee ningun medicamento</string>
+    <string name="existing_treatment">Ya existe un tratamiento con este nombre, por favor cambie el nombre de su tratamiento y vuelva a intentarlo</string>
     <string name="close">Cerrar</string>
+    <string name="save_success">Tratamiento guardado con exito</string>
+    <string name="edit_success">Tratamiento modificado con exito</string>
+    <string name="empty_fields">Error, Por favor rellene todos los espacios con información valida</string>
+    <string name="daily_times">Veces Diarias</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Correo Electrónico</string>

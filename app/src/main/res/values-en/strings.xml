@@ -44,7 +44,7 @@
     <string name="tv_steps_paso4_header">Step 4:</string>
     <string name="tv_steps_paso4_content">Set Up Alarms and Reminders</string>
     <string name="bt_steps_addPills">Add your pills</string>
-    <string name="tv_detailsPill_Title">Nombre del Tratamiento</string>
+    <string name="tv_detailsPill_Title">Name of the treatment</string>
     <string name="tv_detailsPill_dosis">Dose:</string>
     <string name="tv_detailsPill_frecuencia">Frequency:</string>
     <string name="tv_detailsPill_repeticion">Repetition:</string>
@@ -63,7 +63,13 @@
     <string name="title_activity_login">Sign in</string>
     <string name="warning">Warning</string>
     <string name="empty_treatment">Currently you have not added any treatment</string>
+    <string name="existing_treatment">A treatment with that name already exists, please change the name of your treatment and try again</string>
     <string name="close">Close</string>
+    <string name="save_success">Treatment saved successfully</string>
+    <string name="edit_success">Treatment modified successfully</string>
+    <string name="empty_fields">Error, please fill in all the fields with valid information</string>
+    <string name="daily_times">Daily Times</string>
+
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

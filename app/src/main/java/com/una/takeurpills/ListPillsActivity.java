@@ -87,17 +87,18 @@ public class ListPillsActivity extends ParentClass {
         }
         return true;
     }
-/*
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser == null ){
-            Intent intento = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intento);
+
+    /*
+        @Override
+        public void onStart() {
+            super.onStart();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if(currentUser == null ){
+                Intent intento = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intento);
+            }
         }
-    }
-*/
+    */
     //Aca se pueden cargar los tratamientos desde el Json  del app, pero solo los nombres (posible a cambios)
     private void FillListView() {
         String[] test = null;
@@ -128,16 +129,16 @@ public class ListPillsActivity extends ParentClass {
         };
         /*ArrayAdapter<String> adaptador = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1, ((test[0].equals("")) ? pills : test));*/
-        if(test[0].equals("")) DialogAviso();
+        if (test[0].equals("")) DialogAviso();
         ArrayAdapter<String> adaptador = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1, (test));
         ListView milistview = (ListView) findViewById(R.id.listPills);
         milistview.setAdapter(adaptador);
     }
 
-    public void DialogAviso(){
-        LayoutInflater inflater=LayoutInflater.from(getApplicationContext());
-        View customTitle=inflater.inflate(dialog, null);
+    public void DialogAviso() {
+        LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+        View customTitle = inflater.inflate(dialog, null);
         AlertDialog.Builder builder1 = new AlertDialog.Builder(ListPillsActivity.this);
         builder1.setCustomTitle(customTitle);
         //TextView title = (TextView) customTitle.findViewById(R.id.customtitlebar);
@@ -148,7 +149,11 @@ public class ListPillsActivity extends ParentClass {
         builder1.setCancelable(true);
         builder1.setPositiveButton(R.string.close,
                 new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {MensajeToast("Closing Dialog"); } });
+                    public void onClick(DialogInterface dialog, int id) {
+                       // MensajeToast("Closing Dialog");
+                        onBackPressed();
+                    }
+                });
         /*builder1.setNegativeButton("No",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {Mensaje("negativo"); } });*/
@@ -163,9 +168,9 @@ public class ListPillsActivity extends ParentClass {
             @Override
             public void onItemClick(AdapterView<?> paret, View viewClicked,
                                     int position, long id) {
-                    //JSONObject objjson = testjarray.optJSONObject(position);
+                //JSONObject objjson = testjarray.optJSONObject(position);
                 Intent intento = new Intent(getApplicationContext(), DetailsActivity.class);
-                intento.putExtra("posicion",position);
+                intento.putExtra("posicion", position);
                     /*intento.putExtra("titulo", String.valueOf(objjson.get("titulo")));
                     intento.putExtra("dosis", Integer.parseInt(String.valueOf(objjson.get("dosis"))));
                     intento.putExtra("Unidad",String.valueOf(objjson.get("Unidad")));
@@ -276,7 +281,10 @@ public class ListPillsActivity extends ParentClass {
 
     ;
 
-    public void MensajeToast(String msg){
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};
+    public void MensajeToast(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    ;
 
 }
