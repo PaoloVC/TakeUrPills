@@ -464,14 +464,14 @@ public class AddPillActivity extends ParentClass implements
         Intent callingIntent = getIntent();
         int edicion = callingIntent.getIntExtra("edicion", 0);
         int posicion = callingIntent.getIntExtra("posicion", 0);
-        JSONObject objjson = testjarray.optJSONObject(posicion);
-        jobject = objjson;
         Button save = (Button) findViewById(R.id.btAddPillsSave);
         TextView title = (TextView) findViewById(R.id.tv_addPill_title);
         if (modo == 1) {
             save.setText(R.string.bt_update);
             title.setText(R.string.title_update);
             try {
+                JSONObject objjson = testjarray.optJSONObject(posicion);
+                jobject = objjson;
                 String titulo = String.valueOf(objjson.get("titulo"));
                 int dosis = Integer.parseInt(String.valueOf(objjson.get("dosis")));
                 String unidad = String.valueOf(objjson.get("Unidad"));

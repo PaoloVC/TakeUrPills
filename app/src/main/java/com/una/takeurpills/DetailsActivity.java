@@ -58,6 +58,7 @@ public class DetailsActivity extends ParentClass {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                modo = 0;
                 Intent intento = new Intent(getApplicationContext(), AddPillActivity.class);
                 startActivity(intento);
             }

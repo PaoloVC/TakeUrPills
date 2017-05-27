@@ -28,9 +28,9 @@ public class HomeActivity extends ParentClass {
                         startActivity(intento2);
                         break;
                     case R.id.btAddPills:
+                        modo = 0;
                         Intent intento = new Intent(getApplicationContext(), AddPillActivity.class);
                         intento.putExtra("edicion", 0);
-                        modo = 0;
                         startActivity(intento);
                         break;
                     case R.id.btFindPills:
@@ -62,7 +62,8 @@ public class HomeActivity extends ParentClass {
         //super.finish();
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
         //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
