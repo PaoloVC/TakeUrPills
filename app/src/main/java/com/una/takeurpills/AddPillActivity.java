@@ -185,7 +185,7 @@ public class AddPillActivity extends ParentClass implements
 
         Treatment tratamiento = new Treatment(tituloPastilla1,dosis2,cantidadRestante2,vecesDiarias2,unidad,reminder2,
                 monday,tuesday,wednesday,thursday,friday,saturday,sunday,horas);
-        myRef.child("Treatment"+email).child(tituloPastilla1).setValue(tratamiento);
+        myRef.child(email).child(tituloPastilla1).setValue(tratamiento);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

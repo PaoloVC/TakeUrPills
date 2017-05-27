@@ -133,10 +133,7 @@ public class LoginActivity extends ParentClass implements LoaderCallbacks<Cursor
         registration.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                showProgress(true);
-                EditText Mi_edittext = (EditText) findViewById(R.id.email);
-                EditText Mi_edittext2 = (EditText) findViewById(R.id.password);
-                createNewAccount(Mi_edittext.getText().toString(),Mi_edittext2.getText().toString());
+                attemptRegister();
             }
         });
     }
@@ -284,6 +281,54 @@ public class LoginActivity extends ParentClass implements LoaderCallbacks<Cursor
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
+    private void attemptRegister() {
+        if (mAuth.getCurrentUser() != null) {
+            return;
+        }
+
+        // Reset errors.
+        mEmailView.setError(null);
+        mPasswordView.setError(null);
+
+        // Store values at the time of the login attempt.
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // Check for a valid password, if the user entered one.
+        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(email)) {
+            mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            mEmailView.setError(getString(R.string.error_invalid_email));
+            focusView = mEmailView;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            // Show a progress spinner, and kick off a background task to
+            // perform the user login attempt.
+            showProgress(true);
+            createNewAccount(email,password);
+            //mAuthTask = new UserLoginTask(email, password);
+            //mAuthTask.execute((Void) null);
+        }
+    }
+
     private void attemptLogin() {
         if (mAuth.getCurrentUser() != null) {
             return;
