@@ -27,6 +27,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,11 +45,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.Calendar;
 
+import static android.R.attr.name;
 import static android.R.attr.value;
 import static com.una.takeurpills.R.id.lunes;
 import static com.una.takeurpills.R.layout.dialog;
+import static com.una.takeurpills.R.string.reminder;
 
 public class AddPillActivity extends ParentClass implements
         View.OnClickListener {
@@ -51,6 +60,7 @@ public class AddPillActivity extends ParentClass implements
     Button button;
     private int mHour, mMinute;
     JSONObject jobject;
+    ArrayList<String> horas = new ArrayList<String>();
     int i;
 
     @Override
@@ -83,6 +93,7 @@ public class AddPillActivity extends ParentClass implements
                         String value = getResources().getString(R.string.bt_save);
                         if (text.equals(value)) {
                             Guardar();
+                            Add();
                         } else {
                             Editar();
                             Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
@@ -99,6 +110,94 @@ public class AddPillActivity extends ParentClass implements
                 }
             }
         });
+    }
+
+    private void Add() {
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Treatments");
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String email = "";
+        if(currentUser != null ){
+            email = currentUser.getEmail();
+        }
+
+        EditText tituloPastilla = (EditText) findViewById(R.id.et_addPill_titulo);
+        String tituloPastilla1 = tituloPastilla.getText().toString();
+        EditText dosis = (EditText) findViewById(R.id.et_addPill_dosis);
+        String dosis1 = dosis.getText().toString();
+        int dosis2 = Integer.parseInt(dosis1);
+        RadioButton mililitros = (RadioButton) findViewById(R.id.mililitros);
+
+        RadioButton unidades = (RadioButton) findViewById(R.id.unidades);
+
+
+        Spinner spinner = (Spinner) findViewById(R.id.VecesDiarias);
+
+        CheckBox lunes = (CheckBox) findViewById(R.id.lunes);
+        CheckBox martes = (CheckBox) findViewById(R.id.martes);
+        CheckBox miercoles = (CheckBox) findViewById(R.id.miercoles);
+        CheckBox jueves = (CheckBox) findViewById(R.id.jueves);
+        CheckBox viernes = (CheckBox) findViewById(R.id.viernes);
+        CheckBox sabado = (CheckBox) findViewById(R.id.sabado);
+        CheckBox domingo = (CheckBox) findViewById(R.id.domingo);
+        EditText cantidadRestante = (EditText) findViewById(R.id.et_addPill_cantidadRestante);
+        String cantidadRestante1 = cantidadRestante.getText().toString();
+        int cantidadRestante2 = Integer.parseInt(cantidadRestante1);
+        EditText reminder = (EditText) findViewById(R.id.et_addPill_reminder);
+        String reminder1 = reminder.getText().toString();
+        int reminder2 = Integer.parseInt(reminder1);
+        String vecesDiarias = spinner.getSelectedItem().toString();
+        int vecesDiarias2 = Integer.parseInt(vecesDiarias);
+        String unidad = "";
+        if (mililitros.isChecked())
+            unidad = "Mililitros";
+        if (unidades.isChecked())
+            unidad = "Unidades";
+        Boolean monday = false;
+        Boolean tuesday = false;
+        Boolean wednesday = false;
+        Boolean thursday = false;
+        Boolean friday = false;
+        Boolean saturday = false;
+        Boolean sunday = false;
+
+        if (lunes.isChecked()) {
+            monday = true;
+        }
+        if (martes.isChecked()) {
+            tuesday = true;
+        }
+        if (miercoles.isChecked()) {
+            wednesday = true;
+        }
+        if (jueves.isChecked()) {
+            thursday = true;
+        }
+        if (viernes.isChecked()) {
+            friday = true;
+        }
+        if (sabado.isChecked()) {
+            saturday = true;
+        }
+        if (domingo.isChecked()) {
+            sunday = true;
+        }
+
+        Treatment tratamiento = new Treatment(tituloPastilla1,dosis2,cantidadRestante2,vecesDiarias2,unidad,reminder2,
+                monday,tuesday,wednesday,thursday,friday,saturday,sunday,horas);
+        myRef.child("Treatment"+email).child(tituloPastilla1).setValue(tratamiento);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ErrorAdding();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                ErrorAdding();
+            }
+            });
+
     }
 
     public void Guardar() {
@@ -259,6 +358,7 @@ public class AddPillActivity extends ParentClass implements
                             String text = button.getText().toString();
                             if (jobject == null) jobject = new JSONObject();
                             jobject.put("hora" + String.valueOf(i), text);
+                            horas.add(text);
                             Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
                             final int _id = (int) System.currentTimeMillis();
                             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),
@@ -678,6 +778,30 @@ public class AddPillActivity extends ParentClass implements
         //title.setText("New Title");
         //builder1.setMessage("No Posees Tratamientos todavia");
         builder1.setMessage(R.string.empty_fields);
+        builder1.setIcon(R.drawable.warning);
+        builder1.setCancelable(true);
+        builder1.setPositiveButton(R.string.close,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //MensajeToast("Closing Dialog");
+                    }
+                });
+        /*builder1.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {Mensaje("negativo"); } });*/
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    public void ErrorAdding() {
+        LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+        View customTitle = inflater.inflate(dialog, null);
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(AddPillActivity.this);
+        builder1.setCustomTitle(customTitle);
+        //TextView title = (TextView) customTitle.findViewById(R.id.customtitlebar);
+        //title.setText("New Title");
+        //builder1.setMessage("No Posees Tratamientos todavia");
+        builder1.setMessage(R.string.Error_Adding);
         builder1.setIcon(R.drawable.warning);
         builder1.setCancelable(true);
         builder1.setPositiveButton(R.string.close,

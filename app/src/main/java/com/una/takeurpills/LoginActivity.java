@@ -101,14 +101,6 @@ public class LoginActivity extends ParentClass implements LoaderCallbacks<Cursor
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
-
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
@@ -128,6 +120,25 @@ public class LoginActivity extends ParentClass implements LoaderCallbacks<Cursor
                 // ...
             }
         };
+
+        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptLogin();
+            }
+        });
+
+        Button registration = (Button) findViewById(R.id.buttonregistration);
+        registration.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showProgress(true);
+                EditText Mi_edittext = (EditText) findViewById(R.id.email);
+                EditText Mi_edittext2 = (EditText) findViewById(R.id.password);
+                createNewAccount(Mi_edittext.getText().toString(),Mi_edittext2.getText().toString());
+            }
+        });
     }
 
     @Override
@@ -154,7 +165,7 @@ public class LoginActivity extends ParentClass implements LoaderCallbacks<Cursor
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
-        finish();
+        //finish();
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -166,6 +177,7 @@ public class LoginActivity extends ParentClass implements LoaderCallbacks<Cursor
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            showProgress(false);
                             Log.d(TAG, "createUserWithEmail:success");
                             Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
                             startActivity(intento);
@@ -181,6 +193,7 @@ public class LoginActivity extends ParentClass implements LoaderCallbacks<Cursor
                         if (!task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, R.string.auth_failed,
                                     Toast.LENGTH_SHORT).show();
+                            showProgress(false);
                         }
 
                         // ...
@@ -210,6 +223,7 @@ public class LoginActivity extends ParentClass implements LoaderCallbacks<Cursor
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
                             Toast.makeText(LoginActivity.this, R.string.auth_failed,
                                     Toast.LENGTH_SHORT).show();
+                            showProgress(false);
                         }
 
                         // ...

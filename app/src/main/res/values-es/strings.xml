@@ -31,6 +31,7 @@
     <string name="bt_update">Actualizar</string>
     <string name="title_save">Add</string>
     <string name="title_update">Edit</string>
+    <string name="Error_Adding">Hubo un error Añadiendo el dato</string>
     <string name="bt_cancel">Cancelar</string>
     <string name="tv_addPill_header">Ingrese el tratamiento</string>
     <string name="tv_steps_paso1_content">Llena la información de tú tratamiento.</string>
@@ -72,9 +73,10 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Correo Electrónico</string>
     <string name="prompt_password">Contraseña (opcional)</string>
-    <string name="action_sign_in">Registrarse</string>
+    <string name="action_sign_in">Ingresar</string>
     <string name="action_register">Registrarse</string>
     <string name="action_sign_in_short">Registrarse</string>
+    <string name="sign_out">Cerrar Sesion</string>
     <string name="error_invalid_email">La dirección de correo electrónico es inválida</string>
     <string name="error_invalid_password">La contraseña es muy corta</string>
     <string name="error_incorrect_password">La contraseña es incorrecta</string>
