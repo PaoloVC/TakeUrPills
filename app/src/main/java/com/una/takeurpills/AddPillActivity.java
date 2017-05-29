@@ -92,7 +92,6 @@ public class AddPillActivity extends ParentClass implements
                         String text = save.getText().toString();
                         String value = getResources().getString(R.string.bt_save);
                         if (text.equals(value)) {
-                            Add();
                             Guardar();
                         } else {
                             Editar();
@@ -182,15 +181,6 @@ public class AddPillActivity extends ParentClass implements
         if (domingo.isChecked()) {
             sunday = true;
         }
-        if (emptyTextFieldsValidator()) {
-            DialogEspaciosVacios();
-            return;
-
-        }
-        if (tratamienttoExistente(tituloPastilla1)) {
-            DialogTratamientoExiste();
-            return;
-        }
         Treatment tratamiento = new Treatment(tituloPastilla1,dosis2,cantidadRestante2,vecesDiarias2,unidad,reminder2,
                 monday,tuesday,wednesday,thursday,friday,saturday,sunday,horas);
         myRef.child(email).child(tituloPastilla1).setValue(tratamiento);
@@ -272,6 +262,7 @@ public class AddPillActivity extends ParentClass implements
                     JSONArray jarray = readFromFile();
                     jarray.put(jobject);
                     writeToFile(jarray.toString());
+                    Add();
                     Mensaje(getResources().getString(R.string.save_success));
                     Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(intento);
