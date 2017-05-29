@@ -317,7 +317,6 @@ public class AddPillActivity extends ParentClass implements
         s1 = (Spinner) findViewById(R.id.VecesDiarias);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, vecesDiarias);
-
         s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -638,10 +637,6 @@ public class AddPillActivity extends ParentClass implements
                     Mi_textview4.setText(String.valueOf(reminder));
                 if (vecesDiarias != 0)
                     spinner.setSelection(vecesDiarias);
-                for (int a = 0; a < vecesDiarias; a++){
-                    Button aux = (Button) findViewById(a);
-                    aux.setText("Prueba");
-                }
 
                 Mi_radiobutton.setChecked(true);
                 if (lunes.contains("lunes"))
