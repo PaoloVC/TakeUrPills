@@ -198,6 +198,9 @@ public class AddPillActivity extends ParentClass implements
         catch (Exception exc){
             exc.getCause().toString();
         }
+        for ( String hour : horas ) {
+            horas.remove(hour);
+        }
 
     }
 
