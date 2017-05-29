@@ -181,20 +181,22 @@ public class AddPillActivity extends ParentClass implements
         if (domingo.isChecked()) {
             sunday = true;
         }
-        Treatment tratamiento = new Treatment(tituloPastilla1,dosis2,cantidadRestante2,vecesDiarias2,unidad,reminder2,
-                monday,tuesday,wednesday,thursday,friday,saturday,sunday,horas);
-        myRef.child(email).child(tituloPastilla1).setValue(tratamiento);
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ErrorAdding();
-            }
+        try {
+            Treatment tratamiento = new Treatment(tituloPastilla1, dosis2, cantidadRestante2, vecesDiarias2, unidad, reminder2,
+                    monday, tuesday, wednesday, thursday, friday, saturday, sunday, horas);
+            myRef.child(email).child(tituloPastilla1).setValue(tratamiento);
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {}
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                ErrorAdding();
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    ErrorAdding();
+                }
             });
+        }
+        catch (Exception exc){
+        }
 
     }
 
