@@ -147,6 +147,10 @@ public class AddPillActivity extends ParentClass implements
         int reminder2 = Integer.parseInt(reminder1);
         String vecesDiarias = spinner.getSelectedItem().toString();
         int vecesDiarias2 = Integer.parseInt(vecesDiarias);
+        for (int a = 0; a < vecesDiarias2; a++){
+            Button aux = (Button) findViewById(a);
+            horas.add(aux.getText().toString());
+        }
         String unidad = "";
         if (mililitros.isChecked())
             unidad = "Mililitros";
@@ -366,7 +370,7 @@ public class AddPillActivity extends ParentClass implements
                             String text = button.getText().toString();
                             if (jobject == null) jobject = new JSONObject();
                             jobject.put("hora" + String.valueOf(i), text);
-                            horas.add(text);
+                            //horas.add(text);
                             Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
                             final int _id = (int) System.currentTimeMillis();
                             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),
