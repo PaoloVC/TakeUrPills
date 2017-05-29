@@ -256,7 +256,7 @@ public class DetailsActivity extends ParentClass {
                         Mensaje2("Tratamiento Eliminado");
                         RemoveObj();
                         //Aca agregamos el metodo para eliminar el tratamiento de la lista.
-                        Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
+                        Intent intento = new Intent(getApplicationContext(), ListPillsActivity.class);
                         startActivity(intento);
                     }
                 });
