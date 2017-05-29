@@ -115,9 +115,9 @@ public class AddPillActivity extends ParentClass implements
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("Treatments");
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        String email = "";
+        String key = "";
         if(currentUser != null ){
-            email = currentUser.getEmail();
+            key = currentUser.getUid();
         }
 
         EditText tituloPastilla = (EditText) findViewById(R.id.et_addPill_titulo);
@@ -184,7 +184,7 @@ public class AddPillActivity extends ParentClass implements
         try {
             Treatment tratamiento = new Treatment(tituloPastilla1, dosis2, cantidadRestante2, vecesDiarias2, unidad, reminder2,
                     monday, tuesday, wednesday, thursday, friday, saturday, sunday, horas);
-            myRef.child(email).child(tituloPastilla1).setValue(tratamiento);
+            myRef.child(key).child(tituloPastilla1).setValue(tratamiento);
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {}
@@ -196,6 +196,7 @@ public class AddPillActivity extends ParentClass implements
             });
         }
         catch (Exception exc){
+            exc.getCause().toString();
         }
 
     }
