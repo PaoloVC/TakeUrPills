@@ -638,6 +638,10 @@ public class AddPillActivity extends ParentClass implements
                     Mi_textview4.setText(String.valueOf(reminder));
                 if (vecesDiarias != 0)
                     spinner.setSelection(vecesDiarias);
+                for (int a = 0; a < vecesDiarias; a++){
+                    Button aux = (Button) findViewById(a);
+                    aux.setText("Prueba");
+                }
 
                 Mi_radiobutton.setChecked(true);
                 if (lunes.contains("lunes"))
