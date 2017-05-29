@@ -92,8 +92,8 @@ public class AddPillActivity extends ParentClass implements
                         String text = save.getText().toString();
                         String value = getResources().getString(R.string.bt_save);
                         if (text.equals(value)) {
-                            Guardar();
                             Add();
+                            Guardar();
                         } else {
                             Editar();
                             Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
