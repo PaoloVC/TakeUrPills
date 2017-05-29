@@ -198,8 +198,8 @@ public class AddPillActivity extends ParentClass implements
         catch (Exception exc){
             exc.getCause().toString();
         }
-        for ( String hour : horas ) {
-            horas.remove(hour);
+        for (int i = 0; i < horas.size(); i++ ) {
+            horas.remove(i);
         }
 
     }
@@ -320,6 +320,9 @@ public class AddPillActivity extends ParentClass implements
                                        int position, long id) {
                 LinearLayout ll1 = (LinearLayout) findViewById(R.id.horas_list);
                 ll1.removeAllViews();
+                for (int i = 0; i < horas.size(); i++ ) {
+                    horas.remove(i);
+                }
                 for (int i = 0; i < position; i++) {
                     Button myButton = new Button(getApplicationContext());
                     myButton.setText("(+) Agregar Hora");
