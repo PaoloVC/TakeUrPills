@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
@@ -31,6 +32,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
@@ -47,6 +49,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
 
 import static android.R.attr.name;
 import static android.R.attr.value;
@@ -121,7 +125,7 @@ public class AddPillActivity extends ParentClass implements
         }
 
         EditText tituloPastilla = (EditText) findViewById(R.id.et_addPill_titulo);
-        String tituloPastilla1 = tituloPastilla.getText().toString();
+        final String tituloPastilla1 = tituloPastilla.getText().toString();
         EditText dosis = (EditText) findViewById(R.id.et_addPill_dosis);
         String dosis1 = dosis.getText().toString();
         int dosis2 = Integer.parseInt(dosis1);
@@ -188,10 +192,13 @@ public class AddPillActivity extends ParentClass implements
         try {
             Treatment tratamiento = new Treatment(tituloPastilla1, dosis2, cantidadRestante2, vecesDiarias2, unidad, reminder2,
                     monday, tuesday, wednesday, thursday, friday, saturday, sunday, horas);
-            myRef.child(key).child(tituloPastilla1).setValue(tratamiento);
+            myRef.child(key).child(tituloPastilla1).push().setValue(tratamiento);
+            if(!treatmentName.contains(tituloPastilla1))
+                treatmentName.add(tituloPastilla1);
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {}
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
@@ -292,25 +299,7 @@ public class AddPillActivity extends ParentClass implements
                 "3",
                 "4",
                 "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "10",
-                "11",
-                "12",
-                "13",
-                "14",
-                "15",
-                "16",
-                "17",
-                "18",
-                "19",
-                "20",
-                "21",
-                "22",
-                "23",
-                "24"
+                "6"
 
         };
         //---Spinner View---
@@ -328,7 +317,7 @@ public class AddPillActivity extends ParentClass implements
                 }
                 for (int i = 0; i < position; i++) {
                     Button myButton = new Button(getApplicationContext());
-                    myButton.setText("(+) Agregar Hora");
+                    myButton.setText(modo == 0 ? getResources().getString(R.string.add_message) : "Prueba");
                     myButton.setId(i);
                     myButton.setOnClickListener(AddPillActivity.this);
                     LinearLayout ll = (LinearLayout) findViewById(R.id.horas_list);
@@ -372,6 +361,7 @@ public class AddPillActivity extends ParentClass implements
                             //horas.add(text);
                             Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
                             final int _id = (int) System.currentTimeMillis();
+
                             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),
                                     _id, intent, PendingIntent.FLAG_ONE_SHOT);
                             AlarmManager am =
@@ -713,6 +703,9 @@ public class AddPillActivity extends ParentClass implements
             }
         }
         return existe;
+    }
+    public boolean tratamientoExisteFirebase(String treatment){
+        return true;
     }
 
     public boolean emptyTextFieldsValidator() {

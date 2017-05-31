@@ -16,12 +16,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.security.Key;
 
 import static com.una.takeurpills.R.id.domingo;
 import static com.una.takeurpills.R.id.jueves;
@@ -87,7 +93,11 @@ public class DetailsActivity extends ParentClass {
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
                 break;
-
+            case R.id.sign_out:
+                mAuth.signOut();
+                finish();
+                intento = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intento);
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -254,7 +264,8 @@ public class DetailsActivity extends ParentClass {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Mensaje2("Tratamiento Eliminado");
-                        RemoveObj();
+                        RemoveObj(); //Archivo
+                        Remove();//Firebase
                         //Aca agregamos el metodo para eliminar el tratamiento de la lista.
                         Intent intento = new Intent(getApplicationContext(), ListPillsActivity.class);
                         startActivity(intento);
@@ -270,7 +281,28 @@ public class DetailsActivity extends ParentClass {
         alert11.show();
     }
 
-    ;
+    private void Remove() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String key = "";
+        if(currentUser != null ){
+            key = currentUser.getUid();
+        }
+        final TextView Mi_textview = (TextView) findViewById(R.id.tv_detailsPill_nombreTratamiento);
+        myRef = database.getReference("Treatments");
+        String keyTreatment = myRef.child(key).child(Mi_textview.getText().toString()).getKey();
+        myRef.child(key).child(keyTreatment).removeValue();
+        treatmentName.remove(Mi_textview.getText().toString());
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     public void OnclickDelButton(int ref) {
         // Ejemplo  OnclickDelButton(R.id.MiButton);

@@ -16,6 +16,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.una.takeurpills.ParentClass.mAuth;
+
 public class AboutActivity extends AppCompatActivity {
 
     @Override
@@ -51,7 +53,11 @@ public class AboutActivity extends AppCompatActivity {
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
                 break;
-
+            case R.id.sign_out:
+                mAuth.signOut();
+                finish();
+                intento = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intento);
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.

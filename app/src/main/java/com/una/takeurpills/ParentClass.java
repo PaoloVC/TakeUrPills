@@ -8,15 +8,19 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 
+import java.util.ArrayList;
+
 /**
  * Created by BryJohSeb on 4/20/2017.
  */
 
 public class ParentClass extends AppCompatActivity {
     static FirebaseAuth mAuth;
-    static JSONArray testjarray = new JSONArray();
-    static int modo = 0;
-
     static FirebaseDatabase database;
     static DatabaseReference myRef;
+
+    static JSONArray testjarray = new JSONArray();
+    static ArrayList<String> treatmentName = new ArrayList<String>();
+    static int modo = 0;
+
 }

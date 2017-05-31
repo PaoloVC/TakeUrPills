@@ -68,6 +68,7 @@
     <string name="edit_success">Tratamiento modificado con exito</string>
     <string name="empty_fields">Error, Por favor rellene todos los espacios con información valida</string>
     <string name="daily_times">Veces Diarias</string>
+    <string name="add_message">Agregar Hora(+)</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Correo Electrónico</string>

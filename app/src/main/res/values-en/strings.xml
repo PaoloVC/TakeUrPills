@@ -70,6 +70,7 @@
     <string name="edit_success">Treatment modified successfully</string>
     <string name="empty_fields">Error, please fill in all the fields with valid information</string>
     <string name="daily_times">Daily Times</string>
+    <string name="add_message">Add Hour(+)</string>
 
 
     <!-- Strings related to login -->
