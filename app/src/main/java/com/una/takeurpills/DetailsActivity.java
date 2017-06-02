@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
@@ -282,26 +283,33 @@ public class DetailsActivity extends ParentClass {
     }
 
     private void Remove() {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        String key = "";
-        if(currentUser != null ){
-            key = currentUser.getUid();
+        try {
+            //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+            database = FirebaseDatabase.getInstance();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            String key = "";
+            if (currentUser != null) {
+                key = currentUser.getUid();
+            }
+            final TextView Mi_textview = (TextView) findViewById(R.id.tv_detailsPill_nombreTratamiento);
+            myRef = database.getReference("Treatments");
+            //String keyTreatment = myRef.child(key).child(Mi_textview.getText().toString()).getKey();
+            myRef.child(key).child(Mi_textview.getText().toString()).removeValue();
+            treatmentName.remove(Mi_textview.getText().toString());
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Mensaje(databaseError.getMessage());
+                }
+            });
         }
-        final TextView Mi_textview = (TextView) findViewById(R.id.tv_detailsPill_nombreTratamiento);
-        myRef = database.getReference("Treatments");
-        String keyTreatment = myRef.child(key).child(Mi_textview.getText().toString()).getKey();
-        myRef.child(key).child(keyTreatment).removeValue();
-        treatmentName.remove(Mi_textview.getText().toString());
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        catch(Exception exc){
+            exc.getCause().toString();
+        }
     }
 
     public void OnclickDelButton(int ref) {

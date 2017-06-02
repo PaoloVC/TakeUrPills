@@ -141,6 +141,7 @@ public class LoginActivity extends ParentClass implements LoaderCallbacks<Cursor
     @Override
     public void onStart() {
         super.onStart();
+        //signOut();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null ){
             Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
@@ -183,12 +184,12 @@ public class LoginActivity extends ParentClass implements LoaderCallbacks<Cursor
                         else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.makeText(LoginActivity.this, R.string.auth_failed + task.getException().toString(),
                                     Toast.LENGTH_SHORT).show();
                             showProgress(false);
                         }
                         if (!task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this, R.string.auth_failed,
+                            Toast.makeText(LoginActivity.this, R.string.auth_failed + task.getException().toString(),
                                     Toast.LENGTH_SHORT).show();
                             showProgress(false);
                         }
@@ -212,13 +213,13 @@ public class LoginActivity extends ParentClass implements LoaderCallbacks<Cursor
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.makeText(LoginActivity.this, R.string.auth_failed + task.getException().toString(),
                                     Toast.LENGTH_SHORT).show();
                             showProgress(false);
                         }
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
-                            Toast.makeText(LoginActivity.this, R.string.auth_failed,
+                            Toast.makeText(LoginActivity.this, R.string.auth_failed + task.getException().toString(),
                                     Toast.LENGTH_SHORT).show();
                             showProgress(false);
                         }

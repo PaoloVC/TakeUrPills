@@ -116,14 +116,6 @@ public class AddPillActivity extends ParentClass implements
     }
 
     private void Add() {
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("Treatments");
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        String key = "";
-        if(currentUser != null ){
-            key = currentUser.getUid();
-        }
-
         EditText tituloPastilla = (EditText) findViewById(R.id.et_addPill_titulo);
         final String tituloPastilla1 = tituloPastilla.getText().toString();
         EditText dosis = (EditText) findViewById(R.id.et_addPill_dosis);
@@ -190,9 +182,18 @@ public class AddPillActivity extends ParentClass implements
             sunday = true;
         }
         try {
+            //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+            database = FirebaseDatabase.getInstance();
+            myRef = database.getReference("Treatments");
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            String key = "";
+            if(currentUser != null ){
+                key = currentUser.getUid();
+            }
             Treatment tratamiento = new Treatment(tituloPastilla1, dosis2, cantidadRestante2, vecesDiarias2, unidad, reminder2,
                     monday, tuesday, wednesday, thursday, friday, saturday, sunday, horas);
-            myRef.child(key).child(tituloPastilla1).push().setValue(tratamiento);
+            myRef.child(key).child(tituloPastilla1).setValue(tratamiento);
+            //myRef.child(key).push().setValue(tratamiento);
             if(!treatmentName.contains(tituloPastilla1))
                 treatmentName.add(tituloPastilla1);
             myRef.addValueEventListener(new ValueEventListener() {
@@ -202,6 +203,7 @@ public class AddPillActivity extends ParentClass implements
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
+                    Mensaje(databaseError.getMessage());
                     ErrorAdding();
                 }
             });
@@ -602,6 +604,7 @@ public class AddPillActivity extends ParentClass implements
                         : "";
 
                 TextView Mi_textview = (TextView) findViewById(R.id.et_addPill_titulo);
+                Mi_textview.setEnabled(false);
                 TextView Mi_textview2 = (TextView) findViewById(R.id.et_addPill_dosis);
                 TextView Mi_textview3 = (TextView) findViewById(R.id.et_addPill_cantidadRestante);
                 TextView Mi_textview4 = (TextView) findViewById(R.id.et_addPill_reminder);
