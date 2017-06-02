@@ -70,7 +70,7 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_pills);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -94,15 +94,6 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
     }// fin onCreate
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -229,6 +220,7 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
         @Override
         public void onErrorResponse(VolleyError error) {
             Log.e("PostActivity", error.toString());
+            Mensaje("Error en la respuesta del API. No es posible cargar los datos.");
         }
     };
 
@@ -237,7 +229,7 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
             Mensaje(getResources().getString(R.string.map_zeroResult_message));
         }else{
             for (int i = 0; i < nearbyPlacesList.size(); i++) {
-                Log.d("onPostExecute","Entered into showing locations");
+                Log.d("onPostExecute","Mostrando Lugares");
                 MarkerOptions markerOptions = new MarkerOptions();
                 HashMap<String, String> googlePlace = nearbyPlacesList.get(i);
                 double lat = Double.parseDouble(googlePlace.get("lat"));
@@ -326,6 +318,13 @@ public class FindPillsActivity extends FragmentActivity implements OnMapReadyCal
             }
         });
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        hideDetails();
+    }
+
 
     private void showDetails(){
         final LinearLayout detailsMarker = (LinearLayout) findViewById(R.id.layout_map_location_details);
