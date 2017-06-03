@@ -3,6 +3,8 @@ package com.una.takeurpills;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -138,6 +140,18 @@ public class LoginActivity extends ParentClass implements LoaderCallbacks<Cursor
         });
     }
 
+    public void MensajeOK(String msg){
+        View v1 = getWindow().getDecorView().getRootView();
+        AlertDialog.Builder builder1 = new AlertDialog.Builder( v1.getContext());
+        builder1.setMessage(msg);
+        builder1.setCancelable(true);
+        builder1.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {} });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -181,17 +195,19 @@ public class LoginActivity extends ParentClass implements LoaderCallbacks<Cursor
                             startActivity(intento);
                             //FirebaseUser user = mAuth.getCurrentUser();
                         }
-                        else {
+                        /*else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, R.string.auth_failed + task.getException().toString(),
                                     Toast.LENGTH_SHORT).show();
                             showProgress(false);
-                        }
+                            MensajeOK(task.getException().toString());
+                        }*/
                         if (!task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, R.string.auth_failed + task.getException().toString(),
                                     Toast.LENGTH_SHORT).show();
                             showProgress(false);
+                            MensajeOK(task.getException().toString());
                         }
 
                         // ...
@@ -210,18 +226,20 @@ public class LoginActivity extends ParentClass implements LoaderCallbacks<Cursor
                             //FirebaseUser user = mAuth.getCurrentUser();
                             Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
                             startActivity(intento);
-                        } else {
+                        } /*else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, R.string.auth_failed + task.getException().toString(),
                                     Toast.LENGTH_SHORT).show();
                             showProgress(false);
-                        }
+                            MensajeOK(task.getException().toString());
+                        }*/
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
                             Toast.makeText(LoginActivity.this, R.string.auth_failed + task.getException().toString(),
                                     Toast.LENGTH_SHORT).show();
                             showProgress(false);
+                            MensajeOK(task.getException().toString());
                         }
 
                         // ...
