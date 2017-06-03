@@ -54,6 +54,7 @@ import java.util.Map;
 
 import static android.R.attr.name;
 import static android.R.attr.value;
+import static com.una.takeurpills.R.drawable.dosis;
 import static com.una.takeurpills.R.id.lunes;
 import static com.una.takeurpills.R.layout.dialog;
 import static com.una.takeurpills.R.string.reminder;
@@ -65,6 +66,7 @@ public class AddPillActivity extends ParentClass implements
     private int mHour, mMinute;
     JSONObject jobject;
     ArrayList<String> horas = new ArrayList<String>();
+    ArrayList<String> horasEditar = new ArrayList<String>();
     int i;
 
     @Override
@@ -143,9 +145,16 @@ public class AddPillActivity extends ParentClass implements
         int reminder2 = Integer.parseInt(reminder1);
         String vecesDiarias = spinner.getSelectedItem().toString();
         int vecesDiarias2 = Integer.parseInt(vecesDiarias);
-        for (int a = 0; a < vecesDiarias2; a++){
-            Button aux = (Button) findViewById(a);
-            horas.add(aux.getText().toString());
+        try {
+            for (int a = 0; a < vecesDiarias2; a++) {
+                Button aux = (Button) findViewById(a);
+                horas.add(aux.getText().toString());
+                if (jobject == null) jobject = new JSONObject();
+                jobject.put("hora" + String.valueOf(a), aux.getText().toString());
+            }
+        }
+        catch (JSONException e) {
+            Log.e("Exception", "Unable to create JSONArray: " + e.toString());
         }
         String unidad = "";
         if (mililitros.isChecked())
@@ -217,6 +226,36 @@ public class AddPillActivity extends ParentClass implements
 
     }
 
+    public void Edit(Treatment treatment){
+        try {
+            //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+            database = FirebaseDatabase.getInstance();
+            myRef = database.getReference("Treatments");
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            String key = "";
+            if(currentUser != null ){
+                key = currentUser.getUid();
+            }
+            String titulo = treatment.getTitulo();
+            myRef.child(key).child(titulo).setValue(treatment);
+            //myRef.child(key).push().setValue(tratamiento);
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Mensaje(databaseError.getMessage());
+                    ErrorAdding();
+                }
+            });
+        }
+        catch (Exception exc){
+            exc.getCause().toString();
+        }
+    }
+
     public void Guardar() {
         String mili, uni;
         EditText tituloPastilla = (EditText) findViewById(R.id.et_addPill_titulo);
@@ -278,10 +317,10 @@ public class AddPillActivity extends ParentClass implements
                         jobject.put("Dia_7", "doming");
                     }
                     jobject.put("Reminder", reminder1);
+                    Add();
                     JSONArray jarray = readFromFile();
                     jarray.put(jobject);
                     writeToFile(jarray.toString());
-                    Add();
                     Mensaje(getResources().getString(R.string.save_success));
                     Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(intento);
@@ -314,12 +353,13 @@ public class AddPillActivity extends ParentClass implements
                                        int position, long id) {
                 LinearLayout ll1 = (LinearLayout) findViewById(R.id.horas_list);
                 ll1.removeAllViews();
+                modo = 0;
                 for (int i = 0; i < horas.size(); i++ ) {
                     horas.remove(i);
                 }
                 for (int i = 0; i < position; i++) {
                     Button myButton = new Button(getApplicationContext());
-                    myButton.setText(modo == 0 ? getResources().getString(R.string.add_message) : "Prueba");
+                    myButton.setText(modo == 0 ? getResources().getString(R.string.add_message) : horasEditar.get(i).toString());
                     myButton.setId(i);
                     myButton.setOnClickListener(AddPillActivity.this);
                     LinearLayout ll = (LinearLayout) findViewById(R.id.horas_list);
@@ -357,9 +397,9 @@ public class AddPillActivity extends ParentClass implements
                             c.set(Calendar.HOUR_OF_DAY, hourOfDay);
                             c.set(Calendar.MINUTE, minute);
                             c.set(Calendar.SECOND, 0);
-                            String text = button.getText().toString();
+                            /*String text = button.getText().toString();
                             if (jobject == null) jobject = new JSONObject();
-                            jobject.put("hora" + String.valueOf(i), text);
+                            jobject.put("hora" + String.valueOf(i), text);*/
                             //horas.add(text);
                             Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
                             final int _id = (int) System.currentTimeMillis();
@@ -370,9 +410,7 @@ public class AddPillActivity extends ParentClass implements
                                     (AlarmManager) getSystemService(Activity.ALARM_SERVICE);
                             am.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),
                                     pendingIntent);
-                        } catch (JSONException e) {
-                            Log.e("Exception", "Unable to create JSONArray: " + e.toString());
-                        } catch (Exception exc) {
+                        }catch (Exception exc) {
                             Log.e("Exception", "Unable to create JSONArray: " + exc.toString());
                         }
                     }
@@ -410,46 +448,66 @@ public class AddPillActivity extends ParentClass implements
                     String reminder1 = reminder.getText().toString();
 
 
+                    String unidad = "";
+                    Boolean monday = false;
+                    Boolean tuesday = false;
+                    Boolean wednesday = false;
+                    Boolean thursday = false;
+                    Boolean friday = false;
+                    Boolean saturday = false;
+                    Boolean sunday = false;
+
                     obj.put("titulo", tituloPastilla1);
                     obj.put("dosis", dosis1);
                     obj.put("cantidadRestante", cantidadRestante1);
                     obj.put("vecesDiarias", vecesDiarias);
                     obj.put("Reminder", reminder1);
-                    if (mililitros.isChecked())
+                    if (mililitros.isChecked()) {
+                        unidad = "Mililitros";
                         obj.put("Unidad", "Mililitros");
-                    if (unidades.isChecked())
+                    }
+                    if (unidades.isChecked()) {
+                        unidad = "Unidades";
                         obj.put("Unidad", "Unidades");
+                    }
                     if (lunes.isChecked()) {
+                        monday = true;
                         obj.put("Dia_1", "lunes");
                     } else {
                         obj.remove("Dia_1");
                     }
                     if (martes.isChecked()) {
+                        tuesday = true;
                         obj.put("Dia_2", "martes");
                     } else {
                         obj.remove("Dia_2");
                     }
                     if (miercoles.isChecked()) {
+                        wednesday = true;
                         obj.put("Dia_3", "miercoles");
                     } else {
                         obj.remove("Dia_3");
                     }
                     if (jueves.isChecked()) {
+                        thursday = true;
                         obj.put("Dia_4", "jueves");
                     } else {
                         obj.remove("Dia_4");
                     }
                     if (viernes.isChecked()) {
+                        friday = true;
                         obj.put("Dia_5", "viernes");
                     } else {
                         obj.remove("Dia_5");
                     }
                     if (sabado.isChecked()) {
+                        saturday = true;
                         obj.put("Dia_6", "sabado");
                     } else {
                         obj.remove("Dia_6");
                     }
                     if (domingo.isChecked()) {
+                        sunday = true;
                         obj.put("Dia_7", "doming");
                     } else {
                         obj.remove("Dia_7");
@@ -461,6 +519,19 @@ public class AddPillActivity extends ParentClass implements
                         obj.put("hora" + String.valueOf(y), horas);
 
                     }*/
+                    for (int a = 0; a < vecesDiarias2; a++) {
+                        Button aux = (Button) findViewById(a);
+                        horas.add(aux.getText().toString());
+                        //if (jobject == null) jobject = new JSONObject();
+                        obj.put("hora" + String.valueOf(a), aux.getText().toString());
+                    }
+                    Treatment tratamiento = new Treatment(tituloPastilla1, Integer.parseInt(dosis1), Integer.parseInt(cantidadRestante1)
+                            , Integer.parseInt(vecesDiarias), unidad, Integer.parseInt(reminder1),
+                            monday, tuesday, wednesday, thursday, friday, saturday, sunday, horas);
+                    Edit(tratamiento);
+                    for (int x = 0; x < horas.size(); x++ ) {
+                        horas.remove(x);
+                    }
                     writeToFile(testjarray.toString());
                     Mensaje(getResources().getString(R.string.edit_success));
                 }
@@ -621,6 +692,14 @@ public class AddPillActivity extends ParentClass implements
                 CheckBox checkBox6 = (CheckBox) findViewById(R.id.sabado);
                 CheckBox checkBox7 = (CheckBox) findViewById(R.id.domingo);
 
+                for(int x = 0; x< horasEditar.size(); x ++)
+                    horasEditar.remove(x);
+
+                for (int y = 0; y < vecesDiarias; y++) {
+                    String horas = String.valueOf(jobject.get("hora" + i));
+                    horasEditar.add(horas);
+                }
+
                 Mi_textview.setText(titulo);
                 if (dosis != 0)
                     Mi_textview2.setText(String.valueOf(dosis));
@@ -647,7 +726,10 @@ public class AddPillActivity extends ParentClass implements
                 if (domingo.contains("doming"))
                     checkBox7.setChecked(true);
             } catch (JSONException exc) {
-
+                Log.e("login activity", "Can not read file: " + exc.toString());
+            }
+            catch (Exception e){
+                Log.e("login activity", "Can not read file: " + e.toString());
             }
         } else {
             save.setText(R.string.bt_save);
