@@ -99,6 +99,11 @@ public class ListPillsActivity extends ParentClass {
             }
         }
     */
+    @Override
+    public void onBackPressed(){
+        Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(intento);
+    }
     //Aca se pueden cargar los tratamientos desde el Json  del app, pero solo los nombres (posible a cambios)
     private void FillListView() {
         String[] test = null;

@@ -353,7 +353,6 @@ public class AddPillActivity extends ParentClass implements
                                        int position, long id) {
                 LinearLayout ll1 = (LinearLayout) findViewById(R.id.horas_list);
                 ll1.removeAllViews();
-                modo = 0;
                 for (int i = 0; i < horas.size(); i++ ) {
                     horas.remove(i);
                 }
@@ -366,6 +365,7 @@ public class AddPillActivity extends ParentClass implements
                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     ll.addView(myButton, lp);
                 }
+                modo = 0;
 
             }
 
