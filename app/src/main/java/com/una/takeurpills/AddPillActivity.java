@@ -703,7 +703,7 @@ public class AddPillActivity extends ParentClass implements
                     horasEditar.remove(x);
 
                 for (int y = 0; y < vecesDiarias; y++) {
-                    String horas = String.valueOf(jobject.get("hora" + i));
+                    String horas = String.valueOf(jobject.get("hora" + y));
                     horasEditar.add(horas);
                 }
 
