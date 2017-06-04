@@ -48,7 +48,7 @@ public class ListPillsActivity extends ParentClass {
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.pill_logo);
-        getSupportActionBar().setTitle("Treatments");
+        getSupportActionBar().setTitle(R.string.ab_list_pill_header);
 
 
     } // Fin del Oncreate de la Actividad 01

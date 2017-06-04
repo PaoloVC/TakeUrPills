@@ -613,16 +613,16 @@ public class AddPillActivity extends ParentClass implements
 
     public void AlertBuilder(View view) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(view.getContext());
-        builder1.setMessage("¿Seguro que deseas cancelar los cambios?");
+        builder1.setMessage(R.string.cancel_message);
         builder1.setCancelable(true);
-        builder1.setPositiveButton("Si",
+        builder1.setPositiveButton(R.string.yes_message,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
                         startActivity(intento);
                     }
                 });
-        builder1.setNegativeButton("No",
+        builder1.setNegativeButton(R.string.no_message,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
@@ -642,7 +642,8 @@ public class AddPillActivity extends ParentClass implements
         TextView title = (TextView) findViewById(R.id.tv_addPill_title);
         if (modo == 1) {
             save.setText(R.string.bt_update);
-            title.setText(R.string.title_update);
+            title.setText(R.string.tv_editPill_header);
+            getSupportActionBar().setTitle(R.string.title_update);
             try {
                 JSONObject objjson = testjarray.optJSONObject(posicion);
                 jobject = objjson;
@@ -733,7 +734,7 @@ public class AddPillActivity extends ParentClass implements
             }
         } else {
             save.setText(R.string.bt_save);
-            title.setText("Ingrese el tratamiento");
+            title.setText(R.string.tv_addPill_header);
         }
     }
 

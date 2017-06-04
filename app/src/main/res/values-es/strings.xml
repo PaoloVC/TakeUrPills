@@ -29,11 +29,12 @@
     <string name="bt_addPill_horas">(+) Agregar hora</string>
     <string name="bt_save">Guardar</string>
     <string name="bt_update">Actualizar</string>
-    <string name="title_save">Add</string>
-    <string name="title_update">Edit</string>
+    <string name="title_save">Añadir</string>
+    <string name="title_update">Editar</string>
     <string name="Error_Adding">Hubo un error Añadiendo el dato</string>
     <string name="bt_cancel">Cancelar</string>
     <string name="tv_addPill_header">Ingrese el tratamiento</string>
+    <string name="tv_editPill_header">Editar el tratamiento</string>
     <string name="tv_steps_paso1_content">Llena la información de tú tratamiento.</string>
     <string name="tv_steps_paso1_header">Paso 1:</string>
     <string name="bt_steps_nextStep">siguiente paso</string>
@@ -67,9 +68,22 @@
     <string name="close">Cerrar</string>
     <string name="save_success">Tratamiento guardado con exito</string>
     <string name="edit_success">Tratamiento modificado con exito</string>
+    <string name="delete_success">Tratamiento eliminado con exito</string>
     <string name="empty_fields">Error, Por favor rellene todos los espacios con información valida</string>
     <string name="daily_times">Veces Diarias</string>
     <string name="add_message">Agregar Hora(+)</string>
+    <string name="cancel_message">¿Seguro que deseas cancelar los cambios?</string>
+    <string name="delete_message">¿Seguro que desea borrar el tratamiento?</string>
+    <string name="yes_message">Si</string>
+    <string name="no_message">No</string>
+    <string name="mililitro_mesage">Mililitro</string>
+    <string name="mililitros_mesage">Mililitros</string>
+    <string name="unidad_mesage">Unidad</string>
+    <string name="unidades_mesage">Unidades</string>
+    <string name="ab_detail_pill_header">Detalles</string>
+    <string name="ab_list_pill_header">Tratamientos</string>
+    <string name="tv_detailsPill_una_vez_dia_">vez por dia</string>
+    <string name="tv_detailsPill_veces_dia">veces por dia</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Correo Electrónico</string>
