@@ -191,7 +191,7 @@ public class LoginActivity extends ParentClass implements LoaderCallbacks<Cursor
                         if (task.isSuccessful()) {
                             showProgress(false);
                             Log.d(TAG, "createUserWithEmail:success");
-                            Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
+                            Intent intento = new Intent(getApplicationContext(), TutorialStep1Activity.class);
                             startActivity(intento);
                             //FirebaseUser user = mAuth.getCurrentUser();
                         }
@@ -224,7 +224,7 @@ public class LoginActivity extends ParentClass implements LoaderCallbacks<Cursor
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             //FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
+                            Intent intento = new Intent(getApplicationContext(), TutorialStep1Activity.class);
                             startActivity(intento);
                         } /*else {
                             // If sign in fails, display a message to the user.
