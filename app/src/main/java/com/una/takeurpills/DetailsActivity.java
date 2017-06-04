@@ -298,7 +298,10 @@ public class DetailsActivity extends ParentClass {
 
     private void Remove() {
         try {
-            //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+            if(persistence == false){
+                FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+                persistence = true;
+            }
             database = FirebaseDatabase.getInstance();
             FirebaseUser currentUser = mAuth.getCurrentUser();
             String key = "";

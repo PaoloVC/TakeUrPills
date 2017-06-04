@@ -23,5 +23,5 @@ public class ParentClass extends AppCompatActivity {
     static JSONArray testjarray = new JSONArray();
     static ArrayList<String> treatmentName = new ArrayList<String>();
     static int modo = 0;
-
+    static boolean persistence = false;
 }

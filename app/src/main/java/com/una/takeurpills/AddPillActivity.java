@@ -191,7 +191,10 @@ public class AddPillActivity extends ParentClass implements
             sunday = true;
         }
         try {
-            //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+            if(persistence == false){
+                FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+                persistence = true;
+            }
             database = FirebaseDatabase.getInstance();
             myRef = database.getReference("Treatments");
             FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -228,7 +231,10 @@ public class AddPillActivity extends ParentClass implements
 
     public void Edit(Treatment treatment){
         try {
-            //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+            if(persistence == false){
+                FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+                persistence = true;
+            }
             database = FirebaseDatabase.getInstance();
             myRef = database.getReference("Treatments");
             FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -356,10 +362,10 @@ public class AddPillActivity extends ParentClass implements
                 for (int i = 0; i < horas.size(); i++ ) {
                     horas.remove(i);
                 }
-                for (int i = 0; i < position; i++) {
+                for (int h = 0; h < position; h++) {
                     Button myButton = new Button(getApplicationContext());
-                    myButton.setText(modo == 0 ? getResources().getString(R.string.add_message) : horasEditar.get(i).toString());
-                    myButton.setId(i);
+                    myButton.setText(modo == 0 ? getResources().getString(R.string.add_message) : horasEditar.get(h).toString());
+                    myButton.setId(h);
                     myButton.setOnClickListener(AddPillActivity.this);
                     LinearLayout ll = (LinearLayout) findViewById(R.id.horas_list);
                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
