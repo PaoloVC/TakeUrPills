@@ -49,7 +49,7 @@ public class DetailsActivity extends ParentClass {
         setContentView(R.layout.activity_details);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.pill_logo);
-        getSupportActionBar().setTitle("Details");
+        getSupportActionBar().setTitle(R.string.ab_detail_pill_header);
         getData();
         Button cancelar = (Button) findViewById(R.id.bt_detailsPill_delete);
         cancelar.setOnClickListener(new View.OnClickListener() {
@@ -155,23 +155,37 @@ public class DetailsActivity extends ParentClass {
             TextView Mi_textview7 = (TextView) findViewById(R.id.tv_detailsPill_horas2);
 
             Mi_textview.setText(titulo);
+
             Mi_textview2.setText((dosis == 1) ? String.valueOf(dosis) + (unidad.equals("Unidades")
+                    ? " " + getResources().getString(R.string.unidad_mesage) : " " + getResources().getString(R.string.mililitro_mesage)) :
+                    String.valueOf(dosis) + (unidad.equals("Unidades")
+                            ? " "+ getResources().getString(R.string.unidades_mesage): " "+ getResources().getString(R.string.mililitros_mesage)));
+            Mi_textview3.setText((cantidadRestante == 1) ? String.valueOf(cantidadRestante) + (unidad.equals("Unidades")
+                    ? " " + getResources().getString(R.string.unidad_mesage) : " " + getResources().getString(R.string.mililitro_mesage)) :
+                    String.valueOf(cantidadRestante) + (unidad.equals("Unidades")
+                            ? " " + getResources().getString(R.string.unidades_mesage) : " " + getResources().getString(R.string.mililitros_mesage)));
+            Mi_textview4.setText((reminder == 1) ? String.valueOf(reminder) + (unidad.equals("Unidades")
+                    ? " " + getResources().getString(R.string.unidad_mesage) : " " + getResources().getString(R.string.mililitro_mesage))  :
+                    String.valueOf(reminder) + (unidad.equals("Unidades")
+                            ? " " + getResources().getString(R.string.unidades_mesage) : " " + getResources().getString(R.string.mililitros_mesage)));
+
+           /* Mi_textview2.setText((dosis == 1) ? String.valueOf(dosis) + (unidad.equals("Unidades")
                     ? " unidad" : " mililitro") : String.valueOf(dosis) + " " + unidad);
             Mi_textview3.setText((cantidadRestante == 1) ? String.valueOf(cantidadRestante) + (unidad.equals("Unidades")
                     ? " unidad" : " mililitro") : String.valueOf(cantidadRestante) + " " + unidad);
             Mi_textview4.setText((reminder == 1) ? String.valueOf(reminder) + (unidad.equals("Unidades")
-                    ? " unidad" : " mililitro") : String.valueOf(reminder) + " " + unidad);
+                    ? " unidad" : " mililitro") : String.valueOf(reminder) + " " + unidad);*/
 
-            Mi_textview6.setText((vecesDiarias != 1) ? String.valueOf(vecesDiarias) + " veces al dia"
-                    : String.valueOf(vecesDiarias) + " vez al dia");
+            Mi_textview6.setText((vecesDiarias != 1) ? String.valueOf(vecesDiarias) + " " + getResources().getString(R.string.tv_detailsPill_veces_dia)
+                    : String.valueOf(vecesDiarias) + " " + getResources().getString(R.string.tv_detailsPill_una_vez_dia_));
             Mi_textview5.setText("");
-            Mi_textview5.append((!lunes.equals("")) ? String.valueOf(lunes) + " / " : String.valueOf("") + "");
-            Mi_textview5.append((!martes.equals("")) ? String.valueOf(martes) + " / " : String.valueOf("") + "");
-            Mi_textview5.append((!miercoles.equals("")) ? String.valueOf(miercoles) + " / " : String.valueOf("") + "");
-            Mi_textview5.append((!jueves.equals("")) ? String.valueOf(jueves) + " / " : String.valueOf("") + "");
-            Mi_textview5.append((!viernes.equals("")) ? String.valueOf(viernes) + " / " : String.valueOf("") + "");
-            Mi_textview5.append((!sabado.equals("")) ? String.valueOf(sabado) + " / " : String.valueOf("") + "");
-            Mi_textview5.append((!domingo.equals("")) ? String.valueOf(domingo) + "o ." : String.valueOf("") + "");
+            Mi_textview5.append((!lunes.equals("")) ? String.valueOf(getResources().getString(R.string.dias_lunes)) + " / " : String.valueOf("") + "");
+            Mi_textview5.append((!martes.equals("")) ? String.valueOf(getResources().getString(R.string.dias_martes)) + " / " : String.valueOf("") + "");
+            Mi_textview5.append((!miercoles.equals("")) ? String.valueOf(getResources().getString(R.string.dias_miercoles)) + " / " : String.valueOf("") + "");
+            Mi_textview5.append((!jueves.equals("")) ? String.valueOf(getResources().getString(R.string.dias_jueves)) + " / " : String.valueOf("") + "");
+            Mi_textview5.append((!viernes.equals("")) ? String.valueOf(getResources().getString(R.string.dias_viernes)) + " / " : String.valueOf("") + "");
+            Mi_textview5.append((!sabado.equals("")) ? String.valueOf(getResources().getString(R.string.dias_sabado)) + " / " : String.valueOf("") + "");
+            Mi_textview5.append((!domingo.equals("")) ? String.valueOf(getResources().getString(R.string.dias_domingo)) + " ." : String.valueOf("") + "");
 
 
             //Esto es para quitar el "/" del final
@@ -226,7 +240,7 @@ public class DetailsActivity extends ParentClass {
                         default:
                             break;
                     }
-                    horas = hora + ":" +minutos + " pm";
+                    horas = hora + ":" + minutos + " pm";
                 } else {
                     if (doceHoras == 0) {
                         hora = "12";
@@ -259,12 +273,12 @@ public class DetailsActivity extends ParentClass {
 
     public void AlertBuilder(View view) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(view.getContext());
-        builder1.setMessage("¿Seguro que desea borrar el tratamiento?");
+        builder1.setMessage(R.string.delete_message);
         builder1.setCancelable(true);
-        builder1.setPositiveButton("Si",
+        builder1.setPositiveButton(R.string.yes_message,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Mensaje2("Tratamiento Eliminado");
+                        Mensaje2(getResources().getString(R.string.delete_success));
                         RemoveObj(); //Archivo
                         Remove();//Firebase
                         //Aca agregamos el metodo para eliminar el tratamiento de la lista.
@@ -272,7 +286,7 @@ public class DetailsActivity extends ParentClass {
                         startActivity(intento);
                     }
                 });
-        builder1.setNegativeButton("No",
+        builder1.setNegativeButton(R.string.no_message,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //Nada
@@ -306,8 +320,7 @@ public class DetailsActivity extends ParentClass {
                     Mensaje(databaseError.getMessage());
                 }
             });
-        }
-        catch(Exception exc){
+        } catch (Exception exc) {
             exc.getCause().toString();
         }
     }
@@ -416,7 +429,7 @@ public class DetailsActivity extends ParentClass {
         for (int i = 0; cadena.charAt(i) != ':'; i++) {
             hora = hora + cadena.charAt(i);
         }
-        if(hora.length() < 2)
+        if (hora.length() < 2)
             hora = "0" + hora;
         return hora;
     }
@@ -425,7 +438,7 @@ public class DetailsActivity extends ParentClass {
         String minutos = "";
         for (int i = 0; i < cadena.length(); i++) {
             if (cadena.charAt(i) == ':') {
-                minutos = cadena.substring(i+1, cadena.length());
+                minutos = cadena.substring(i + 1, cadena.length());
                 if (minutos.length() < 2)
                     minutos = "0" + minutos;
                 break;

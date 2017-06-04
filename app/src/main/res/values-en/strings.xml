@@ -14,7 +14,7 @@
     <string name="rg_addPill_unidadMedida_title">Unit of Measure</string>
     <string name="rb_addPill_unidadMedidad_mililitros">Milliliters</string>
     <string name="rb_addPill_unidadMedidad_unidades">Units</string>
-    <string name="rg_addPill_frecuencia_title">frequency</string>
+    <string name="rg_addPill_frecuencia_title">Frequency</string>
     <string name="dias_lunes">Monday</string>
     <string name="dias_martes">Tuesday</string>
     <string name="dias_miercoles">Wednesday</string>
@@ -28,12 +28,13 @@
     <string name="et_addPill_reminder_hint">Purchase Reminder</string>
     <string name="bt_addPill_horas">(+) New Time</string>
     <string name="bt_save">Save</string>
-    <string name="bt_update">Actualizar</string>
+    <string name="bt_update">Update</string>
     <string name="title_save">Add</string>
     <string name="title_update">Edit</string>
     <string name="Error_Adding">An error ocurred while treatment was added</string>
     <string name="bt_cancel">Cancel</string>
     <string name="tv_addPill_header">Add Treatment</string>
+    <string name="tv_editPill_header">Edit Treatment</string>
     <string name="tv_steps_paso1_content">Fill your treatment information.</string>
     <string name="tv_steps_paso1_header">Step 1:</string>
     <string name="bt_steps_nextStep">next step</string>
@@ -68,10 +69,22 @@
     <string name="close">Close</string>
     <string name="save_success">Treatment saved successfully</string>
     <string name="edit_success">Treatment modified successfully</string>
+    <string name="delete_success">Treatment deleted successfully</string>
     <string name="empty_fields">Error, please fill in all the fields with valid information</string>
     <string name="daily_times">Daily Times</string>
     <string name="add_message">Add Hour(+)</string>
-
+    <string name="cancel_message">Are you sure you want to cancel the changes?</string>
+    <string name="delete_message">Are you sure you want to delete the treatment?</string>
+    <string name="yes_message">Yes</string>
+    <string name="no_message">No</string>
+    <string name="mililitro_mesage">Millimeter</string>
+    <string name="mililitros_mesage">Millimeters</string>
+    <string name="unidad_mesage">Unit</string>
+    <string name="unidades_mesage">Units</string>
+    <string name="ab_detail_pill_header">Details</string>
+    <string name="ab_list_pill_header">Treatments</string>
+    <string name="tv_detailsPill_una_vez_dia_">time per day</string>
+    <string name="tv_detailsPill_veces_dia">times per day</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
