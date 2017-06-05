@@ -52,6 +52,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import static android.R.attr.id;
 import static android.R.attr.name;
 import static android.R.attr.value;
 import static com.una.takeurpills.R.drawable.dosis;
@@ -409,6 +410,10 @@ public class AddPillActivity extends ParentClass implements
                             //horas.add(text);
                             Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
                             final int _id = (int) System.currentTimeMillis();
+                            EditText tituloPastilla = (EditText) findViewById(R.id.et_addPill_titulo);
+                            String tituloPastilla1 = tituloPastilla.getText().toString();
+                            intent.putExtra("treatment", _id);
+                            intent.putExtra("title", tituloPastilla1);
 
                             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),
                                     _id, intent, PendingIntent.FLAG_ONE_SHOT);

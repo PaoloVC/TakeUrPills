@@ -188,8 +188,8 @@ public class ListPillsActivity extends ParentClass {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                        // MensajeToast("Closing Dialog");
-                        /*Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
-                        startActivity(intento);*/
+                        Intent intento = new Intent(getApplicationContext(), HomeActivity.class);
+                        startActivity(intento);
                     }
                 });
         /*builder1.setNegativeButton("No",

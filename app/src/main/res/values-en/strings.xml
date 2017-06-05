@@ -85,6 +85,8 @@
     <string name="ab_list_pill_header">Treatments</string>
     <string name="tv_detailsPill_una_vez_dia_">time per day</string>
     <string name="tv_detailsPill_veces_dia">times per day</string>
+    <string name="bt_alarm_stop">Stop</string>
+    <string name="bt_alarm_takePill">Take Pill</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
