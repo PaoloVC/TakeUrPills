@@ -23,6 +23,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +51,7 @@ public class ListPillsActivity extends ParentClass {
         setContentView(R.layout.activity_list_pills);
         FillListView();
         OnClickListItems();
+        //datosFirebase();
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.pill_logo);
@@ -140,7 +147,32 @@ public class ListPillsActivity extends ParentClass {
         ListView milistview = (ListView) findViewById(R.id.listPills);
         milistview.setAdapter(adaptador);
     }
+    public void datosFirebase(){
+        database = FirebaseDatabase.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String key = "";
+        if (currentUser != null) {
+            key = currentUser.getUid();
+        }
+        myRef = database.getReference("Treatments").child(key);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String miscarros ="";
+                String aux ="";
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    aux = postSnapshot.getKey();
+                    miscarros += String.valueOf(postSnapshot.getValue());
+                }
+                MensajeOK(miscarros);
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
     public void DialogAviso() {
         LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
         View customTitle = inflater.inflate(dialog, null);
@@ -291,6 +323,16 @@ public class ListPillsActivity extends ParentClass {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
-    ;
+    public void MensajeOK(String msg){
+        View v1 = getWindow().getDecorView().getRootView();
+        AlertDialog.Builder builder1 = new AlertDialog.Builder( v1.getContext());
+        builder1.setMessage(msg);
+        builder1.setCancelable(true);
+        builder1.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {} });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+        }
 
 }
